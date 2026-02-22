@@ -1,262 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual Essay Grading Interface</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/tokens.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column vh-100 overflow-hidden bg-body">
+<?php
+$title = "AI-Assisted Essay Grading";
+ob_start();
+?>
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="h4 mb-1">Essay Grading Workspace</h1>
+            <p class="text-secondary mb-0">Student: Amina Yusuf • Exam: Civic Studies • Question 3</p>
+        </div>
+        <span class="badge text-bg-light border">Queue: 18 pending</span>
+    </div>
 
-    <!-- Top Navigation Bar -->
-    <header class="navbar navbar-expand bg-surface border-bottom px-4 py-2 shadow-sm flex-shrink-0 z-2">
-        <div class="d-flex align-items-center gap-3">
-            <div class="d-flex align-items-center justify-content-center rounded bg-primary-soft text-primary" style="width: 32px; height: 32px;">
-                <span class="material-symbols-outlined fs-4">school</span>
-            </div>
-            <h5 class="mb-0 fw-bold tracking-tight">CBT Enterprise</h5>
-            <div class="vr mx-2 text-secondary opacity-25"></div>
-            <div class="d-flex flex-column lh-1">
-                <span class="fw-semibold text-body small">English 101 - Midterm Essay</span>
-                <span class="text-secondary" style="font-size: 0.75rem;">Section B • Oct 24, 2023</span>
-            </div>
+    <div class="row g-3">
+        <div class="col-lg-7">
+            <section class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white"><strong>Student Answer</strong></div>
+                <div class="card-body">
+                    <p>
+                        Democracy allows citizens to choose leaders and hold them accountable through elections.
+                        It promotes fairness because every eligible person has a vote and can influence governance...
+                    </p>
+                </div>
+            </section>
         </div>
 
-        <div class="ms-auto d-flex align-items-center gap-4">
-            <div class="d-none d-md-flex align-items-center gap-2 px-3 py-1 bg-body rounded-pill border">
-                <span class="material-symbols-outlined text-secondary fs-6">schedule</span>
-                <span class="small fw-medium text-secondary">Time Taken: 45m 12s</span>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-light btn-sm rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 36px; height: 36px;" title="Settings">
-                    <span class="material-symbols-outlined text-secondary">settings</span>
-                </button>
-                <div class="avatar-circle border border-2 border-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAa1LU3ji-UaAetDPmE5-LVkJa1UH2SsD2SNYhNapt3UG1BzGjuWg_gnPXq7KWWuY_0FjsX7x1pnKvxOQEtYiTcCLsDNcJ2GgA0noJQOZjWL8ZczQkJZWuBNHOmoqHQVLT-bLWVpM4z55AvZKtKPxW8R9TkhPqkM_UPmpWkMHEvkgiwcs6PFk8R3e50TS6Wsu7cHddfgfgjS3xbQht2xz6L8U0zVHXOdOQ4-Bg3rRB5tH4Too5s_3fASIulYvkdiSsuzwLLPBYuFIQ');"></div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content Area - Split Screen -->
-    <main class="row g-0 flex-grow-1 overflow-auto overflow-lg-hidden h-100 position-relative">
-
-        <!-- Left Pane: Reading Area -->
-        <div class="col-12 col-lg d-flex flex-column h-lg-100 bg-body border-end overflow-auto custom-scrollbar">
-
-            <!-- Student Header -->
-            <div class="sticky-top bg-surface bg-opacity-75 backdrop-blur-md border-bottom px-4 py-3 d-flex align-items-center justify-content-between z-1">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="d-flex align-items-center justify-content-center rounded-circle bg-primary-soft text-primary fw-bold small" style="width: 40px; height: 40px;">JD</div>
+        <div class="col-lg-5">
+            <section class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <strong>AI Suggestion</strong>
+                    <span class="badge text-bg-info">Confidence: 0.82 (Medium-High)</span>
+                </div>
+                <div class="card-body d-grid gap-3">
+                    <div class="border rounded p-3">
+                        <div class="small text-secondary">Proposed Score</div>
+                        <div class="h4 mb-0">14 / 20</div>
+                    </div>
                     <div>
-                        <h6 class="mb-0 fw-bold text-body">Jane Doe</h6>
-                        <p class="mb-0 text-secondary small">Student ID: 8933021 • 5 of 30</p>
+                        <div class="small text-secondary mb-1">Feedback draft</div>
+                        <ul class="mb-0">
+                            <li>Strong thesis statement.</li>
+                            <li>Needs more evidence from civic institutions.</li>
+                            <li>Conclusion is clear but brief.</li>
+                        </ul>
                     </div>
+                    <div class="alert alert-warning py-2 mb-0">AI does not auto-commit. Teacher approval is required.</div>
                 </div>
-                <div class="d-flex align-items-center">
-                    <div class="d-flex align-items-center gap-2 bg-body px-3 py-1 rounded-pill border">
-                        <span class="material-symbols-outlined text-secondary fs-6">text_fields</span>
-                        <span class="small text-secondary">450 Words</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Content Container -->
-            <div class="p-4 mx-auto w-100" style="max-width: 900px; padding-bottom: 5rem;">
-
-                <!-- Collapsible Prompt -->
-                <details class="mb-4 bg-surface border rounded-3 shadow-sm overflow-hidden" open>
-                    <summary class="d-flex align-items-center justify-content-between p-3 cursor-pointer list-unstyled bg-surface hover-bg-body">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="material-symbols-outlined text-primary">help</span>
-                            <span class="fw-semibold text-body">Question Prompt</span>
-                        </div>
-                        <span class="material-symbols-outlined text-secondary fs-5 expand-icon">expand_more</span>
-                    </summary>
-                    <div class="px-3 pb-3 pt-0 border-top-0">
-                        <div class="p-3 bg-primary-soft rounded-2 border border-primary-subtle mt-2">
-                            <span class="d-block text-primary fw-bold text-uppercase small mb-2 tracking-wider">Essay Topic</span>
-                            <p class="mb-0 text-secondary lh-base">
-                                Analyze the theme of ambition in Macbeth and how it leads to the downfall of the main character. Discuss specific scenes and soliloquies that illustrate his internal conflict and eventual submission to his darker desires.
-                            </p>
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Student Essay Content -->
-                <div class="bg-surface border rounded-3 shadow-sm p-5 min-vh-50">
-                    <div class="typography">
-                        <h3 class="fw-bold mb-4 text-body">Ambition's Double-Edged Sword in Macbeth</h3>
-                        <p class="lead text-secondary mb-4 lh-lg" style="font-size: 1.125rem;">
-                            In Shakespeare's <em class="fst-italic">Macbeth</em>, ambition is portrayed not merely as a desire for power, but as a corrupting biological force that, once unchecked, consumes the host. Macbeth's journey from a noble thane to a paranoid tyrant serves as a cautionary tale about the destruction inherent in seeking power without morality.
-                        </p>
-                        <p class="lead text-secondary mb-4 lh-lg" style="font-size: 1.125rem;">
-                            Initially, Macbeth is hesitant. In his soliloquy in Act 1, Scene 7, he acknowledges that he has "no spur to prick the sides of my intent, but only Vaulting Ambition." This capitalization of Ambition suggests he views it as a separate entity. However, Lady Macbeth acts as the catalyst, questioning his manhood and courage. It is her ambition, projected onto him, that first tips the scales.
-                        </p>
-                        <p class="lead text-secondary mb-4 lh-lg" style="font-size: 1.125rem;">
-                            The murder of Duncan is the point of no return. Once the act is committed, the "wine of life is drawn," and Macbeth's ambition morphs into paranoia. He no longer kills for advancement, but for security. The murder of Banquo and the slaughter of Macduff's family are not acts of a conqueror, but of a frightened man trying to outrun his own shadow.
-                        </p>
-                        <p class="lead text-secondary mb-4 lh-lg" style="font-size: 1.125rem;">
-                            Shakespeare uses blood imagery to symbolize the stain of this ambition. Macbeth laments that "all great Neptune's ocean" cannot wash the blood from his hands. This hyperbole emphasizes that the guilt—the byproduct of his ambition—is infinite and indelible.
-                        </p>
-                        <p class="lead text-secondary mb-4 lh-lg" style="font-size: 1.125rem;">
-                            In conclusion, Macbeth's downfall is not caused by fate or the witches, but by his own inability to temper his ambition with reason. He becomes a slave to his desire for the crown, losing his humanity, his wife, and ultimately his life in the process.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
+            </section>
         </div>
+    </div>
 
-        <!-- Right Pane: Grading Panel -->
-        <aside class="col-12 col-lg-auto w-lg-400px bg-surface border-start shadow-lg z-3 d-flex flex-column flex-shrink-0 h-lg-100">
-
-            <!-- Grading Header -->
-            <div class="px-4 py-3 border-bottom d-flex align-items-center justify-content-between bg-body">
-                <h6 class="fw-bold text-body mb-0 d-flex align-items-center gap-2">
-                    <span class="material-symbols-outlined text-primary">fact_check</span>
-                    Grading Panel
-                </h6>
-                <div class="d-flex align-items-center gap-2">
-                    <button class="btn btn-link btn-sm text-decoration-none text-secondary d-flex align-items-center gap-1 p-0">
-                        <span class="material-symbols-outlined fs-6">history</span> History
-                    </button>
-                    <span class="badge bg-primary-soft text-primary fw-medium d-flex align-items-center gap-1 px-2 py-1">
-                        <span class="material-symbols-outlined fs-6">save</span> Draft Saved
-                    </span>
-                </div>
-            </div>
-
-            <!-- Scrollable Grading Content -->
-            <div class="flex-grow-1 overflow-auto p-4 d-flex flex-column gap-4 custom-scrollbar">
-
-                <!-- Score Input -->
-                <div class="bg-body p-3 rounded-3 border">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <label for="total-score" class="form-label small fw-bold text-secondary text-uppercase mb-0">Total Score</label>
-                        <span class="badge bg-success-subtle text-success rounded-pill">Passing > 60</span>
-                    </div>
-                    <div class="d-flex align-items-end position-relative">
-                        <input type="number" id="total-score" class="form-control form-control-lg fw-bold text-primary bg-transparent border-0 border-bottom border-2 border-primary rounded-0 ps-0 py-2 fs-2 shadow-none" placeholder="0" value="85">
-                        <span class="position-absolute end-0 bottom-0 mb-3 text-secondary fw-medium fs-5">/ 100</span>
-                    </div>
-                </div>
-
-                <!-- Rubric Section -->
-                <div class="d-flex flex-column gap-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h6 class="small fw-bold text-body text-uppercase mb-0">Rubric Criteria</h6>
-                        <span class="small text-secondary">Auto-sum enabled</span>
-                    </div>
-
-                    <!-- Rubric Item 1 -->
-                    <div class="card border rounded-2 shadow-sm hover-border-primary cursor-pointer">
-                        <div class="card-body p-3">
-                            <div class="form-check d-flex align-items-start gap-2 p-0">
-                                <input class="form-check-input mt-1" type="checkbox" value="" id="rubric1" checked style="width: 1.25em; height: 1.25em;">
-                                <label class="form-check-label flex-grow-1" for="rubric1">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <span class="fw-semibold text-body small">Thesis Statement</span>
-                                        <span class="badge bg-body text-secondary border">20 pts</span>
-                                    </div>
-                                    <p class="mb-0 small text-secondary lh-sm">Clear, arguable thesis that directly addresses the prompt.</p>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Rubric Item 2 -->
-                    <div class="card border rounded-2 shadow-sm hover-border-primary cursor-pointer">
-                        <div class="card-body p-3">
-                            <div class="form-check d-flex align-items-start gap-2 p-0">
-                                <input class="form-check-input mt-1" type="checkbox" value="" id="rubric2" checked style="width: 1.25em; height: 1.25em;">
-                                <label class="form-check-label flex-grow-1" for="rubric2">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <span class="fw-semibold text-body small">Evidence & Support</span>
-                                        <span class="badge bg-body text-secondary border">30 pts</span>
-                                    </div>
-                                    <p class="mb-0 small text-secondary lh-sm">Uses relevant quotes and examples from the text.</p>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Rubric Item 3 -->
-                    <div class="card border rounded-2 shadow-sm hover-border-primary cursor-pointer">
-                        <div class="card-body p-3">
-                            <div class="form-check d-flex align-items-start gap-2 p-0">
-                                <input class="form-check-input mt-1" type="checkbox" value="" id="rubric3" checked style="width: 1.25em; height: 1.25em;">
-                                <label class="form-check-label flex-grow-1" for="rubric3">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <span class="fw-semibold text-body small">Analysis & Logic</span>
-                                        <span class="badge bg-body text-secondary border">30 pts</span>
-                                    </div>
-                                    <p class="mb-0 small text-secondary lh-sm">Coherent argument flow and logical conclusions.</p>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Rubric Item 4 -->
-                    <div class="card border rounded-2 shadow-sm hover-border-primary cursor-pointer">
-                        <div class="card-body p-3">
-                            <div class="form-check d-flex align-items-start gap-2 p-0">
-                                <input class="form-check-input mt-1" type="checkbox" value="" id="rubric4" style="width: 1.25em; height: 1.25em;">
-                                <label class="form-check-label flex-grow-1" for="rubric4">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <span class="fw-semibold text-body small">Grammar & Mechanics</span>
-                                        <span class="badge bg-body text-secondary border">20 pts</span>
-                                    </div>
-                                    <p class="mb-0 small text-secondary lh-sm">Proper syntax, spelling, and punctuation.</p>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="border-secondary opacity-10 my-1">
-
-                <!-- Feedback Section -->
-                <div class="d-flex flex-column gap-2">
-                    <h6 class="small fw-bold text-body text-uppercase mb-0">Teacher Feedback</h6>
-                    <div class="position-relative">
-                        <textarea class="form-control text-sm" rows="6" placeholder="Enter constructive feedback here...">Great analysis of the second act, but watch your citations. You missed citing the soliloquy in Act 3 properly.</textarea>
-                        <button class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2 p-1 text-secondary" title="Expand Editor">
-                            <span class="material-symbols-outlined fs-6">open_in_full</span>
-                        </button>
-                    </div>
-                    <!-- Quick Insert Chips -->
-                    <div class="d-flex flex-wrap gap-2">
-                        <button class="btn btn-sm btn-light rounded-pill border py-0 px-2 small text-secondary hover-primary">+ Good Thesis</button>
-                        <button class="btn btn-sm btn-light rounded-pill border py-0 px-2 small text-secondary hover-primary">+ Cite Sources</button>
-                        <button class="btn btn-sm btn-light rounded-pill border py-0 px-2 small text-secondary hover-primary">+ Check Grammar</button>
-                        <button class="btn btn-sm btn-light rounded-pill border py-0 px-2 small text-secondary hover-primary">+ Excellent Flow</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer Actions -->
-            <div class="p-3 border-top bg-surface">
-                <div class="d-flex gap-2">
-                    <button class="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2 flex-grow-1">
-                        <span class="material-symbols-outlined fs-5">arrow_back</span>
-                        Previous
-                    </button>
-                    <button class="btn btn-primary d-flex align-items-center justify-content-center gap-2 flex-grow-1 shadow-sm">
-                        Next Student
-                        <span class="material-symbols-outlined fs-5">arrow_forward</span>
-                    </button>
-                </div>
-            </div>
-        </aside>
-
-    </main>
-
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <div class="d-flex flex-wrap gap-2 mt-3">
+        <button class="btn btn-success">Approve</button>
+        <button class="btn btn-primary">Edit & Save</button>
+        <button class="btn btn-outline-danger">Reject</button>
+        <button class="btn btn-outline-secondary ms-auto">Next Student</button>
+    </div>
+</div>
+<?php
+$content = ob_get_clean();
+include __DIR__ . '/../../layouts/app.php';
+?>
