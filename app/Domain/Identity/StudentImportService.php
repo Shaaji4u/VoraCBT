@@ -18,6 +18,7 @@ class StudentImportService
     private AuditLogger $auditLogger;
     private string $loginFieldConfig;
     private bool $emailResetEnabled;
+    private array $classCache = [];
 
     public function __construct(PasswordGenerator $passwordGenerator = null, AuditLogger $auditLogger = null)
     {
@@ -154,6 +155,9 @@ class StudentImportService
 
         $importLogId = Uuid::uuid4()->toString();
         $startTime = new \DateTimeImmutable();
+
+        // Load Class Cache
+        $this->loadClassCache();
 
         // Log start
         $this->auditLogger->log('import_started', null, $adminId, 1, ['type' => 'student', 'file' => basename($filePath)]);
@@ -314,6 +318,15 @@ class StudentImportService
         return $errors;
     }
 
+    private function loadClassCache(): void
+    {
+        $this->classCache = [];
+        $classes = $this->db->fetchAllAssociative("SELECT name, id FROM classes WHERE tenant_id = 1");
+        foreach ($classes as $class) {
+            $this->classCache[$class['name']] = $class['id'];
+        }
+    }
+
     private function isDuplicate(array $data): bool
     {
         // Check Email
@@ -339,10 +352,16 @@ class StudentImportService
 
     private function resolveClassId(string $className): string
     {
-        // Try to find
+        // Check Cache
+        if (isset($this->classCache[$className])) {
+            return $this->classCache[$className];
+        }
+
+        // Try to find in DB (fallback for concurrent additions or misses)
         $class = $this->db->fetchAssociative("SELECT id FROM classes WHERE name = ? AND tenant_id = 1", [$className]);
 
         if ($class) {
+            $this->classCache[$className] = $class['id'];
             return $class['id'];
         }
 
@@ -355,6 +374,9 @@ class StudentImportService
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
+
+        // Update Cache
+        $this->classCache[$className] = $id;
 
         return $id;
     }
