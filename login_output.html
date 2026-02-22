@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT Platform Login Screen</title>
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="/css/tokens.css" rel="stylesheet">
+<link href="/css/custom.css" rel="stylesheet">
+</head>
+<body class="bg-body text-body min-vh-100 d-flex flex-column theme-login font-display">
+        <!-- Top Navigation Bar -->
+    <header class="navbar navbar-expand fixed-top border-bottom border-primary border-opacity-10 bg-surface bg-opacity-75 backdrop-blur-md px-4 py-2">
+        <div class="container-xl d-flex justify-content-between align-items-center h-100">
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center rounded-3 bg-primary text-white" style="width: 32px; height: 32px;">
+                    <span class="material-symbols-outlined fs-4">grid_view</span>
+                </div>
+                <h5 class="mb-0 fw-bold text-primary tracking-tight">CBT <span class="text-body">Enterprise</span></h5>
+            </div>
+            <div class="d-flex align-items-center gap-4">
+                <a href="#" class="text-decoration-none text-secondary small fw-medium hover-text-primary">Platform Status</a>
+                <button class="btn btn-sm bg-primary-soft text-primary fw-bold px-3">Help Center</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow-1 d-flex align-items-center justify-content-center p-4 position-relative overflow-hidden mt-5 pt-5">
+
+        <!-- Abstract Background Decorative Elements -->
+        <div class="position-absolute top-0 start-0 translate-middle rounded-circle bg-primary opacity-10 blur-3xl" style="width: 40vw; height: 40vw; filter: blur(3rem);"></div>
+        <div class="position-absolute bottom-0 end-0 translate-middle rounded-circle bg-primary opacity-10 blur-3xl" style="width: 30vw; height: 30vw; filter: blur(3rem);"></div>
+
+        <div class="container-xl px-0">
+            <div class="card border border-primary border-opacity-10 shadow-lg overflow-hidden rounded-4">
+                <div class="row g-0">
+
+                    <!-- Left Side: Login Form -->
+                    <div class="col-lg-6 bg-surface p-5 d-flex flex-column justify-content-center">
+                        <div class="mb-5">
+                            <h2 class="display-6 fw-bold text-body mb-2">Enterprise Portal Login</h2>
+                            <p class="text-secondary small">Access your assessments, reports, and school management tools.</p>
+                        </div>
+
+                        <form class="d-flex flex-column gap-3">
+                            <!-- Email Input -->
+                            <div>
+                                <label class="form-label small fw-bold text-secondary">School Email Address</label>
+                                <div class="position-relative">
+                                    <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fs-5">mail</span>
+                                    <input type="email" class="form-control form-control-lg bg-body border ps-5 fs-6" placeholder="e.g. admin@school.edu">
+                                </div>
+                            </div>
+
+                            <!-- Password Input -->
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label small fw-bold text-secondary mb-0">Password</label>
+                                </div>
+                                <div class="position-relative">
+                                    <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fs-5">lock</span>
+                                    <input type="password" class="form-control form-control-lg bg-body border ps-5 pe-5 fs-6" placeholder="Enter your secure password">
+                                    <button type="button" class="btn btn-link text-secondary position-absolute top-50 end-0 translate-middle-y me-2 p-0 text-decoration-none">
+                                        <span class="material-symbols-outlined fs-5">visibility</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Options -->
+                            <div class="d-flex align-items-center justify-content-between py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input border-secondary" type="checkbox" value="" id="rememberMe">
+                                    <label class="form-check-label small fw-medium text-secondary" for="rememberMe">
+                                        Remember Me
+                                    </label>
+                                </div>
+                                <a href="#" class="text-primary small fw-bold text-decoration-none hover-underline">Forgot Password?</a>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex flex-column gap-3 mt-2">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                    <span>Login to Dashboard</span>
+                                    <span class="material-symbols-outlined fs-5">arrow_forward</span>
+                                </button>
+
+                                <div class="d-flex align-items-center gap-3">
+                                    <hr class="flex-grow-1 border-secondary opacity-25">
+                                    <span class="text-secondary x-small fw-bold text-uppercase">or</span>
+                                    <hr class="flex-grow-1 border-secondary opacity-25">
+                                </div>
+
+                                <button type="button" class="btn btn-light btn-lg w-100 fw-bold border d-flex align-items-center justify-content-center gap-2 text-secondary hover-bg-body-darker">
+                                    <span class="material-symbols-outlined fs-5">school</span>
+                                    <span>Sign in with SMS</span>
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="mt-5 pt-4 border-top text-center">
+                            <p class="text-secondary x-small mb-0">
+                                By logging in, you agree to our
+                                <a href="#" class="text-primary text-decoration-underline">Terms of Service</a> and
+                                <a href="#" class="text-primary text-decoration-underline">Privacy Policy</a>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Branding/Visual -->
+                    <div class="col-lg-6 d-none d-lg-flex bg-dark text-white p-5 position-relative overflow-hidden flex-column justify-content-between" style="background-color: #17151d;">
+                        <!-- Background Pattern -->
+                        <div class="position-absolute top-0 start-0 w-100 h-100 opacity-25 pe-none" style="background-image: radial-gradient(circle at 2px 2px, #6d4cb8 1px, transparent 0); background-size: 32px 32px;"></div>
+                        <div class="position-absolute top-0 end-0 translate-middle rounded-circle bg-primary opacity-25 blur-3xl" style="width: 400px; height: 400px; filter: blur(100px);"></div>
+
+                        <div class="position-relative z-1 mt-4">
+                            <div class="d-flex align-items-center gap-3 mb-5">
+                                <div class="d-flex align-items-center justify-content-center rounded-3 bg-primary text-white" style="width: 48px; height: 48px;">
+                                    <span class="material-symbols-outlined fs-3">terminal</span>
+                                </div>
+                                <h3 class="mb-0 fw-bold tracking-tight text-white">CBT <span class="text-primary">CORE</span></h3>
+                            </div>
+                            <h2 class="display-6 fw-bold mb-4 lh-sm text-white">
+                                Powering the future of <span class="text-primary fst-italic">educational assessments</span>.
+                            </h2>
+                            <ul class="list-unstyled d-flex flex-column gap-3 text-light opacity-75">
+                                <li class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-primary bg-opacity-25 p-1 d-flex align-items-center justify-content-center text-primary">
+                                        <span class="material-symbols-outlined fs-6 fw-bold">check</span>
+                                    </div>
+                                    <span>Real-time student monitoring & reporting</span>
+                                </li>
+                                <li class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-primary bg-opacity-25 p-1 d-flex align-items-center justify-content-center text-primary">
+                                        <span class="material-symbols-outlined fs-6 fw-bold">check</span>
+                                    </div>
+                                    <span>Secure, anti-cheat testing environments</span>
+                                </li>
+                                <li class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-primary bg-opacity-25 p-1 d-flex align-items-center justify-content-center text-primary">
+                                        <span class="material-symbols-outlined fs-6 fw-bold">check</span>
+                                    </div>
+                                    <span>Integrated School Management workflows</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="position-relative z-1 mt-auto">
+                            <div class="bg-surface bg-opacity-10 border border-white border-opacity-10 rounded-4 p-4 backdrop-blur-md">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="avatar-circle border border-2 border-primary border-opacity-50" style="width: 48px; height: 48px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBY9H6EXKV39ko_T1eQy5uQPnvhbZwYOE2xf4coY8rLPjnaDZVKApQOK7z8Utmzd2dLAuvC0xgVbjDU98n-vdaQSIY6AinSOYdhD_PziHb2j89s4ett-0YbtbCm17zmHmEG2Gh1uzHpJh2RYNtuec8j0vSiB57d67YRe58O8r5bsSsfTTw46ejCe2Qf02MOmecTgGZLwhMkJQrnu09aXeiws1hym6PRrZ98WWtlD_GfgJV-Kw_DgdzDQ1fMSfmoUvDggAowNMPwJqw');"></div>
+                                    <div class="lh-1">
+                                        <p class="mb-0 fw-bold small">Dr. Sarah Jenkins</p>
+                                        <small class="text-white-50 x-small">Principal at Heritage Academy</small>
+                                    </div>
+                                </div>
+                                <p class="mb-0 small text-light opacity-75 fst-italic">"The CBT platform has revolutionized how we handle end-of-term assessments. Secure, intuitive, and the SMS integration is seamless."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-4 border-top border-primary border-opacity-10">
+        <div class="container-xl d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 text-secondary small">
+            <p class="mb-0">© 2024 CBT Enterprise Solutions. All rights reserved.</p>
+            <div class="d-flex align-items-center gap-4 fw-medium">
+                <a href="#" class="text-decoration-none text-secondary hover-text-primary">Documentation</a>
+                <a href="#" class="text-decoration-none text-secondary hover-text-primary">API Reference</a>
+                <a href="#" class="text-decoration-none text-secondary hover-text-primary">System Status</a>
+                <div class="d-flex align-items-center gap-2 ps-3 border-start">
+                    <span class="material-symbols-outlined fs-6 text-success">fiber_manual_record</span>
+                    <span>All Systems Operational</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

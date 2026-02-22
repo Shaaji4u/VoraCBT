@@ -1,78 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Exam Selection Portal</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/tokens.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-</head>
-<body class="bg-body text-body font-display d-flex vh-100 overflow-hidden">
-
-    <!-- Collapsed Sidebar -->
-    <aside class="d-flex flex-column align-items-center py-4 bg-surface border-end shadow-sm z-3 flex-shrink-0 transition-all" style="width: 80px;">
-        <!-- Logo -->
-        <div class="mb-5 d-flex align-items-center justify-content-center bg-primary text-white rounded-3" style="width: 40px; height: 40px;">
-            <span class="material-symbols-outlined fs-4">school</span>
-        </div>
-
-        <!-- Navigation Items -->
-        <nav class="d-flex flex-column gap-3 w-100 align-items-center">
-            <a href="#" class="btn btn-link text-secondary hover-text-primary p-3 rounded-3 position-relative group" aria-label="Dashboard">
-                <span class="material-symbols-outlined fs-3">dashboard</span>
-            </a>
-            <a href="#" class="btn btn-link text-primary bg-primary-soft p-3 rounded-3 position-relative group" aria-label="Exams">
-                <span class="material-symbols-outlined fs-3 filled">description</span>
-            </a>
-            <a href="#" class="btn btn-link text-secondary hover-text-primary p-3 rounded-3 position-relative group" aria-label="Results">
-                <span class="material-symbols-outlined fs-3">bar_chart</span>
-            </a>
-            <a href="#" class="btn btn-link text-secondary hover-text-primary p-3 rounded-3 position-relative group" aria-label="Settings">
-                <span class="material-symbols-outlined fs-3">settings</span>
-            </a>
-        </nav>
-
-        <!-- Bottom Actions -->
-        <div class="mt-auto d-flex flex-column gap-4 w-100 align-items-center">
-            <button class="btn btn-link text-secondary hover-text-danger p-3 rounded-3" aria-label="Log Out">
-                <span class="material-symbols-outlined fs-3">logout</span>
-            </button>
-            <div class="avatar-circle border border-2 border-white shadow-sm" style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDgrtrOg8gXtIYU9ne3uwU2quQCn4QEf6RstLHpuukpPkcDmIMdjhEQPM0t1byaDt2h0O8RWlPp1yLH7f7f15SbkPgwkP_NtMa7YZjqoD-oVEfKT6leGn7deSJY0N0Mb2joEo1GXcySDsX97bEF4hujwtyOttzk0qcDPdAilWTU81S_P5uRGM6pntfqTfu44aMMig1coLEoh-Hy6axIWCd9XMPdSh82E7Lw6DOTIihNjSAQIqcXGc2ujgiusStF5eQnjQFB2dkNaLs');"></div>
-        </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="d-flex flex-column flex-grow-1 overflow-hidden bg-body position-relative">
-
-        <!-- Header -->
-        <header class="d-flex align-items-center justify-content-between px-4 py-3 bg-surface border-bottom flex-shrink-0" style="height: 80px;">
-            <div class="d-flex flex-column">
-                <h5 class="fw-bold text-body mb-0">Exam Portal</h5>
-                <small class="text-secondary">Manage your upcoming assessments</small>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <!-- Search -->
-                <div class="position-relative d-none d-md-block">
-                    <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fs-5">search</span>
-                    <input type="text" class="form-control bg-body-secondary border-0 ps-5" placeholder="Search exams..." style="width: 260px;">
-                </div>
-                <!-- Notifications -->
-                <button class="btn btn-light btn-sm position-relative text-secondary p-2">
-                    <span class="material-symbols-outlined fs-4">notifications</span>
-                    <span class="position-absolute top-0 end-0 m-2 p-1 bg-danger border border-light rounded-circle"></span>
-                </button>
-            </div>
-        </header>
-
-        <!-- Scrollable Content -->
-        <div class="flex-grow-1 overflow-auto p-4 p-lg-5 custom-scrollbar">
-            <div class="mx-auto d-flex flex-column gap-5" style="max-width: 1200px;">
-
+<?php
+$title = "Student Exam Selection Portal";
+$pageTitle = "Exam Portal";
+$pageSubtitle = "Manage your upcoming assessments";
+ob_start();
+?>
                 <!-- Welcome/Hero Section -->
                 <div>
                     <h2 class="fw-bold text-body mb-1">Exam Selection</h2>
@@ -110,9 +41,9 @@
                                                     <span class="material-symbols-outlined fs-6">calendar_today</span> Today
                                                 </div>
                                             </div>
-                                            <button class="btn btn-primary btn-sm fw-medium d-flex align-items-center gap-2 px-3">
+                                            <a href="/student/exam" class="btn btn-primary btn-sm fw-medium d-flex align-items-center gap-2 px-3">
                                                 <span class="material-symbols-outlined fs-5">play_arrow</span> Resume Exam
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -287,12 +218,7 @@
                         </div>
                     </div>
                 </section>
-
-            </div>
-        </div>
-    </main>
-
-    <!-- Bootstrap Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php
+$content = ob_get_clean();
+include __DIR__ . '/../layouts/student.php';
+?>
