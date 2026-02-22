@@ -71,6 +71,11 @@ class ScoreAggregationService
         $existingResult = $this->db->fetchAssociative("SELECT id FROM exam_results WHERE exam_session_id = ?", [$sessionId]);
 
         $resultId = $existingResult ? $existingResult['id'] : Uuid::uuid4()->toString();
+
+        if ($existingResult && (bool) ($this->db->fetchOne('SELECT is_locked FROM exam_results WHERE id = ?', [$resultId]) ?? false) === true) {
+            return;
+        }
+
         $data = [
             'exam_session_id' => $sessionId,
             'total_score' => $totalScore,
