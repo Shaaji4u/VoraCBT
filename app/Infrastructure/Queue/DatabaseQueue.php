@@ -20,9 +20,14 @@ class DatabaseQueue implements QueueInterface
 
     public function push(string $jobClass, array $data = []): string
     {
+        return $this->pushDelayed($jobClass, $data, 0);
+    }
+
+    public function pushDelayed(string $jobClass, array $data, int $delaySeconds): string
+    {
         $id = Uuid::uuid4()->toString();
         $payload = json_encode($data, JSON_THROW_ON_ERROR);
-        $availableAt = time();
+        $availableAt = time() + $delaySeconds;
 
         $this->db->insert($this->table, [
             'id' => $id,
