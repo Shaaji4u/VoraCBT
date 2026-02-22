@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use App\Core\Database\Migration\MigrationRunner;
+use App\Core\Config\Environment;
+
+// Initialize environment
+Environment::getInstance();
+
+echo "Starting migrations...\n";
+
+try {
+    $runner = new MigrationRunner();
+    $runner->migrate();
+    echo "Migrations completed successfully.\n";
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage() . "\n";
+    exit(1);
+}

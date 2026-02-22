@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use App\Core\Database\Seeder\SeederRunner;
+use App\Core\Config\Environment;
+
+// Initialize environment
+Environment::getInstance();
+
+$seederClass = $argv[1] ?? null;
+
+echo "Starting seeding...\n";
+
+try {
+    $runner = new SeederRunner();
+    $runner->run($seederClass);
+    echo "Seeding completed successfully.\n";
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage() . "\n";
+    exit(1);
+}
