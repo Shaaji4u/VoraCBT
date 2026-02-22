@@ -2,6 +2,7 @@
 
 use FastRoute\RouteCollector;
 use App\Http\Controllers\Admin\IdentityController;
+use App\Http\Controllers\Api\ProctoringController;
 
 return function (RouteCollector $r) {
     // Identity Routes
@@ -14,6 +15,14 @@ return function (RouteCollector $r) {
         });
         $r->get('/admin/students/credentials/export', function() {
             (new IdentityController())->export();
+        });
+
+        // Proctoring Routes
+        $r->post('/proctoring/event', function() {
+            (new ProctoringController())->logEvent();
+        });
+        $r->post('/proctoring/heartbeat', function() {
+            (new ProctoringController())->heartbeat();
         });
     });
 };
