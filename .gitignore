@@ -11,3 +11,5 @@ storage/app/*
 .idea/
 .vscode/
 .DS_Store
+*.sqlite
+storage/*.sqlite
