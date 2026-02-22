@@ -7,5 +7,6 @@ namespace App\Infrastructure\Queue;
 interface QueueInterface
 {
     public function push(string $jobClass, array $data = []): string;
+    public function pushDelayed(string $jobClass, array $data, int $delaySeconds): string;
     public function pop(): ?JobInterface;
 }
