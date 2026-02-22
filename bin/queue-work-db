@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+// Placeholder worker entrypoint for shared hosting cron usage.
+// Integrate with the platform's queue runner when available.
+
+$options = getopt('', ['max-jobs::', 'max-time::', 'memory::', 'sleep::']);
+$maxJobs = $options['max-jobs'] ?? '100';
+$maxTime = $options['max-time'] ?? '50';
+$memory = $options['memory'] ?? '128';
+$sleep = $options['sleep'] ?? '1';
+
+echo sprintf(
+    "queue-work-db stub invoked (max-jobs=%s, max-time=%s, memory=%sMB, sleep=%ss)\n",
+    $maxJobs,
+    $maxTime,
+    $memory,
+    $sleep
+);
