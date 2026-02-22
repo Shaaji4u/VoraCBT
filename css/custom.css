@@ -1,0 +1,200 @@
+/* Custom CSS for CBT Enterprise */
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+    --bs-font-sans-serif: 'Inter', sans-serif;
+    --bs-body-font-family: 'Inter', sans-serif;
+    --bs-primary: #3a67cb;
+    --bs-primary-rgb: 58, 103, 203;
+    --bs-secondary: #6c757d;
+    --cbt-bg-light: #f6f7f8;
+    --cbt-bg-dark: #13171f;
+    --cbt-text-dark: #101319;
+    --cbt-text-secondary: #64748b;
+}
+
+body {
+    background-color: var(--cbt-bg-light);
+    color: var(--cbt-text-dark);
+    font-family: var(--bs-body-font-family);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: var(--cbt-text-dark);
+}
+
+.font-display {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 20px;
+}
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: #9ca3af;
+}
+
+/* Utility Classes matching Tailwind patterns not in Bootstrap */
+.bg-primary-soft {
+    background-color: rgba(58, 103, 203, 0.1);
+    color: var(--bs-primary);
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.hover-scale {
+    transition: transform 0.2s;
+}
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive Utilities */
+@media (min-width: 768px) {
+    .h-md-100 {
+        height: 100% !important;
+    }
+    .overflow-md-hidden {
+        overflow: hidden !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .h-lg-100 {
+        height: 100% !important;
+    }
+    .overflow-lg-hidden {
+        overflow: hidden !important;
+    }
+    .w-lg-400px {
+        width: 400px !important;
+        min-width: 320px !important;
+    }
+}
+
+/* Screen Specific Themes */
+
+/* Screen 4 Override */
+.theme-screen-4 {
+    --bs-primary: #185bec;
+    --bs-primary-rgb: 24, 91, 236;
+}
+.theme-screen-4 .bg-primary {
+    background-color: var(--bs-primary) !important;
+}
+.theme-screen-4 .text-primary {
+    color: var(--bs-primary) !important;
+}
+.theme-screen-4 .border-primary {
+    border-color: var(--bs-primary) !important;
+}
+
+/* Screen 14 (Login) Override */
+.theme-login {
+    --bs-primary: #6d4cb8;
+    --bs-primary-rgb: 109, 76, 184;
+    --bs-body-font-family: 'Lexend', sans-serif;
+    background-color: #f7f6f8;
+    font-family: 'Lexend', sans-serif;
+}
+.theme-login .text-primary {
+    color: var(--bs-primary) !important;
+}
+.theme-login .bg-primary {
+    background-color: var(--bs-primary) !important;
+}
+.theme-login .border-primary {
+    border-color: var(--bs-primary) !important;
+}
+
+/* Drag Handle */
+.drag-handle {
+    cursor: grab;
+}
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Timer Animation */
+.timer-warning {
+    animation: pulse-warning 2s infinite;
+}
+@keyframes pulse-warning {
+    0% { color: #101319; }
+    50% { color: #f59e0b; }
+    100% { color: #101319; }
+}
+
+/* Bootstrap Overrides needed for high fidelity */
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+.btn-primary:hover {
+    background-color: color-mix(in srgb, var(--bs-primary), black 10%);
+    border-color: color-mix(in srgb, var(--bs-primary), black 10%);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.nav-link {
+    color: var(--cbt-text-secondary);
+    font-weight: 500;
+}
+.nav-link:hover, .nav-link.active {
+    color: var(--bs-primary);
+}
+
+/* Avatar Placeholder */
+.avatar-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Shadow utilities */
+.shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+.shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Glassmorphism helpers */
+.backdrop-blur-md {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}

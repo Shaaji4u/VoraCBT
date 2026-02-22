@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Passage-Based Question | CBT Enterprise</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body class="bg-light text-dark font-display d-flex flex-column vh-100 overflow-hidden">
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar navbar-expand bg-white border-bottom px-4 py-2 sticky-top z-3 shadow-sm flex-shrink-0">
+        <div class="d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center justify-content-center text-primary" style="width: 32px; height: 32px;">
+                <svg width="32" height="32" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"></path>
+                </svg>
+            </div>
+            <h5 class="mb-0 fw-bold text-dark tracking-tight">CBT Enterprise</h5>
+        </div>
+
+        <nav class="d-none d-md-flex align-items-center gap-4 ms-5">
+            <a href="#" class="nav-link text-secondary small fw-medium">Dashboard</a>
+            <a href="#" class="nav-link active text-primary small fw-bold border-bottom border-2 border-primary pb-1">Question Bank</a>
+            <a href="#" class="nav-link text-secondary small fw-medium">Assessments</a>
+            <a href="#" class="nav-link text-secondary small fw-medium">Reports</a>
+        </nav>
+
+        <div class="ms-auto d-flex align-items-center gap-3">
+            <button class="btn btn-light btn-sm fw-bold text-secondary">Save Draft</button>
+            <button class="btn btn-primary btn-sm fw-bold shadow-sm">Publish</button>
+            <div class="avatar-circle border ms-2" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC16UBN1EEm-Wh-tMSkZMujDuFc9t1NOcI01rTdcAnUfsE2OhmUjABuG-FSLeAZnIk5wr2v5REAytYMN-Sw8BPoLV85rvW4AYXXQ16p2FWvcu4qik3vUhXoWQhEWqj0NxHpCK0ohGaYvCObg8voorzRUrtp4d_14hQyG-S9n1OYhAmZiWh5Xt6rv0EUwn6otrU8X47ksyRog8dUb0SWtlt4IVygKxjU_eJP3ZbqKQ0SfrfqIiW0srYa6rXYpJpHSsCb3F2BLr2c5vI');"></div>
+        </div>
+    </header>
+
+    <main class="d-flex flex-column flex-grow-1 overflow-hidden">
+        <!-- Breadcrumbs and Header -->
+        <div class="px-4 py-3 bg-white border-bottom flex-shrink-0">
+            <div class="d-flex align-items-center gap-2 small text-secondary mb-2">
+                <a href="#" class="text-decoration-none text-secondary hover-text-primary">Content Management</a>
+                <span class="material-symbols-outlined fs-6">chevron_right</span>
+                <a href="#" class="text-decoration-none text-secondary hover-text-primary">Question Bank</a>
+                <span class="material-symbols-outlined fs-6">chevron_right</span>
+                <span class="fw-medium text-dark">Create Passage-Based Question</span>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between align-items-end gap-3">
+                <div class="d-flex flex-column gap-1 flex-grow-1">
+                    <input type="text" class="form-control form-control-lg fw-bold bg-transparent border-0 p-0 shadow-none fs-3 text-dark" placeholder="Enter Passage Title..." value="The Industrial Revolution - Reading Comprehension">
+                    <div class="d-flex align-items-center gap-3 small text-secondary">
+                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined fs-6">subject</span> History</span>
+                        <span class="text-muted">|</span>
+                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined fs-6">school</span> Grade 10</span>
+                        <span class="text-muted">|</span>
+                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined fs-6">stars</span> 20 Points</span>
+                    </div>
+                </div>
+                <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2">
+                    <span class="material-symbols-outlined fs-6">settings</span>
+                    Edit Metadata
+                </button>
+            </div>
+        </div>
+
+        <!-- Split Screen Creator -->
+        <div class="row g-0 flex-grow-1 overflow-auto overflow-md-hidden">
+
+            <!-- Left: Passage Stimulus Editor -->
+            <section class="col-12 col-md-6 d-flex flex-column bg-white border-end h-md-100">
+                <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-light bg-opacity-10">
+                    <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">description</span>
+                        Passage Stimulus
+                    </h6>
+                    <div class="btn-group">
+                        <button class="btn btn-light btn-sm text-secondary" title="Undo"><span class="material-symbols-outlined fs-6">undo</span></button>
+                        <button class="btn btn-light btn-sm text-secondary" title="Redo"><span class="material-symbols-outlined fs-6">redo</span></button>
+                    </div>
+                </div>
+                <!-- Toolbar -->
+                <div class="d-flex flex-wrap align-items-center gap-1 px-3 py-2 bg-light border-bottom">
+                    <button class="btn btn-sm btn-light border shadow-sm p-1 lh-1"><span class="material-symbols-outlined fs-5">format_bold</span></button>
+                    <button class="btn btn-sm btn-light border shadow-sm p-1 lh-1"><span class="material-symbols-outlined fs-5">format_italic</span></button>
+                    <button class="btn btn-sm btn-light border shadow-sm p-1 lh-1"><span class="material-symbols-outlined fs-5">format_underlined</span></button>
+                    <div class="vr mx-2 h-50 align-self-center"></div>
+                    <button class="btn btn-sm btn-light border shadow-sm p-1 lh-1"><span class="material-symbols-outlined fs-5">format_list_bulleted</span></button>
+                    <button class="btn btn-sm btn-light border shadow-sm p-1 lh-1"><span class="material-symbols-outlined fs-5">format_list_numbered</span></button>
+                    <div class="vr mx-2 h-50 align-self-center"></div>
+                    <button class="btn btn-sm btn-light border shadow-sm p-1 lh-1"><span class="material-symbols-outlined fs-5">link</span></button>
+                    <button class="btn btn-sm btn-light border shadow-sm p-1 lh-1"><span class="material-symbols-outlined fs-5">image</span></button>
+                    <button class="btn btn-sm btn-light border shadow-sm p-1 lh-1"><span class="material-symbols-outlined fs-5">table_chart</span></button>
+                </div>
+                <!-- Editor Text Area -->
+                <div class="flex-grow-1 overflow-auto p-4 custom-scrollbar">
+                    <textarea class="form-control h-100 border-0 shadow-none fs-5 lh-lg text-secondary bg-transparent resize-none" placeholder="Begin typing your reading passage or stimulus here..."></textarea>
+                </div>
+            </section>
+
+            <!-- Right: Nested Question Bank -->
+            <section class="col-12 col-md-6 d-flex flex-column bg-light bg-opacity-50 overflow-hidden h-md-100">
+                <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white">
+                    <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">quiz</span>
+                        Questions (2)
+                    </h6>
+                    <button class="btn btn-primary btn-sm fw-bold d-flex align-items-center gap-2 shadow-sm">
+                        <span class="material-symbols-outlined fs-6">add</span>
+                        Add Nested Question
+                    </button>
+                </div>
+
+                <!-- Question Cards List -->
+                <div class="flex-grow-1 overflow-auto p-4 d-flex flex-column gap-3 custom-scrollbar">
+
+                    <!-- Question Card 1 (MCQ) -->
+                    <div class="card border-2 border-primary border-opacity-25 rounded-3 shadow-sm position-relative group-hover-scale">
+                        <div class="card-body p-4">
+                            <!-- Drag Handle (Visual only in Bootstrap unless JS added) -->
+                            <!-- <div class="position-absolute start-0 top-50 translate-middle-y ms-n3 text-secondary opacity-0 hover-opacity-100 cursor-grab">
+                                <span class="material-symbols-outlined">drag_indicator</span>
+                            </div> -->
+
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge rounded-circle bg-primary text-white d-flex align-items-center justify-content-center p-0" style="width: 28px; height: 28px;">1</span>
+                                    <span class="badge bg-primary-soft text-primary text-uppercase fw-bold" style="font-size: 0.65rem;">Multiple Choice</span>
+                                </div>
+                                <div class="d-flex gap-1">
+                                    <button class="btn btn-light btn-sm text-secondary p-1 lh-1"><span class="material-symbols-outlined fs-6">content_copy</span></button>
+                                    <button class="btn btn-light btn-sm text-danger p-1 lh-1 hover-bg-danger-soft"><span class="material-symbols-outlined fs-6">delete</span></button>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-secondary text-uppercase mb-1">Question Prompt</label>
+                                <textarea class="form-control bg-light border-light-subtle text-sm" rows="2">According to the first paragraph, what was the primary catalyst for the growth of urban centers during the 18th century?</textarea>
+                            </div>
+
+                            <div class="d-flex flex-column gap-2">
+                                <label class="form-label small fw-bold text-secondary text-uppercase mb-1">Options</label>
+                                <!-- Option 1 -->
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle border border-2 border-primary bg-primary d-flex align-items-center justify-content-center" style="width: 16px; height: 16px;">
+                                        <div class="rounded-circle bg-white" style="width: 6px; height: 6px;"></div>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" value="The advancement of steam-powered machinery">
+                                </div>
+                                <!-- Option 2 -->
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle border border-2 border-secondary" style="width: 16px; height: 16px;"></div>
+                                    <input type="text" class="form-control form-control-sm" value="Agricultural surplus in rural villages">
+                                </div>
+                                <!-- Option 3 -->
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle border border-2 border-secondary" style="width: 16px; height: 16px;"></div>
+                                    <input type="text" class="form-control form-control-sm" value="Mandatory military service policies">
+                                </div>
+                                <button class="btn btn-link text-decoration-none btn-sm text-primary fw-bold d-flex align-items-center gap-1 p-0 mt-1">
+                                    <span class="material-symbols-outlined fs-6">add_circle</span> Add Option
+                                </button>
+                            </div>
+
+                            <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="small text-secondary">Points: <input type="number" class="d-inline-block form-control form-control-sm p-1 text-center fw-bold border-0 bg-transparent" value="5" style="width: 40px;"></span>
+                                    <span class="small text-secondary">Difficulty: <span class="text-primary fw-medium">Medium</span></span>
+                                </div>
+                                <button class="btn btn-link text-decoration-none btn-sm text-secondary fw-medium d-flex align-items-center gap-1 p-0">
+                                    Settings <span class="material-symbols-outlined fs-6">tune</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question Card 2 (Fill-in-the-blank) -->
+                    <div class="card border rounded-3 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center p-0 border" style="width: 28px; height: 28px;">2</span>
+                                    <span class="badge bg-light text-secondary border text-uppercase fw-bold" style="font-size: 0.65rem;">Fill in the Blank</span>
+                                </div>
+                                <div class="d-flex gap-1">
+                                    <button class="btn btn-light btn-sm text-secondary p-1 lh-1"><span class="material-symbols-outlined fs-6">content_copy</span></button>
+                                    <button class="btn btn-light btn-sm text-danger p-1 lh-1 hover-bg-danger-soft"><span class="material-symbols-outlined fs-6">delete</span></button>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-secondary text-uppercase mb-1">Question Prompt</label>
+                                <p class="small text-secondary fst-italic mb-1">Use [blank] to insert an input field.</p>
+                                <textarea class="form-control bg-light border-light-subtle text-sm" rows="2">The invention of the [blank] in 1769 by James Watt was a defining moment of the revolution.</textarea>
+                            </div>
+
+                            <div class="p-3 bg-primary-soft rounded border border-primary-subtle mb-3">
+                                <label class="form-label small fw-bold text-primary text-uppercase mb-2">Correct Answer(s)</label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="small fw-medium text-secondary">Blank 1:</span>
+                                    <input type="text" class="form-control form-control-sm flex-grow-1" value="Steam Engine">
+                                    <button class="btn btn-link text-secondary p-0"><span class="material-symbols-outlined fs-6">add_circle</span></button>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="small text-secondary">Points: <input type="number" class="d-inline-block form-control form-control-sm p-1 text-center fw-bold border-0 bg-transparent" value="10" style="width: 40px;"></span>
+                                    <span class="small text-secondary">Difficulty: <span class="text-warning fw-medium">Hard</span></span>
+                                </div>
+                                <button class="btn btn-link text-decoration-none btn-sm text-secondary fw-medium d-flex align-items-center gap-1 p-0">
+                                    Settings <span class="material-symbols-outlined fs-6">tune</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder for adding next -->
+                    <div class="card border-2 border-dashed border-secondary border-opacity-25 rounded-3 py-4 cursor-pointer hover-border-primary text-secondary hover-text-primary transition-all">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center gap-2">
+                            <span class="material-symbols-outlined fs-1">post_add</span>
+                            <span class="fw-semibold small">Drop question type here or click to add</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- Sticky Bottom Footer -->
+        <footer class="bg-white border-top px-4 py-2 d-flex align-items-center justify-content-between flex-shrink-0" style="height: 56px;">
+            <div class="d-flex align-items-center gap-4">
+                <div class="d-flex align-items-center gap-2 small text-secondary">
+                    <span class="rounded-circle bg-success" style="width: 8px; height: 8px;"></span>
+                    Changes saved automatically (12:45 PM)
+                </div>
+                <div class="vr mx-2 text-secondary opacity-25"></div>
+                <div class="d-flex align-items-center gap-3 small fw-medium">
+                    <span class="text-secondary">Total Items: <span class="text-dark">2</span></span>
+                    <span class="text-secondary">Total Points: <span class="text-dark">15 / 20</span></span>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-link text-decoration-none btn-sm text-secondary hover-text-primary d-flex align-items-center gap-2 fw-semibold">
+                    <span class="material-symbols-outlined fs-6">visibility</span>
+                    Preview Student View
+                </button>
+                <div class="vr mx-2 text-secondary opacity-25"></div>
+                <button class="btn btn-primary btn-sm fw-bold px-4 shadow-sm">
+                    Submit Question Set
+                </button>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

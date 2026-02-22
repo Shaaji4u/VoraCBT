@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBT Design System & Style Guide</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body class="bg-light text-dark font-display d-flex vh-100 overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <aside class="d-flex flex-column bg-white border-end h-100 flex-shrink-0 z-2" style="width: 280px;">
+        <div class="p-4 pb-2 flex-grow-1 overflow-auto custom-scrollbar">
+            <div class="d-flex align-items-center gap-3 mb-5">
+                <div class="d-flex align-items-center justify-content-center rounded-3 bg-gradient-primary text-white shadow-sm" style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--bs-primary), #182848);">
+                    <span class="material-symbols-outlined fs-4">school</span>
+                </div>
+                <div class="lh-1">
+                    <h6 class="fw-bold text-dark mb-1">CBT Enterprise</h6>
+                    <small class="text-secondary fw-medium" style="font-size: 0.75rem;">Design System v2.1</small>
+                </div>
+            </div>
+
+            <nav class="nav flex-column gap-1">
+                <div class="px-3 py-2 text-secondary fw-bold text-uppercase small tracking-wider mb-1" style="font-size: 0.7rem;">Foundation</div>
+                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 bg-primary-soft text-primary fw-medium">
+                    <span class="material-symbols-outlined fs-5">palette</span> Colors & Branding
+                </a>
+                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">text_fields</span> Typography
+                </a>
+                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">grid_view</span> Layout & Spacing
+                </a>
+
+                <div class="px-3 py-2 text-secondary fw-bold text-uppercase small tracking-wider mb-1 mt-4" style="font-size: 0.7rem;">Components</div>
+                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">smart_button</span> Buttons
+                </a>
+                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">check_box</span> Forms & Inputs
+                </a>
+                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">web_asset</span> Cards & Containers
+                </a>
+                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">warning</span> Alerts & Badges
+                </a>
+            </nav>
+        </div>
+
+        <div class="mt-auto p-4 border-top">
+            <div class="d-flex align-items-center gap-3">
+                <div class="avatar-circle bg-secondary bg-opacity-25" style="width: 36px; height: 36px;"></div>
+                <div class="d-flex flex-column lh-1">
+                    <span class="fw-medium text-dark small">Alex Morgan</span>
+                    <span class="text-secondary small" style="font-size: 0.75rem;">Lead Designer</span>
+                </div>
+                <button class="btn btn-link ms-auto text-secondary hover-text-dark p-0">
+                    <span class="material-symbols-outlined fs-5">logout</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 overflow-auto bg-light scroll-smooth">
+        <div class="container-xl py-5 px-lg-5 pb-5 mb-5 d-flex flex-column gap-5">
+
+            <!-- Page Header -->
+            <header class="d-flex flex-column gap-4 border-bottom pb-4">
+                <div class="d-flex align-items-center gap-2 small text-secondary">
+                    <span>Design System</span>
+                    <span class="material-symbols-outlined" style="font-size: 14px;">chevron_right</span>
+                    <span class="fw-medium text-primary">Overview</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap gap-3">
+                    <div>
+                        <h1 class="display-6 fw-bold text-dark mb-2 tracking-tight">Design System & Branding</h1>
+                        <p class="lead fs-6 text-secondary mb-0" style="max-width: 600px;">Core visual elements for the CBT Enterprise Platform tailored for schools, teachers, and students. Consistent, accessible, and scalable.</p>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-white border shadow-sm btn-sm fw-medium text-secondary d-flex align-items-center gap-2">
+                            <span class="material-symbols-outlined fs-6">download</span> Download Assets
+                        </button>
+                        <button class="btn btn-primary btn-sm fw-medium shadow-sm d-flex align-items-center gap-2">
+                            <span class="material-symbols-outlined fs-6">share</span> Share
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Colors Section -->
+            <section class="d-flex flex-column gap-4">
+                <h4 class="fw-bold text-dark d-flex align-items-center gap-2 mb-0">
+                    <span class="material-symbols-outlined">palette</span> Brand Colors
+                </h4>
+                <div class="row g-4">
+                    <!-- Primary -->
+                    <div class="col-md-4">
+                        <div class="card border shadow-sm p-3 h-100">
+                            <div class="rounded-2 bg-primary mb-3 shadow-inner" style="height: 128px;"></div>
+                            <div class="d-flex justify-content-between align-items-end">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-1">Primary Blue</h5>
+                                    <small class="text-secondary">Brand Primary</small>
+                                </div>
+                                <div class="text-end">
+                                    <p class="font-monospace small text-secondary mb-0 select-all">#3a67cb</p>
+                                    <small class="text-secondary opacity-75" style="font-size: 0.7rem;">Action, Links</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Secondary -->
+                    <div class="col-md-4">
+                        <div class="card border shadow-sm p-3 h-100">
+                            <div class="rounded-2 mb-3 shadow-inner" style="height: 128px; background-color: #182848;"></div>
+                            <div class="d-flex justify-content-between align-items-end">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-1">Deep Navy</h5>
+                                    <small class="text-secondary">Brand Secondary</small>
+                                </div>
+                                <div class="text-end">
+                                    <p class="font-monospace small text-secondary mb-0 select-all">#182848</p>
+                                    <small class="text-secondary opacity-75" style="font-size: 0.7rem;">Headings, Nav</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accent -->
+                    <div class="col-md-4">
+                        <div class="card border shadow-sm p-3 h-100">
+                            <div class="rounded-2 mb-3 shadow-inner" style="height: 128px; background-color: #F9A825;"></div>
+                            <div class="d-flex justify-content-between align-items-end">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-1">Golden Amber</h5>
+                                    <small class="text-secondary">Brand Accent</small>
+                                </div>
+                                <div class="text-end">
+                                    <p class="font-monospace small text-secondary mb-0 select-all">#F9A825</p>
+                                    <small class="text-secondary opacity-75" style="font-size: 0.7rem;">Highlights, UI</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neutrals Strip -->
+                <div class="card border shadow-sm p-4">
+                    <h6 class="fw-bold text-dark text-uppercase small tracking-wider mb-3">Neutrals & Greyscale</h6>
+                    <div class="d-flex w-100 rounded-3 overflow-hidden shadow-inner" style="height: 64px;">
+                        <div class="flex-grow-1 bg-white d-flex align-items-end justify-content-center pb-2 small font-monospace text-secondary" style="font-size: 0.65rem;">50</div>
+                        <div class="flex-grow-1 bg-light d-flex align-items-end justify-content-center pb-2 small font-monospace text-secondary" style="font-size: 0.65rem;">100</div>
+                        <div class="flex-grow-1 d-flex align-items-end justify-content-center pb-2 small font-monospace text-secondary" style="background-color: #e2e8f0; font-size: 0.65rem;">200</div>
+                        <div class="flex-grow-1 d-flex align-items-end justify-content-center pb-2 small font-monospace text-secondary" style="background-color: #cbd5e1; font-size: 0.65rem;">300</div>
+                        <div class="flex-grow-1 d-flex align-items-end justify-content-center pb-2 small font-monospace text-dark" style="background-color: #94a3b8; font-size: 0.65rem;">400</div>
+                        <div class="flex-grow-1 d-flex align-items-end justify-content-center pb-2 small font-monospace text-white" style="background-color: #64748b; font-size: 0.65rem;">500</div>
+                        <div class="flex-grow-1 d-flex align-items-end justify-content-center pb-2 small font-monospace text-white" style="background-color: #475569; font-size: 0.65rem;">600</div>
+                        <div class="flex-grow-1 d-flex align-items-end justify-content-center pb-2 small font-monospace text-white" style="background-color: #334155; font-size: 0.65rem;">700</div>
+                        <div class="flex-grow-1 d-flex align-items-end justify-content-center pb-2 small font-monospace text-white" style="background-color: #1e293b; font-size: 0.65rem;">800</div>
+                        <div class="flex-grow-1 d-flex align-items-end justify-content-center pb-2 small font-monospace text-white" style="background-color: #0f172a; font-size: 0.65rem;">900</div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-secondary opacity-10">
+
+            <!-- Typography Section -->
+            <section class="d-flex flex-column gap-4">
+                <h4 class="fw-bold text-dark d-flex align-items-center gap-2 mb-0">
+                    <span class="material-symbols-outlined">text_fields</span> Typography
+                </h4>
+                <div class="row g-4">
+                    <!-- Inter Spec -->
+                    <div class="col-lg-6">
+                        <div class="card border shadow-sm p-4 h-100">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <div>
+                                    <h3 class="display-4 fw-bold text-dark mb-0 lh-1">Aa</h3>
+                                    <p class="fs-5 fw-medium text-secondary mb-0">Inter</p>
+                                </div>
+                                <span class="badge bg-light text-secondary border font-monospace fw-normal">Sans-serif</span>
+                            </div>
+                            <div class="d-flex flex-column gap-3">
+                                <div class="d-flex align-items-baseline gap-3 border-bottom pb-2">
+                                    <span class="text-secondary small w-25">Display</span>
+                                    <span class="h2 fw-bold text-dark mb-0">Design System</span>
+                                </div>
+                                <div class="d-flex align-items-baseline gap-3 border-bottom pb-2">
+                                    <span class="text-secondary small w-25">Heading 2</span>
+                                    <span class="h4 fw-semibold text-dark mb-0">Student Overview</span>
+                                </div>
+                                <div class="d-flex align-items-baseline gap-3 border-bottom pb-2">
+                                    <span class="text-secondary small w-25">Body</span>
+                                    <span class="text-secondary">The quick brown fox jumps over the lazy dog. Used for main content blocks.</span>
+                                </div>
+                                <div class="d-flex align-items-baseline gap-3">
+                                    <span class="text-secondary small w-25">Small</span>
+                                    <span class="small text-secondary">Metadata, captions and helper text.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fira Code Spec -->
+                    <div class="col-lg-6">
+                        <div class="card border shadow-sm p-4 h-100">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <div>
+                                    <h3 class="display-4 fw-bold text-dark mb-0 lh-1 font-monospace">&lt;a&gt;</h3>
+                                    <p class="fs-5 fw-medium text-secondary mb-0 font-monospace">Fira Code</p>
+                                </div>
+                                <span class="badge bg-light text-secondary border font-monospace fw-normal">Monospace</span>
+                            </div>
+                            <div class="d-flex flex-column gap-3 font-monospace">
+                                <div class="d-flex align-items-baseline gap-3 border-bottom pb-2">
+                                    <span class="text-secondary small w-25 font-display">Code</span>
+                                    <span class="small text-primary">const studentId = "STD-2023";</span>
+                                </div>
+                                <div class="bg-dark p-3 rounded-2 text-light small lh-lg">
+                                    <span style="color: #c084fc;">function</span> <span style="color: #60a5fa;">calculateGrade</span>(score) {<br>
+                                    &nbsp;&nbsp;<span style="color: #c084fc;">if</span> (score >= 90) <span style="color: #c084fc;">return</span> <span style="color: #4ade80;">'A'</span>;<br>
+                                    &nbsp;&nbsp;<span style="color: #c084fc;">return</span> <span style="color: #4ade80;">'B'</span>;<br>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-secondary opacity-10">
+
+            <!-- Buttons Section -->
+            <section class="d-flex flex-column gap-4">
+                <h4 class="fw-bold text-dark d-flex align-items-center gap-2 mb-0">
+                    <span class="material-symbols-outlined">smart_button</span> Buttons
+                </h4>
+                <div class="card border shadow-sm overflow-hidden">
+                    <div class="row g-0 bg-light border-bottom text-secondary small fw-bold text-uppercase text-center py-2">
+                        <div class="col">Variant</div>
+                        <div class="col">Default</div>
+                        <div class="col">Hover</div>
+                        <div class="col">Active/Focus</div>
+                        <div class="col">Disabled</div>
+                    </div>
+                    <!-- Primary Row -->
+                    <div class="row g-0 align-items-center p-3 border-bottom hover-bg-light-subtle">
+                        <div class="col text-center small fw-medium text-dark">Primary</div>
+                        <div class="col text-center"><button class="btn btn-primary btn-sm shadow-sm">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-primary btn-sm shadow-sm opacity-90">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-primary btn-sm shadow-sm ring-2 ring-primary ring-opacity-50">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-secondary btn-sm opacity-25" disabled>Button</button></div>
+                    </div>
+                    <!-- Secondary Row -->
+                    <div class="row g-0 align-items-center p-3 border-bottom hover-bg-light-subtle">
+                        <div class="col text-center small fw-medium text-dark">Secondary</div>
+                        <div class="col text-center"><button class="btn btn-secondary btn-sm shadow-sm text-white" style="background-color: #182848; border-color: #182848;">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-secondary btn-sm shadow-sm text-white opacity-90" style="background-color: #182848; border-color: #182848;">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-secondary btn-sm shadow-sm text-white ring-2 ring-secondary ring-opacity-50" style="background-color: #182848; border-color: #182848;">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-secondary btn-sm opacity-25" disabled>Button</button></div>
+                    </div>
+                    <!-- Outline Row -->
+                    <div class="row g-0 align-items-center p-3 border-bottom hover-bg-light-subtle">
+                        <div class="col text-center small fw-medium text-dark">Outline</div>
+                        <div class="col text-center"><button class="btn btn-outline-primary btn-sm">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-outline-primary btn-sm bg-primary-soft">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-outline-primary btn-sm ring-2 ring-primary ring-opacity-25">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-outline-secondary btn-sm disabled">Button</button></div>
+                    </div>
+                    <!-- Ghost Row -->
+                    <div class="row g-0 align-items-center p-3 hover-bg-light-subtle">
+                        <div class="col text-center small fw-medium text-dark">Ghost</div>
+                        <div class="col text-center"><button class="btn btn-link btn-sm text-decoration-none text-secondary hover-bg-light">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-light btn-sm text-dark">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-light btn-sm text-dark border">Button</button></div>
+                        <div class="col text-center"><button class="btn btn-link btn-sm text-secondary disabled text-decoration-none">Button</button></div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-secondary opacity-10">
+
+            <!-- Forms & Input Section -->
+            <section class="d-flex flex-column gap-4">
+                <h4 class="fw-bold text-dark d-flex align-items-center gap-2 mb-0">
+                    <span class="material-symbols-outlined">check_box</span> Forms & Inputs
+                </h4>
+                <div class="row g-4">
+                    <!-- Inputs Column -->
+                    <div class="col-md-6">
+                        <div class="card border shadow-sm p-4 h-100">
+                            <h5 class="h6 fw-bold text-dark mb-3">Input Fields</h5>
+                            <div class="d-flex flex-column gap-3">
+                                <div>
+                                    <label class="form-label small fw-medium text-secondary">Email Address</label>
+                                    <input type="email" class="form-control form-control-sm" placeholder="student@school.edu">
+                                </div>
+                                <div>
+                                    <label class="form-label small fw-medium text-primary">Student Name (Active)</label>
+                                    <input type="text" class="form-control form-control-sm border-primary focus-ring focus-ring-primary" value="Alex Morgan">
+                                </div>
+                                <div>
+                                    <label class="form-label small fw-medium text-danger">Password</label>
+                                    <div class="position-relative">
+                                        <input type="password" class="form-control form-control-sm border-danger text-danger pe-5" value="123456">
+                                        <span class="material-symbols-outlined position-absolute top-50 end-0 translate-middle-y me-2 text-danger fs-5">error</span>
+                                    </div>
+                                    <small class="text-danger" style="font-size: 0.75rem;">Password is too weak.</small>
+                                </div>
+                                <div>
+                                    <label class="form-label small fw-medium text-secondary">Grade Level</label>
+                                    <select class="form-select form-select-sm">
+                                        <option>Select a grade...</option>
+                                        <option>Grade 9</option>
+                                        <option>Grade 10</option>
+                                        <option>Grade 11</option>
+                                        <option>Grade 12</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Toggles & Checks Column -->
+                    <div class="col-md-6">
+                        <div class="card border shadow-sm p-4 h-100">
+                            <h5 class="h6 fw-bold text-dark mb-3">Selection Controls</h5>
+
+                            <p class="small fw-medium text-secondary text-uppercase mb-2" style="font-size: 0.7rem;">Checkboxes</p>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                    <label class="form-check-label small text-secondary" for="flexCheckChecked">
+                                        I agree to terms and conditions
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label small text-secondary" for="flexCheckDefault">
+                                        Subscribe to newsletter
+                                    </label>
+                                </div>
+                            </div>
+
+                            <hr class="border-secondary opacity-10">
+
+                            <p class="small fw-medium text-secondary text-uppercase mb-2 mt-3" style="font-size: 0.7rem;">Radio Buttons</p>
+                            <div class="d-flex flex-column gap-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="roleRadio" id="flexRadioDefault1" checked>
+                                    <label class="form-check-label small text-secondary" for="flexRadioDefault1">
+                                        Student
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="roleRadio" id="flexRadioDefault2">
+                                    <label class="form-check-label small text-secondary" for="flexRadioDefault2">
+                                        Teacher
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="roleRadio" id="flexRadioDefault3">
+                                    <label class="form-check-label small text-secondary" for="flexRadioDefault3">
+                                        Administrator
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-secondary opacity-10">
+
+            <!-- Components Samples -->
+            <section class="d-flex flex-column gap-4">
+                <h4 class="fw-bold text-dark d-flex align-items-center gap-2 mb-0">
+                    <span class="material-symbols-outlined">web_asset</span> Components Showcase
+                </h4>
+                <div class="row g-4 align-items-start">
+                    <!-- Card Sample -->
+                    <div class="col-lg-4">
+                        <h6 class="small fw-bold text-secondary text-uppercase mb-3">Card Component</h6>
+                        <div class="card border rounded-3 shadow-sm overflow-hidden h-100">
+                            <div class="ratio ratio-21x9 bg-light position-relative">
+                                <div class="position-absolute w-100 h-100 bg-gradient-to-r from-secondary-to-primary opacity-75" style="background: linear-gradient(to right, #182848, #3a67cb);"></div>
+                                <div class="position-absolute bottom-0 start-0 m-3 p-2 bg-white bg-opacity-25 backdrop-blur-sm rounded">
+                                    <span class="material-symbols-outlined text-white fs-4">trending_up</span>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column gap-2 p-3">
+                                <div>
+                                    <span class="badge bg-primary-soft text-primary">Q1 Report</span>
+                                    <h5 class="card-title fw-bold text-dark mt-2">Student Progress</h5>
+                                    <p class="card-text small text-secondary">Average performance has increased by 15% across all science subjects this semester.</p>
+                                </div>
+                                <div class="mt-auto pt-2">
+                                    <button class="btn btn-white border w-100 btn-sm fw-medium text-secondary hover-bg-light">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Alerts Sample -->
+                    <div class="col-lg-8">
+                        <h6 class="small fw-bold text-secondary text-uppercase mb-3">Alerts & Notifications</h6>
+                        <div class="d-flex flex-column gap-3">
+                            <!-- Info -->
+                            <div class="alert alert-primary d-flex align-items-start gap-3 border-primary-subtle bg-primary-subtle text-primary-emphasis mb-0 p-3 rounded-2" role="alert">
+                                <span class="material-symbols-outlined fs-5 mt-1">info</span>
+                                <div>
+                                    <h6 class="alert-heading h6 fw-bold mb-1">System Update</h6>
+                                    <p class="mb-0 small opacity-75">The platform will undergo scheduled maintenance on Saturday at 10:00 PM EST.</p>
+                                </div>
+                            </div>
+                            <!-- Success -->
+                            <div class="alert alert-success d-flex align-items-start gap-3 border-success-subtle bg-success-subtle text-success-emphasis mb-0 p-3 rounded-2" role="alert">
+                                <span class="material-symbols-outlined fs-5 mt-1">check_circle</span>
+                                <div>
+                                    <h6 class="alert-heading h6 fw-bold mb-1">Submission Successful</h6>
+                                    <p class="mb-0 small opacity-75">Your grading rubric has been saved and applied to the current exam batch.</p>
+                                </div>
+                            </div>
+                            <!-- Warning -->
+                            <div class="alert alert-warning d-flex align-items-start gap-3 border-warning-subtle bg-warning-subtle text-warning-emphasis mb-0 p-3 rounded-2" role="alert">
+                                <span class="material-symbols-outlined fs-5 mt-1">warning</span>
+                                <div>
+                                    <h6 class="alert-heading h6 fw-bold mb-1">License Expiring</h6>
+                                    <p class="mb-0 small opacity-75">Your institutional license expires in 5 days. Please contact support to renew.</p>
+                                </div>
+                            </div>
+                            <!-- Error -->
+                            <div class="alert alert-danger d-flex align-items-start gap-3 border-danger-subtle bg-danger-subtle text-danger-emphasis mb-0 p-3 rounded-2" role="alert">
+                                <span class="material-symbols-outlined fs-5 mt-1">error</span>
+                                <div>
+                                    <h6 class="alert-heading h6 fw-bold mb-1">Connection Failed</h6>
+                                    <p class="mb-0 small opacity-75">Unable to sync student data. Please check your internet connection and try again.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="pt-4 border-top d-flex justify-content-between align-items-center text-secondary small">
+                <p class="mb-0">© 2023 CBT Enterprise Platform. All rights reserved.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-decoration-none text-secondary hover-text-primary">Documentation</a>
+                    <a href="#" class="text-decoration-none text-secondary hover-text-primary">Support</a>
+                </div>
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

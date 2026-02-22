@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Settings - Integrations</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body class="bg-light text-dark font-display d-flex flex-column min-vh-100">
+
+    <!-- Top Navbar -->
+    <header class="bg-white border-bottom px-4 py-2 sticky-top z-3">
+        <div class="container-xl d-flex align-items-center justify-content-between h-16" style="height: 64px;">
+            <div class="d-flex align-items-center gap-5">
+                <!-- Logo Area -->
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-primary text-white rounded-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                        <span class="material-symbols-outlined fs-5">school</span>
+                    </div>
+                    <h6 class="mb-0 fw-bold tracking-tight text-dark">CBT Enterprise</h6>
+                </div>
+                <!-- Search Bar -->
+                <div class="d-none d-md-flex align-items-center bg-light rounded-3 px-3 py-2 w-64 border border-transparent focus-within-border-primary transition-colors" style="width: 260px;">
+                    <span class="material-symbols-outlined text-secondary fs-5 me-2">search</span>
+                    <input type="text" class="form-control bg-transparent border-0 p-0 text-sm shadow-none" placeholder="Search...">
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="d-flex align-items-center gap-4">
+                <nav class="d-none d-lg-flex align-items-center gap-4">
+                    <a href="#" class="nav-link text-secondary small fw-medium hover-text-primary">Dashboard</a>
+                    <a href="#" class="nav-link text-secondary small fw-medium hover-text-primary">Assessments</a>
+                    <a href="#" class="nav-link text-secondary small fw-medium hover-text-primary">Results</a>
+                    <a href="#" class="nav-link text-secondary small fw-medium hover-text-primary">Reports</a>
+                    <a href="#" class="nav-link text-primary small fw-bold">Settings</a>
+                </nav>
+                <div class="d-flex align-items-center gap-3 ps-4 border-start">
+                    <button class="btn btn-link text-secondary hover-text-primary p-0 text-decoration-none">
+                        <span class="material-symbols-outlined fs-5">notifications</span>
+                    </button>
+                    <button class="btn btn-link text-secondary hover-text-primary p-0 text-decoration-none">
+                        <span class="material-symbols-outlined fs-5">help</span>
+                    </button>
+                    <div class="avatar-circle border bg-light" style="width: 36px; height: 36px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFWkZb7zLdRNWO4Pa3s58ZA6Dlh-We7urQle_a3UKlAs5gzvoKXVkpi5N-uoWDc43P3_LKVsg7RLLUHLW9zfo8PBrbUL46V6TT5Pv6ijriDJjKoKcWghzbHVSv9QpnldnjPzAWC3EUbW4x9-iUOzF-YjC9xM4a4VHthhYQ5NFJf9NE0NmRXYWJ8uWD46QlIvf4KihbOwNygp2YoS7yuCC7wsiQhUpxKFbVWwiN3kbNpoQ1yv7W1q--5nVCvIvq98IPUHr_mY1WpLg');"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 w-100 py-4 py-lg-5">
+        <div class="container-xl px-4">
+
+            <!-- Breadcrumbs -->
+            <nav class="d-flex align-items-center gap-2 text-secondary small mb-4">
+                <a href="#" class="text-decoration-none text-secondary hover-text-primary">Home</a>
+                <span class="material-symbols-outlined fs-6 text-secondary">chevron_right</span>
+                <a href="#" class="text-decoration-none text-secondary hover-text-primary">Settings</a>
+                <span class="material-symbols-outlined fs-6 text-secondary">chevron_right</span>
+                <span class="fw-medium text-dark">Integrations</span>
+            </nav>
+
+            <!-- Page Header -->
+            <div class="mb-5">
+                <h1 class="h2 fw-bold text-dark mb-2 tracking-tight">System Settings</h1>
+                <p class="text-secondary mb-0" style="max-width: 600px;">Manage platform configurations, permissions, and third-party integrations for your institution.</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="border-bottom mb-5">
+                <div class="d-flex gap-4">
+                    <a href="#" class="nav-link border-bottom border-2 border-transparent px-1 py-3 text-secondary hover-text-dark hover-border-secondary small fw-medium transition-colors">General</a>
+                    <a href="#" class="nav-link border-bottom border-2 border-primary px-1 py-3 text-primary small fw-bold">Integrations</a>
+                    <a href="#" class="nav-link border-bottom border-2 border-transparent px-1 py-3 text-secondary hover-text-dark hover-border-secondary small fw-medium transition-colors">Security</a>
+                    <a href="#" class="nav-link border-bottom border-2 border-transparent px-1 py-3 text-secondary hover-text-dark hover-border-secondary small fw-medium transition-colors">Users</a>
+                </div>
+            </div>
+
+            <div class="row g-5">
+
+                <!-- Main Sync Panel (Left) -->
+                <div class="col-lg-8 d-flex flex-column gap-4">
+
+                    <!-- Sync Configuration Card -->
+                    <div class="card border rounded-3 shadow-sm">
+                        <div class="card-header bg-white border-bottom p-4 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="material-symbols-outlined text-primary fs-3">sync_alt</span>
+                                    <h5 class="fw-bold text-dark mb-0">SMS Sync</h5>
+                                </div>
+                                <p class="text-secondary small mb-0">Configure data synchronization with your external School Management System.</p>
+                            </div>
+                            <div class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-2 fw-medium d-flex align-items-center gap-2">
+                                <span class="position-relative d-flex" style="width: 8px; height: 8px;">
+                                    <span class="animate-ping position-absolute w-100 h-100 rounded-circle bg-success opacity-75"></span>
+                                    <span class="position-relative rounded-circle bg-success w-100 h-100"></span>
+                                </span>
+                                Connected
+                            </div>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column gap-4">
+                            <!-- Toggle Item 1 -->
+                            <div class="d-flex align-items-center justify-content-between group">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="rounded-2 bg-primary-soft text-primary p-2 group-hover-bg-primary-soft-darker transition-colors">
+                                        <span class="material-symbols-outlined fs-5">school</span>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold text-dark mb-0 small">Sync Students Profile</h6>
+                                        <p class="text-secondary x-small mb-0">Update student registry, classes, and bio-data.</p>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input cursor-pointer" type="checkbox" role="switch" id="syncStudents" checked style="width: 2.5em; height: 1.25em;">
+                                </div>
+                            </div>
+                            <hr class="border-secondary opacity-10 my-0">
+                            <!-- Toggle Item 2 -->
+                            <div class="d-flex align-items-center justify-content-between group">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="rounded-2 bg-primary-soft text-primary p-2 group-hover-bg-primary-soft-darker transition-colors">
+                                        <span class="material-symbols-outlined fs-5">person_apron</span>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold text-dark mb-0 small">Sync Teachers Directory</h6>
+                                        <p class="text-secondary x-small mb-0">Update staff accounts and subject assignments.</p>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input cursor-pointer" type="checkbox" role="switch" id="syncTeachers" checked style="width: 2.5em; height: 1.25em;">
+                                </div>
+                            </div>
+                            <hr class="border-secondary opacity-10 my-0">
+                            <!-- Toggle Item 3 -->
+                            <div class="d-flex align-items-center justify-content-between group">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="rounded-2 bg-primary-soft text-primary p-2 group-hover-bg-primary-soft-darker transition-colors">
+                                        <span class="material-symbols-outlined fs-5">assignment_turned_in</span>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold text-dark mb-0 small">Push Assessment Results</h6>
+                                        <p class="text-secondary x-small mb-0">Automatically send graded exam scores to SMS gradebook.</p>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input cursor-pointer" type="checkbox" role="switch" id="syncResults" style="width: 2.5em; height: 1.25em;">
+                                </div>
+                            </div>
+
+                            <div class="bg-light bg-opacity-50 border rounded-3 p-3 mt-2 d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
+                                <div class="d-flex align-items-center gap-2 small text-secondary">
+                                    <span class="material-symbols-outlined fs-5">history</span>
+                                    Last synced: <span class="fw-medium text-dark">Oct 24, 2023 at 10:45 AM</span>
+                                </div>
+                                <button class="btn btn-primary btn-sm fw-medium shadow-sm d-flex align-items-center gap-2 px-3 hover-scale">
+                                    <span class="material-symbols-outlined fs-6">cached</span> Sync Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity Logs -->
+                    <div class="card border rounded-3 shadow-sm overflow-hidden">
+                        <div class="card-header bg-light bg-opacity-50 border-bottom px-4 py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="fw-bold text-dark mb-0 small">Recent Sync Activity</h6>
+                            <a href="#" class="text-primary text-decoration-none fw-medium x-small hover-underline">View Full Logs</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0 align-middle text-sm">
+                                <thead class="bg-light text-secondary text-uppercase x-small">
+                                    <tr>
+                                        <th class="px-4 py-3 fw-bold">Date & Time</th>
+                                        <th class="px-4 py-3 fw-bold">Entity Type</th>
+                                        <th class="px-4 py-3 fw-bold">Status</th>
+                                        <th class="px-4 py-3 fw-bold text-end">Records</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y">
+                                    <tr>
+                                        <td class="px-4 py-3 fw-medium text-dark">Oct 24, 2023 <span class="text-secondary fw-normal ms-1">10:45 AM</span></td>
+                                        <td class="px-4 py-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="material-symbols-outlined fs-6 text-secondary">school</span> Students
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3"><span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1"><span class="rounded-circle bg-success" style="width: 6px; height: 6px;"></span> Success</span></td>
+                                        <td class="px-4 py-3 text-end text-secondary">1,240 Updated</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 fw-medium text-dark">Oct 24, 2023 <span class="text-secondary fw-normal ms-1">10:45 AM</span></td>
+                                        <td class="px-4 py-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="material-symbols-outlined fs-6 text-secondary">person_apron</span> Teachers
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3"><span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1"><span class="rounded-circle bg-success" style="width: 6px; height: 6px;"></span> Success</span></td>
+                                        <td class="px-4 py-3 text-end text-secondary">85 Updated</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 fw-medium text-dark">Oct 23, 2023 <span class="text-secondary fw-normal ms-1">04:15 PM</span></td>
+                                        <td class="px-4 py-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="material-symbols-outlined fs-6 text-secondary">assignment_turned_in</span> Results
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3"><span class="badge bg-danger-subtle text-danger border border-danger-subtle d-inline-flex align-items-center gap-1"><span class="rounded-circle bg-danger" style="width: 6px; height: 6px;"></span> Failed</span></td>
+                                        <td class="px-4 py-3 text-end text-secondary">0 Updated</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 fw-medium text-dark">Oct 22, 2023 <span class="text-secondary fw-normal ms-1">09:00 AM</span></td>
+                                        <td class="px-4 py-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="material-symbols-outlined fs-6 text-secondary">school</span> Students
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3"><span class="badge bg-success-subtle text-success border border-success-subtle d-inline-flex align-items-center gap-1"><span class="rounded-circle bg-success" style="width: 6px; height: 6px;"></span> Success</span></td>
+                                        <td class="px-4 py-3 text-end text-secondary">12 Updated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column (Info) -->
+                <aside class="col-lg-4 d-flex flex-column gap-4">
+
+                    <!-- Provider Card -->
+                    <div class="card border rounded-3 shadow-sm">
+                        <div class="card-body p-4">
+                            <h6 class="text-secondary small fw-bold text-uppercase tracking-wider mb-4">Active Provider</h6>
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="rounded-3 bg-primary-subtle border border-primary-subtle p-3 d-flex align-items-center justify-content-center" style="width: 64px; height: 64px;">
+                                    <span class="material-symbols-outlined fs-1 text-primary">dns</span>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-0">EduConnect SMS</h5>
+                                    <small class="text-secondary">v2.4.0 (API)</small>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-3">
+                                <div class="d-flex justify-content-between align-items-center small">
+                                    <span class="text-secondary">API Status</span>
+                                    <span class="text-success fw-medium d-flex align-items-center gap-1"><span class="rounded-circle bg-success" style="width: 6px; height: 6px;"></span> Operational</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center small">
+                                    <span class="text-secondary">Rate Limit</span>
+                                    <span class="text-dark fw-medium">450/1000 req/hr</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center small">
+                                    <span class="text-secondary">Next Scheduled</span>
+                                    <span class="text-dark fw-medium">Today, 11:00 PM</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-top">
+                                <button class="btn btn-outline-primary bg-primary-soft border-primary-subtle text-primary fw-medium w-100 btn-sm hover-bg-primary-soft-darker">Configure Provider Settings</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Help Card -->
+                    <div class="card border border-primary border-opacity-10 bg-primary-soft rounded-3">
+                        <div class="card-body p-4 d-flex align-items-start gap-3">
+                            <span class="material-symbols-outlined text-primary fs-5 mt-1">help_outline</span>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">Need help syncing?</h6>
+                                <p class="text-secondary small mb-3 lh-sm">Check our documentation for step-by-step guides on how to resolve common synchronization errors.</p>
+                                <a href="#" class="small fw-bold text-primary text-decoration-none hover-underline">Read Documentation →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
