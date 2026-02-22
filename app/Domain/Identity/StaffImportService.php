@@ -11,7 +11,7 @@ use Ramsey\Uuid\Uuid;
 use Exception;
 use RuntimeException;
 
-class StudentImportService
+class StaffImportService
 {
     private Connection $db;
     private PasswordGenerator $passwordGenerator;
@@ -26,16 +26,10 @@ class StudentImportService
         $this->auditLogger = $auditLogger ?? new AuditLogger();
 
         $env = Environment::getInstance();
-        $this->loginFieldConfig = $env->get('AUTH_STUDENT_LOGIN_FIELD', 'email'); // default to email
+        $this->loginFieldConfig = $env->get('AUTH_STAFF_LOGIN_FIELD', 'email'); // default to email
         $this->emailResetEnabled = filter_var($env->get('AUTH_EMAIL_RESET_ENABLED', 'true'), FILTER_VALIDATE_BOOLEAN);
     }
 
-    /**
-     * Preview the CSV import.
-     *
-     * @param string $filePath
-     * @return array Validation report
-     */
     public function preview(string $filePath): array
     {
         if (!file_exists($filePath)) {
@@ -53,7 +47,6 @@ class StudentImportService
             throw new RuntimeException("Empty CSV file");
         }
 
-        // Normalize header
         $header = array_map('trim', $header);
         $header = array_map('strtolower', $header);
 
@@ -65,9 +58,8 @@ class StudentImportService
             'preview_data' => []
         ];
 
-        // For duplicate detection within file
         $seenEmails = [];
-        $seenAdmissions = [];
+        $seenStaffIds = [];
         $seenOAuthIds = [];
 
         $rowIndex = 0;
@@ -84,7 +76,7 @@ class StudentImportService
             $data = array_combine($header, $row);
             $errors = $this->validateRow($data, $rowIndex);
 
-            // Duplicate Detection (File Level)
+            // Duplicate Detection
             if (!empty($data['email'])) {
                 if (in_array($data['email'], $seenEmails)) {
                     $errors[] = "Row $rowIndex: Duplicate email in file ({$data['email']})";
@@ -92,11 +84,11 @@ class StudentImportService
                     $seenEmails[] = $data['email'];
                 }
             }
-            if (!empty($data['admission_number'])) {
-                if (in_array($data['admission_number'], $seenAdmissions)) {
-                     $errors[] = "Row $rowIndex: Duplicate admission number in file ({$data['admission_number']})";
+            if (!empty($data['staff_id'])) {
+                if (in_array($data['staff_id'], $seenStaffIds)) {
+                     $errors[] = "Row $rowIndex: Duplicate Staff ID in file ({$data['staff_id']})";
                 } else {
-                    $seenAdmissions[] = $data['admission_number'];
+                    $seenStaffIds[] = $data['staff_id'];
                 }
             }
             if (!empty($data['sms_oauth_id'])) {
@@ -107,9 +99,8 @@ class StudentImportService
                 }
             }
 
-            // Duplicate Detection (DB Level)
             if ($this->isDuplicate($data)) {
-                $errors[] = "Row $rowIndex: Student already exists in database";
+                $errors[] = "Row $rowIndex: Staff already exists in database";
             }
 
             if (!empty($errors)) {
@@ -128,13 +119,6 @@ class StudentImportService
         return $report;
     }
 
-    /**
-     * Commit the CSV import.
-     *
-     * @param string $filePath
-     * @param string|null $adminId
-     * @return array Import summary
-     */
     public function commit(string $filePath, ?string $adminId = null): array
     {
         if (!file_exists($filePath)) {
@@ -155,8 +139,7 @@ class StudentImportService
         $importLogId = Uuid::uuid4()->toString();
         $startTime = new \DateTimeImmutable();
 
-        // Log start
-        $this->auditLogger->log('import_started', null, $adminId, 1, ['type' => 'student', 'file' => basename($filePath)]);
+        $this->auditLogger->log('import_started', null, $adminId, 1, ['type' => 'staff', 'file' => basename($filePath)]);
 
         while (($row = fgetcsv($handle)) !== false) {
             if (count($row) !== count($header)) {
@@ -183,7 +166,11 @@ class StudentImportService
 
         fclose($handle);
 
-        // Log Import Record
+        // Ideally we should have staff_import_logs too, but we can reuse student_import_logs or create a generic one.
+        // The table is named 'student_import_logs'. I'll use it but maybe the name is misleading.
+        // For now, I'll use it as it's the only one available.
+        // Or I should rename it? No, schema change.
+        // I'll use it.
         $this->db->insert('student_import_logs', [
             'id' => $importLogId,
             'admin_id' => $adminId,
@@ -192,12 +179,11 @@ class StudentImportService
             'successful_rows' => $successful,
             'failed_rows' => $failed,
             'created_at' => $startTime->format('Y-m-d H:i:s'),
-            'metadata' => json_encode(['login_field' => $this->loginFieldConfig])
+            'metadata' => json_encode(['login_field' => $this->loginFieldConfig, 'type' => 'staff'])
         ]);
 
-        // Log completion
         $this->auditLogger->log('import_completed', null, $adminId, 1, [
-            'type' => 'student',
+            'type' => 'staff',
             'total' => $totalProcessed,
             'success' => $successful,
             'failed' => $failed
@@ -216,11 +202,9 @@ class StudentImportService
         $this->db->beginTransaction();
         $success = 0;
         $failed = 0;
-        $studentRoleId = $this->db->fetchOne("SELECT id FROM roles WHERE slug = 'student'") ?: null;
 
         try {
             foreach ($batch as $data) {
-                // Validate again
                 $errors = $this->validateRow($data, 0);
                 if (!empty($errors) || $this->isDuplicate($data)) {
                     $failed++;
@@ -232,31 +216,35 @@ class StudentImportService
                     $passwordPlain = $this->passwordGenerator->generate();
                     $passwordHash = password_hash($passwordPlain, PASSWORD_ARGON2ID);
 
-                    // Resolve Class ID
-                    $classId = null;
-                    if (!empty($data['class'])) {
-                        $classId = $this->resolveClassId($data['class']);
+                    // Resolve Role
+                    $roleSlug = strtolower($data['role'] ?? 'teacher');
+                    $roleId = $this->resolveRoleId($roleSlug);
+
+                    // Metadata
+                    $metadata = [];
+                    if (!empty($data['subjects'])) {
+                        $metadata['subjects'] = array_map('trim', explode(',', $data['subjects']));
+                    }
+                    if (!empty($data['department'])) {
+                        $metadata['department'] = $data['department'];
                     }
 
                     $this->db->insert('users', [
                         'id' => $userId,
                         'email' => $data['email'] ?? null,
-                        'admission_number' => $data['admission_number'] ?? null,
+                        'staff_id' => $data['staff_id'] ?? null,
                         'first_name' => $data['first_name'],
                         'last_name' => $data['last_name'],
                         'password' => $passwordHash,
                         'tenant_id' => 1,
-                        'class_id' => $classId,
-                        'role_id' => $studentRoleId,
+                        'role_id' => $roleId,
                         'import_log_id' => $importLogId,
                         'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s'),
                         'sms_oauth_id' => $data['sms_oauth_id'] ?? null,
-                        'academic_session' => $data['academic_session'] ?? null,
-                        'term' => $data['term'] ?? null,
+                        'metadata' => !empty($metadata) ? json_encode($metadata) : null,
                     ]);
 
-                    // Store Plaintext in Buffer
                     $this->db->insert('user_credentials_buffer', [
                         'user_id' => $userId,
                         'password_plaintext' => $passwordPlain,
@@ -292,7 +280,6 @@ class StudentImportService
             $errors[] = "Row $rowIndex: Last name is required";
         }
 
-        // Login Field Validation
         if ($this->loginFieldConfig === 'email' || $this->loginFieldConfig === 'both') {
             if (empty($data['email'])) {
                 $errors[] = "Row $rowIndex: Email is required";
@@ -301,9 +288,9 @@ class StudentImportService
             }
         }
 
-        if ($this->loginFieldConfig === 'admission_number' || $this->loginFieldConfig === 'both') {
-            if (empty($data['admission_number'])) {
-                $errors[] = "Row $rowIndex: Admission number is required";
+        if ($this->loginFieldConfig === 'staff_id' || $this->loginFieldConfig === 'both') {
+            if (empty($data['staff_id'])) {
+                $errors[] = "Row $rowIndex: Staff ID is required";
             }
         }
 
@@ -316,19 +303,16 @@ class StudentImportService
 
     private function isDuplicate(array $data): bool
     {
-        // Check Email
         if (!empty($data['email'])) {
             $exists = $this->db->fetchOne("SELECT 1 FROM users WHERE email = ?", [$data['email']]);
             if ($exists) return true;
         }
 
-        // Check Admission Number
-        if (!empty($data['admission_number'])) {
-            $exists = $this->db->fetchOne("SELECT 1 FROM users WHERE admission_number = ?", [$data['admission_number']]);
+        if (!empty($data['staff_id'])) {
+            $exists = $this->db->fetchOne("SELECT 1 FROM users WHERE staff_id = ?", [$data['staff_id']]);
             if ($exists) return true;
         }
 
-        // Check SMS OAuth ID
         if (!empty($data['sms_oauth_id'])) {
             $exists = $this->db->fetchOne("SELECT 1 FROM users WHERE sms_oauth_id = ?", [$data['sms_oauth_id']]);
             if ($exists) return true;
@@ -337,25 +321,27 @@ class StudentImportService
         return false;
     }
 
-    private function resolveClassId(string $className): string
+    private function resolveRoleId(string $slug): ?string
     {
-        // Try to find
-        $class = $this->db->fetchAssociative("SELECT id FROM classes WHERE name = ? AND tenant_id = 1", [$className]);
+        // Valid roles: teacher, examiner, admin, etc.
+        // Map common terms
+        $map = [
+            'staff' => 'teacher',
+            'tutor' => 'teacher',
+        ];
+        $slug = $map[$slug] ?? $slug;
 
-        if ($class) {
-            return $class['id'];
+        $roleId = $this->db->fetchOne("SELECT id FROM roles WHERE slug = ?", [$slug]);
+
+        if (!$roleId) {
+             // Fallback to teacher? or null?
+             // Prompt says "Map roles...". If undefined, maybe default to teacher?
+             // I'll try 'teacher' as default if not found.
+             if ($slug !== 'teacher') {
+                  $roleId = $this->db->fetchOne("SELECT id FROM roles WHERE slug = 'teacher'");
+             }
         }
 
-        // Create
-        $id = Uuid::uuid4()->toString();
-        $this->db->insert('classes', [
-            'id' => $id,
-            'name' => $className,
-            'tenant_id' => 1,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        return $id;
+        return $roleId ?: null;
     }
 }

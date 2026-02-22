@@ -6,20 +6,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Core\Http\ApiResponse;
 use App\Domain\Identity\StudentImportService;
+use App\Domain\Identity\StaffImportService;
 use App\Domain\Identity\CredentialExportService;
+use App\Domain\Identity\OAuthLinker;
 use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 class IdentityController
 {
-    private StudentImportService $importService;
+    private StudentImportService $studentImportService;
+    private StaffImportService $staffImportService;
     private CredentialExportService $exportService;
+    private OAuthLinker $oauthLinker;
 
     public function __construct()
     {
-        $this->importService = new StudentImportService();
+        $this->studentImportService = new StudentImportService();
+        $this->staffImportService = new StaffImportService();
         $this->exportService = new CredentialExportService();
+        $this->oauthLinker = new OAuthLinker();
     }
 
     private function getAdminId(): ?string
@@ -79,7 +85,10 @@ class IdentityController
                  return;
             }
 
-            $report = $this->importService->preview($file['tmp_name']);
+            $type = $_POST['type'] ?? 'student';
+            $service = ($type === 'staff') ? $this->staffImportService : $this->studentImportService;
+
+            $report = $service->preview($file['tmp_name']);
             $response = ApiResponse::json($report);
             $response->send();
         } catch (Exception $e) {
@@ -118,7 +127,10 @@ class IdentityController
                  return;
             }
 
-            $result = $this->importService->commit($file['tmp_name'], $adminId);
+            $type = $_POST['type'] ?? 'student';
+            $service = ($type === 'staff') ? $this->staffImportService : $this->studentImportService;
+
+            $result = $service->commit($file['tmp_name'], $adminId);
             $response = ApiResponse::json($result);
             $response->send();
         } catch (Exception $e) {
@@ -131,9 +143,12 @@ class IdentityController
     {
         try {
             $filters = [
+                'type' => $_GET['type'] ?? 'student',
                 'class_id' => $_GET['class_id'] ?? null,
                 'import_id' => $_GET['import_id'] ?? null,
-                'student_ids' => isset($_GET['student_ids']) ? explode(',', $_GET['student_ids']) : []
+                'student_ids' => isset($_GET['student_ids']) ? explode(',', $_GET['student_ids']) : [],
+                'role' => $_GET['role'] ?? null,
+                'department' => $_GET['department'] ?? null,
             ];
 
             $format = $_GET['format'] ?? 'csv';
@@ -158,6 +173,65 @@ class IdentityController
         } catch (Exception $e) {
              $response = ApiResponse::error($e->getMessage(), 500);
              $response->send();
+        }
+    }
+
+    public function linkOAuth(): void
+    {
+        try {
+            $adminId = $this->getAdminId();
+            if (!$adminId) {
+                $response = ApiResponse::error('Unauthorized', 401);
+                $response->send();
+                return;
+            }
+
+            $data = json_decode(file_get_contents('php://input'), true);
+            if (empty($data['user_id']) || empty($data['oauth_id'])) {
+                $response = ApiResponse::error('Missing user_id or oauth_id', 400);
+                $response->send();
+                return;
+            }
+
+            $this->oauthLinker->linkAccount(
+                $data['user_id'],
+                $data['oauth_id'],
+                $adminId,
+                $data['context'] ?? []
+            );
+
+            $response = ApiResponse::json(['message' => 'Linked successfully']);
+            $response->send();
+        } catch (Exception $e) {
+            $response = ApiResponse::error($e->getMessage(), 500);
+            $response->send();
+        }
+    }
+
+    public function unlinkOAuth(): void
+    {
+        try {
+            $adminId = $this->getAdminId();
+            if (!$adminId) {
+                $response = ApiResponse::error('Unauthorized', 401);
+                $response->send();
+                return;
+            }
+
+            $data = json_decode(file_get_contents('php://input'), true);
+            if (empty($data['user_id'])) {
+                $response = ApiResponse::error('Missing user_id', 400);
+                $response->send();
+                return;
+            }
+
+            $this->oauthLinker->unlinkAccount($data['user_id'], $adminId);
+
+            $response = ApiResponse::json(['message' => 'Unlinked successfully']);
+            $response->send();
+        } catch (Exception $e) {
+            $response = ApiResponse::error($e->getMessage(), 500);
+            $response->send();
         }
     }
 }
