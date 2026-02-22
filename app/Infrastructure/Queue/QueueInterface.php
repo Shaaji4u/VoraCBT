@@ -7,5 +7,5 @@ namespace App\Infrastructure\Queue;
 interface QueueInterface
 {
     public function push(string $jobClass, array $data = []): string;
-    public function pop(): ?object; // Should return a JobInterface really
+    public function pop(): ?JobInterface;
 }
