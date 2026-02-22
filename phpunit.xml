@@ -14,6 +14,12 @@
         <testsuite name="Grading Suite">
             <directory suffix="Test.php">./tests/Domain/Grading</directory>
         </testsuite>
+        <testsuite name="Monitoring Suite">
+            <directory suffix="Test.php">./tests/Domain/Monitoring</directory>
+        </testsuite>
+        <testsuite name="HTTP Suite">
+            <directory suffix="Test.php">./tests/Http</directory>
+        </testsuite>
     </testsuites>
     <php>
         <env name="APP_ENV" value="testing"/>

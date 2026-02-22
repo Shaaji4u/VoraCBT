@@ -27,3 +27,11 @@
 
 ## VPS method
 - Automated backup script + optional offsite sync (`aws s3 sync` or compatible).
+
+## Pre-open exam snapshot backups
+- On lifecycle transition to `open`, the platform now writes an immutable JSON snapshot of:
+  - `exam_templates` row
+  - all `exam_sections`
+  - mapped `exam_questions` and question payloads
+- Snapshots are stored under `storage/app/exam_snapshots/` and indexed in `exam_snapshot_backups` with SHA-256 hash.
+- If snapshot creation fails, transition to `open` must be rejected.

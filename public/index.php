@@ -34,6 +34,9 @@ if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
+use App\Http\Middleware\RateLimitMiddleware;
+use App\Infrastructure\Cache\FileCache;
+use App\Core\Http\Response;
 
 // Define route collector callback
 $dispatcher = simpleDispatcher(function(RouteCollector $r) {
@@ -67,6 +70,25 @@ if (strpos($uri, '/api') === 0) {
     header('Content-Type: application/json');
 } else {
     header('Content-Type: text/html; charset=utf-8');
+}
+
+// Global API rate limiting for live exam stability.
+if (strpos($uri, '/api') === 0) {
+    $rateLimit = (int) ($_ENV['API_RATE_LIMIT'] ?? 120);
+    $rateWindow = (int) ($_ENV['API_RATE_LIMIT_WINDOW'] ?? 60);
+
+    $middleware = new RateLimitMiddleware(new FileCache(__DIR__ . '/../storage/cache'), $rateLimit, $rateWindow);
+
+    $request = [
+        'ip' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
+        'headers' => function_exists('getallheaders') ? getallheaders() : [],
+    ];
+
+    $result = $middleware->handle($request, static fn(array $req) => true);
+    if ($result instanceof Response) {
+        $result->send();
+        exit;
+    }
 }
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);

@@ -34,10 +34,12 @@ class ExamTemplateService extends BaseService
     ];
 
     private Connection $db;
+    private ExamSnapshotService $snapshotService;
 
     public function __construct()
     {
         $this->db = DatabaseManager::getConnection();
+        $this->snapshotService = new ExamSnapshotService($this->db);
     }
 
     public function createTemplate(array $data): string
@@ -130,6 +132,11 @@ class ExamTemplateService extends BaseService
             'state_changed_by' => $changedBy,
             'updated_at' => $now,
         ];
+
+        if ($toState === 'open') {
+            // Mandatory pre-open immutable snapshot for disaster recovery.
+            $this->snapshotService->createSnapshot($id, $changedBy);
+        }
 
         if ($toState === 'archived') {
             $updateData['archived_at'] = $now;
