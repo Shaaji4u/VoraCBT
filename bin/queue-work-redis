@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+// Placeholder worker entrypoint for VPS supervisor usage.
+// Integrate with the platform's queue runner when available.
+
+$options = getopt('', ['queue::', 'sleep::', 'tries::', 'memory::']);
+$queue = $options['queue'] ?? 'default';
+$sleep = $options['sleep'] ?? '1';
+$tries = $options['tries'] ?? '3';
+$memory = $options['memory'] ?? '512';
+
+echo sprintf(
+    "queue-work-redis stub invoked (queue=%s, sleep=%ss, tries=%s, memory=%sMB)\n",
+    $queue,
+    $sleep,
+    $tries,
+    $memory
+);
