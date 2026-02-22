@@ -7,6 +7,9 @@ namespace Tests\Domain\Exam;
 use App\Domain\Exam\Service\ExamSessionService;
 use App\Domain\Exam\Service\RandomizationService;
 use App\Domain\Exam\Service\TimerService;
+use App\Domain\Proctoring\Service\ProctoringService;
+use App\Domain\Proctoring\Service\SessionIntegrityService;
+use App\Core\Service\RateLimitService;
 use App\Core\Database\Migration\MigrationRunner;
 use App\Core\Database\DatabaseManager;
 use App\Infrastructure\Queue\QueueInterface;
@@ -23,10 +26,8 @@ class ExamSessionServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        ob_start();
         $runner = new MigrationRunner();
         $runner->migrate();
-        ob_end_clean();
 
         $this->db = DatabaseManager::getConnection();
         $this->truncateTables();
@@ -36,8 +37,22 @@ class ExamSessionServiceTest extends TestCase
         $randomizationService = new RandomizationService();
         $timerService = new TimerService();
         $queue = $this->createMock(QueueInterface::class);
+        $proctoringService = $this->createMock(ProctoringService::class);
+        $proctoringService->method('startProctoringSession')->willReturn('test-token');
+        $proctoringService->method('getSessionToken')->willReturn('test-token');
 
-        $this->sessionService = new ExamSessionService($randomizationService, $timerService, $queue);
+        $integrityService = $this->createMock(SessionIntegrityService::class);
+        $rateLimitService = $this->createMock(RateLimitService::class);
+        $rateLimitService->method('check')->willReturn(true);
+
+        $this->sessionService = new ExamSessionService(
+            $randomizationService,
+            $timerService,
+            $queue,
+            $proctoringService,
+            $integrityService,
+            $rateLimitService
+        );
     }
 
     private function truncateTables(): void
@@ -88,7 +103,8 @@ class ExamSessionServiceTest extends TestCase
             'weight' => 1
         ]);
 
-        $sessionId = $this->sessionService->startSession($templateId, 'user-1');
+        $session = $this->sessionService->startSession($templateId, 'user-1');
+        $sessionId = $session['id'];
 
         // 2. Start Section First Time
         $this->sessionService->startSection($sessionId, $sectionId);
@@ -135,7 +151,8 @@ class ExamSessionServiceTest extends TestCase
             'title' => 'S1'
         ]);
 
-        $sessionId = $this->sessionService->startSession($templateId, 'user-1');
+        $session = $this->sessionService->startSession($templateId, 'user-1');
+        $sessionId = $session['id'];
 
         // 2. Start and Complete section using service
         $this->sessionService->startSection($sessionId, $sectionId1);
