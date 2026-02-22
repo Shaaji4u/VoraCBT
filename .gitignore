@@ -1,0 +1,14 @@
+.env
+vendor/
+storage/logs/*
+!storage/logs/.gitkeep
+storage/cache/*
+!storage/cache/.gitkeep
+storage/uploads/*
+!storage/uploads/.gitkeep
+storage/app/*
+!storage/app/.gitkeep
+composer.lock
+.idea/
+.vscode/
+.DS_Store
