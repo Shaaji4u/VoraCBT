@@ -2,123 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBT Admin Overview Dashboard</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/tokens.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT Admin Overview Dashboard</title>
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="/css/tokens.css" rel="stylesheet">
+<link href="/css/custom.css" rel="stylesheet">
 </head>
 <body class="font-display bg-body text-body overflow-hidden">
-
     <div class="d-flex vh-100 overflow-hidden bg-body">
-
-        <!-- Sidebar -->
         <aside class="offcanvas-md offcanvas-start border-end bg-surface h-100 overflow-y-auto flex-column" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel" style="width: 280px;">
 
-            <div class="offcanvas-header d-md-none border-bottom">
-                <h5 class="offcanvas-title fw-bold text-body" id="sidebarMenuLabel">Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
-            </div>
+    <div class="offcanvas-header d-md-none border-bottom">
+        <h5 class="offcanvas-title fw-bold text-body" id="sidebarMenuLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+    </div>
 
-            <div class="d-flex flex-column justify-content-between h-100 p-3">
-                <div class="d-flex flex-column gap-4">
-                    <!-- Logo Area -->
-                    <div class="d-flex align-items-center gap-3 px-2 mt-2">
-                        <div class="d-flex align-items-center justify-content-center rounded bg-primary text-white" style="width: 40px; height: 40px;">
-                            <span class="material-symbols-outlined fs-4">school</span>
-                        </div>
-                        <div class="d-flex flex-column lh-1">
-                            <h6 class="mb-0 fw-bold text-body">EduTest Pro</h6>
-                            <small class="text-secondary" style="font-size: 0.75rem;">Enterprise Admin</small>
-                        </div>
-                    </div>
-
-                    <!-- Navigation -->
-                    <nav class="nav flex-column gap-1">
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 bg-primary-soft text-primary fw-medium">
-                        <span class="material-symbols-outlined fs-5">dashboard</span> Overview
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
-                        <span class="material-symbols-outlined fs-5">quiz</span> Questions
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
-                        <span class="material-symbols-outlined fs-5">assignment</span> Exams
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
-                        <span class="material-symbols-outlined fs-5">groups</span> Students
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
-                        <span class="material-symbols-outlined fs-5">grade</span> Grading
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
-                        <span class="material-symbols-outlined fs-5">settings</span> Settings
-                    </a>
-                </nav>
-            </div>
-
-                <!-- Bottom Action -->
-                <div class="d-flex flex-column gap-1 border-top pt-3">
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
-                        <span class="material-symbols-outlined fs-5">help</span> Help & Support
-                    </a>
-                    <button class="btn btn-link text-decoration-none nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-danger hover-bg-danger-soft transition-colors w-100 text-start">
-                        <span class="material-symbols-outlined fs-5">logout</span> Log Out
-                    </button>
+    <div class="d-flex flex-column justify-content-between h-100 p-3">
+        <div class="d-flex flex-column gap-4">
+            <!-- Logo Area -->
+            <div class="d-flex align-items-center gap-3 px-2 mt-2">
+                <div class="d-flex align-items-center justify-content-center rounded bg-primary text-white" style="width: 40px; height: 40px;">
+                    <span class="material-symbols-outlined fs-4">school</span>
+                </div>
+                <div class="d-flex flex-column lh-1">
+                    <h6 class="mb-0 fw-bold text-body">EduTest Pro</h6>
+                    <small class="text-secondary" style="font-size: 0.75rem;">Enterprise Admin</small>
                 </div>
             </div>
-        </aside>
 
-        <!-- Main Content Wrapper -->
+            <!-- Navigation -->
+            <nav class="nav flex-column gap-1">
+                <a href="/admin/dashboard" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 bg-primary-soft text-primary fw-medium">
+                    <span class="material-symbols-outlined fs-5">dashboard</span> Overview
+                </a>
+                <a href="/teacher/questions" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">quiz</span> Questions
+                </a>
+                <a href="/admin/exams" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">assignment</span> Exams
+                </a>
+                <a href="/admin/students" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">groups</span> Students
+                </a>
+                <a href="/teacher/grading" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">grade</span> Grading
+                </a>
+                <a href="/admin/settings" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                    <span class="material-symbols-outlined fs-5">settings</span> Settings
+                </a>
+            </nav>
+        </div>
+
+        <!-- Bottom Action -->
+        <div class="d-flex flex-column gap-1 border-top pt-3">
+            <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                <span class="material-symbols-outlined fs-5">help</span> Help & Support
+            </a>
+            <button class="btn btn-link text-decoration-none nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-danger hover-bg-danger-soft transition-colors w-100 text-start">
+                <span class="material-symbols-outlined fs-5">logout</span> Log Out
+            </button>
+        </div>
+    </div>
+</aside>
         <main class="d-flex flex-column flex-grow-1 overflow-hidden position-relative">
-
-            <!-- Top Bar -->
             <header class="navbar navbar-expand bg-surface border-bottom px-4 py-2" style="height: 64px;">
-                <div class="d-flex align-items-center gap-3 w-100">
-                    <button class="btn btn-link text-secondary d-md-none p-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
-                        <span class="material-symbols-outlined fs-3">menu</span>
-                    </button>
+    <div class="d-flex align-items-center gap-3 w-100">
+        <button class="btn btn-link text-secondary d-md-none p-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+            <span class="material-symbols-outlined fs-3">menu</span>
+        </button>
 
-                    <nav aria-label="breadcrumb" class="d-none d-sm-block">
-                        <ol class="breadcrumb mb-0 small fw-medium">
-                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-secondary hover-text-primary">Home</a></li>
-                            <li class="breadcrumb-item active text-body" aria-current="page">Dashboard</li>
-                        </ol>
-                    </nav>
+        <nav aria-label="breadcrumb" class="d-none d-sm-block">
+            <ol class="breadcrumb mb-0 small fw-medium">
+                <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-secondary hover-text-primary">Home</a></li>
+                <li class="breadcrumb-item active text-body" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
 
-                    <div class="ms-auto d-flex align-items-center gap-4">
-                        <!-- Search -->
-                        <div class="position-relative d-none d-lg-block" style="width: 320px;">
-                            <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fs-5">search</span>
-                            <input type="text" class="form-control bg-body-secondary border-0 ps-5 rounded-3" placeholder="Search exams, students...">
-                        </div>
+        <div class="ms-auto d-flex align-items-center gap-4">
+            <!-- Search -->
+            <div class="position-relative d-none d-lg-block" style="width: 320px;">
+                <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fs-5">search</span>
+                <input type="text" class="form-control bg-body-secondary border-0 ps-5 rounded-3" placeholder="Search exams, students...">
+            </div>
 
-                        <!-- Notification -->
-                        <button class="btn btn-light btn-sm rounded-circle p-2 position-relative text-secondary hover-text-dark">
-                            <span class="material-symbols-outlined fs-5">notifications</span>
-                            <span class="position-absolute top-0 end-0 m-2 p-1 bg-danger border border-white rounded-circle"></span>
-                        </button>
+            <!-- Notification -->
+            <button class="btn btn-light btn-sm rounded-circle p-2 position-relative text-secondary hover-text-dark">
+                <span class="material-symbols-outlined fs-5">notifications</span>
+                <span class="position-absolute top-0 end-0 m-2 p-1 bg-danger border border-white rounded-circle"></span>
+            </button>
 
-                        <!-- User Profile -->
-                        <div class="d-flex align-items-center gap-3 ps-3 border-start">
-                            <div class="text-end d-none d-sm-block lh-sm">
-                                <p class="mb-0 small fw-bold text-body">Admin User</p>
-                                <span class="text-secondary x-small" style="font-size: 0.7rem;">Head Teacher</span>
-                            </div>
-                            <div class="avatar-circle border border-2 border-white shadow-sm" style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCJKcUpb8cVxs1PUT7YOH5R1P99ZYKlmwGuTtUyBC6-JP5SOyGyvDOIoBpLq5sWi2tncKQeZJyxRiJZUe9IzPjtrfOJgTQp8FkuFZ2l4a3cPNPthvxIK2ELurJitvhAXEA92h5mVuSP1bgM7qOBfXGBbeyWEcmiYGtWeCIhqRx7GbX9g5xiyo_mA8wKZxDOgje9Lnd-MUxQQaBKFkk4mE1FlA96dJnFUWBJuRyjrqEQlTxf2xLWzGnBeCS6XoKvT5sIJAxUjQbhzcY');"></div>
-                        </div>
-                    </div>
+            <!-- User Profile -->
+            <div class="d-flex align-items-center gap-3 ps-3 border-start">
+                <div class="text-end d-none d-sm-block lh-sm">
+                    <p class="mb-0 small fw-bold text-body">Admin User</p>
+                    <span class="text-secondary x-small" style="font-size: 0.7rem;">Head Teacher</span>
                 </div>
-            </header>
-
-            <!-- Scrollable Content -->
+                <div class="avatar-circle border border-2 border-white shadow-sm" style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCJKcUpb8cVxs1PUT7YOH5R1P99ZYKlmwGuTtUyBC6-JP5SOyGyvDOIoBpLq5sWi2tncKQeZJyxRiJZUe9IzPjtrfOJgTQp8FkuFZ2l4a3cPNPthvxIK2ELurJitvhAXEA92h5mVuSP1bgM7qOBfXGBbeyWEcmiYGtWeCIhqRx7GbX9g5xiyo_mA8wKZxDOgje9Lnd-MUxQQaBKFkk4mE1FlA96dJnFUWBJuRyjrqEQlTxf2xLWzGnBeCS6XoKvT5sIJAxUjQbhzcY');"></div>
+            </div>
+        </div>
+    </div>
+</header>
             <div class="flex-grow-1 overflow-auto p-4 p-lg-5 scroll-smooth">
                 <div class="container-xl px-0 d-flex flex-column gap-5">
-
-                    <!-- Welcome Section -->
+                                        <!-- Welcome Section -->
                     <div>
                         <h2 class="h3 fw-bold text-body mb-1 tracking-tight">Overview</h2>
                         <p class="text-secondary mb-0">Here's what's happening in your school today.</p>
@@ -323,23 +313,19 @@
                             </div>
                         </div>
                     </div>
-
+                    <footer class="mt-5 pt-4 border-top d-flex justify-content-between align-items-center text-secondary x-small">
+    <p class="mb-0">© 2026 EduTest Pro Enterprise Platform. All rights reserved.</p>
+    <div class="d-flex gap-3">
+        <a href="#" class="text-decoration-none text-secondary hover-text-primary">Privacy Policy</a>
+        <a href="#" class="text-decoration-none text-secondary hover-text-primary">Terms of Service</a>
+    </div>
+</footer>
                 </div>
-
-                <!-- Footer -->
-                <footer class="mt-5 pt-4 border-top d-flex justify-content-between align-items-center text-secondary x-small">
-                    <p class="mb-0">© 2024 EduTest Pro Enterprise Platform. All rights reserved.</p>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-decoration-none text-secondary hover-text-primary">Privacy Policy</a>
-                        <a href="#" class="text-decoration-none text-secondary hover-text-primary">Terms of Service</a>
-                    </div>
-                </footer>
-
             </div>
         </main>
     </div>
-
     <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- Custom Scripts -->
+    </body>
 </html>

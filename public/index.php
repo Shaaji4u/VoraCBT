@@ -31,8 +31,6 @@ if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
 }
 
 // 4. Routing Dispatch
-header('Content-Type: application/json');
-
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
@@ -40,9 +38,17 @@ use function FastRoute\simpleDispatcher;
 // Define route collector callback
 $dispatcher = simpleDispatcher(function(RouteCollector $r) {
     // Load routes from routes/api.php
-    $routeDefinition = require __DIR__ . '/../routes/api.php';
-    if (is_callable($routeDefinition)) {
-        $routeDefinition($r);
+    $apiRoutes = require __DIR__ . '/../routes/api.php';
+    if (is_callable($apiRoutes)) {
+        $apiRoutes($r);
+    }
+
+    // Load routes from routes/web.php
+    if (file_exists(__DIR__ . '/../routes/web.php')) {
+        $webRoutes = require __DIR__ . '/../routes/web.php';
+        if (is_callable($webRoutes)) {
+            $webRoutes($r);
+        }
     }
 });
 
@@ -56,17 +62,32 @@ if (false !== $pos = strpos($uri, '?')) {
 }
 $uri = rawurldecode($uri);
 
+// Set default content type based on URI prefix
+if (strpos($uri, '/api') === 0) {
+    header('Content-Type: application/json');
+} else {
+    header('Content-Type: text/html; charset=utf-8');
+}
+
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
 switch ($routeInfo[0]) {
     case Dispatcher::NOT_FOUND:
         http_response_code(404);
-        echo json_encode(['error' => 'Not Found']);
+        if (strpos($uri, '/api') === 0) {
+            echo json_encode(['error' => 'Not Found']);
+        } else {
+            echo "<h1>404 Not Found</h1>";
+        }
         break;
     case Dispatcher::METHOD_NOT_ALLOWED:
         $allowedMethods = $routeInfo[1];
         http_response_code(405);
-        echo json_encode(['error' => 'Method Not Allowed', 'allowed' => $allowedMethods]);
+        if (strpos($uri, '/api') === 0) {
+            echo json_encode(['error' => 'Method Not Allowed', 'allowed' => $allowedMethods]);
+        } else {
+             echo "<h1>405 Method Not Allowed</h1>";
+        }
         break;
     case Dispatcher::FOUND:
         $handler = $routeInfo[1];

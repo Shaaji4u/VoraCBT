@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBT Platform Login Screen</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/tokens.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-</head>
-<body class="bg-body text-body min-vh-100 d-flex flex-column theme-login font-display">
-
+<?php
+$title = "CBT Platform Login Screen";
+ob_start();
+?>
     <!-- Top Navigation Bar -->
     <header class="navbar navbar-expand fixed-top border-bottom border-primary border-opacity-10 bg-surface bg-opacity-75 backdrop-blur-md px-4 py-2">
         <div class="container-xl d-flex justify-content-between align-items-center h-100">
@@ -182,8 +170,7 @@
             </div>
         </div>
     </footer>
-
-    <!-- Bootstrap Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php
+$content = ob_get_clean();
+include __DIR__ . '/../layouts/auth.php';
+?>

@@ -1,72 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Performance Analytics</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/tokens.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-</head>
-<body class="bg-body text-body font-display d-flex vh-100 overflow-hidden">
-
-    <!-- Sidebar -->
-    <aside class="d-none d-md-flex flex-column border-end bg-surface h-100 flex-shrink-0" style="width: 260px;">
-        <div class="d-flex align-items-center gap-3 px-4 h-16 border-bottom" style="height: 64px;">
-            <div class="rounded-circle bg-primary-soft text-primary d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
-                <span class="material-symbols-outlined fs-5">school</span>
-            </div>
-            <div class="lh-1">
-                <h6 class="mb-0 fw-bold text-body small">CBT Enterprise</h6>
-                <small class="text-secondary" style="font-size: 0.7rem;">Admin Console</small>
-            </div>
-        </div>
-
-        <nav class="flex-grow-1 overflow-auto p-3 d-flex flex-column gap-1">
-            <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-body hover-text-primary transition-colors group">
-                <span class="material-symbols-outlined fs-5 text-secondary group-hover-text-primary">dashboard</span>
-                <span class="small fw-medium">Dashboard</span>
-            </a>
-            <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 bg-primary-soft text-primary transition-colors group">
-                <span class="material-symbols-outlined fs-5 text-primary">description</span>
-                <span class="small fw-medium">Exams</span>
-            </a>
-            <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-body hover-text-primary transition-colors group">
-                <span class="material-symbols-outlined fs-5 text-secondary group-hover-text-primary">group</span>
-                <span class="small fw-medium">Students</span>
-            </a>
-            <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-body hover-text-primary transition-colors group">
-                <span class="material-symbols-outlined fs-5 text-secondary group-hover-text-primary">bar_chart</span>
-                <span class="small fw-medium">Reports</span>
-            </a>
-
-            <div class="mt-4 pt-4 border-top">
-                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-body hover-text-primary transition-colors group">
-                    <span class="material-symbols-outlined fs-5 text-secondary group-hover-text-primary">settings</span>
-                    <span class="small fw-medium">Settings</span>
-                </a>
-            </div>
-        </nav>
-
-        <div class="p-3 border-top">
-            <div class="d-flex align-items-center gap-3">
-                <div class="avatar-circle bg-secondary bg-opacity-25" style="width: 32px; height: 32px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9ekBh1V2YB6E24eoh0mI3nCmqNXLQFbUAwbfYbFs4Pb6v9kooFFZkdd1yIBJnSPV-KysvmKLuHSrJb1XafeuzMv0JUYYW7BvwD2paWv60qegJJuPcfPcoBYT435tJToMRSeDElXyJonEnE-HRSXIFas95WB6TXUS4n4fZrv115b_VH3PaHWUf3PbrHB_tJXcAijuA1G5MKqXUt9enQdP57ib6ZUr_2BVtSjJWoyibeguLvOEB4sZ6IpkwOpt5D1-_PovKxKT7t5I');"></div>
-                <div class="lh-1">
-                    <p class="mb-0 small fw-bold text-body">Alex Morgan</p>
-                    <small class="text-secondary" style="font-size: 0.7rem;">Instructor</small>
-                </div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-grow-1 overflow-auto bg-body">
-        <div class="container-xl py-4 px-4 px-sm-5">
-
+<?php
+$title = "Exam Performance Analytics";
+$breadcrumb = "Exams";
+ob_start();
+?>
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb small">
@@ -383,11 +319,7 @@
                     </nav>
                 </div>
             </div>
-
-        </div>
-    </main>
-
-    <!-- Bootstrap Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php
+$content = ob_get_clean();
+include __DIR__ . '/../layouts/app.php';
+?>
