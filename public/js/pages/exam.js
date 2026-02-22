@@ -19,23 +19,18 @@ class ExamController {
 
     getExamIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
-        return params.get('id') || 'sample-exam-id';
+        return params.get('id');
     }
 
     async init() {
         try {
-            // Mock Data for demonstration if API fails or for development
-            // In production, this would strictly come from API
-            let examData;
-            try {
-                examData = await this.api.get(`/student/exams/${this.examId}`);
-            } catch (e) {
-                console.warn('API fetch failed, using mock data for demo');
-                examData = this.getMockExamData();
+            if (!this.examId) {
+                throw new Error('Missing exam session identifier.');
             }
 
+            const examData = await this.api.get(`/student/exams/${this.examId}`);
             if (!examData) {
-                examData = this.getMockExamData();
+                throw new Error('Exam data could not be loaded.');
             }
 
             this.examData = examData;
@@ -160,7 +155,7 @@ class ExamController {
         // Auto-save logic (debounced ideally, but here simple async call)
         console.log(`Saving answer for ${questionId}: ${answer}`);
         try {
-            // await this.api.post(`/student/exams/${this.examId}/answers`, { question_id: questionId, answer });
+            await this.api.post(`/student/exams/${this.examId}/answers`, { question_id: questionId, answer });
         } catch (e) {
             console.error('Auto-save failed', e);
         }
@@ -178,8 +173,7 @@ class ExamController {
     async submitExam(isAuto = false) {
         try {
             console.log('Submitting exam...', this.answers);
-            // await this.api.post(`/student/exams/${this.examId}/submit`, { answers: this.answers, is_auto: isAuto });
-            alert('Exam Submitted Successfully!');
+            await this.api.post(`/student/exams/${this.examId}/submit`, { answers: this.answers, is_auto: isAuto });
             window.location.href = '/student/dashboard';
         } catch (e) {
             console.error('Submission failed', e);
@@ -237,65 +231,6 @@ class ExamController {
         document.getElementById('exam-progress').setAttribute('aria-valuenow', pct);
     }
 
-    getMockExamData() {
-        return {
-            id: 'mock-1',
-            title: 'Mock Exam: History & Physics',
-            duration_seconds: 3600,
-            sections: [
-                {
-                    id: 's1',
-                    title: 'Section 1: Physics',
-                    questions: [
-                        {
-                            id: 'q1',
-                            type: 'multiple_choice',
-                            content: 'What is the speed of light?',
-                            options: [
-                                { id: 'opt1', text: '300,000 km/s', value: 'a' },
-                                { id: 'opt2', text: '150,000 km/s', value: 'b' },
-                                { id: 'opt3', text: 'Instantaneous', value: 'c' }
-                            ],
-                            media_url: null
-                        }
-                    ]
-                },
-                {
-                    id: 's2',
-                    title: 'Section 2: History (Essay)',
-                    questions: [
-                        {
-                            id: 'q2',
-                            type: 'essay',
-                            content: 'Discuss the impact of the Industrial Revolution.',
-                            min_words: 50
-                        }
-                    ]
-                },
-                {
-                    id: 's3',
-                    title: 'Section 3: General Knowledge',
-                    questions: [
-                        {
-                            id: 'q3',
-                            type: 'fill_in_the_blank',
-                            content: 'The capital of France is ______.',
-                        },
-                        {
-                            id: 'q4',
-                            type: 'multiple_choice',
-                            content: 'Who painted the Mona Lisa?',
-                            options: [
-                                { id: 'opt1', text: 'Van Gogh', value: 'a' },
-                                { id: 'opt2', text: 'Da Vinci', value: 'b' },
-                                { id: 'opt3', text: 'Picasso', value: 'c' }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        };
-    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

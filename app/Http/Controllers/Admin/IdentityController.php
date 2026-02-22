@@ -30,6 +30,11 @@ class IdentityController
 
     private function getAdminId(): ?string
     {
+        $jwtSecret = $_ENV['JWT_SECRET'] ?? '';
+        if ($jwtSecret === '') {
+            return null;
+        }
+
         if (function_exists('getallheaders')) {
             $headers = getallheaders();
         } else {
@@ -49,7 +54,7 @@ class IdentityController
 
         $jwt = $matches[1];
         try {
-            $decoded = JWT::decode($jwt, new Key($_ENV['JWT_SECRET'] ?? 'secret', 'HS256'));
+            $decoded = JWT::decode($jwt, new Key($jwtSecret, 'HS256'));
         } catch (Exception $e) {
             return null;
         }

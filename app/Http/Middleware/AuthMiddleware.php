@@ -9,14 +9,20 @@ use App\Core\Http\ApiResponse;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Exception;
+use RuntimeException;
 
 class AuthMiddleware implements MiddlewareInterface
 {
     private string $secretKey;
 
-    public function __construct(string $secretKey = 'secret')
+    public function __construct(?string $secretKey = null)
     {
-        $this->secretKey = $secretKey;
+        $resolved = $secretKey ?? ($_ENV['JWT_SECRET'] ?? '');
+        if ($resolved === '') {
+            throw new RuntimeException('JWT_SECRET is not configured.');
+        }
+
+        $this->secretKey = $resolved;
     }
 
     public function handle(array $request, callable $next): mixed

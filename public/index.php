@@ -20,6 +20,25 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->safeLoad();
 
+if (!function_exists('envRequired')) {
+    function envRequired(array $keys): void
+    {
+        foreach ($keys as $key) {
+            if (($_ENV[$key] ?? '') === '') {
+                http_response_code(500);
+                header('Content-Type: application/json');
+                echo json_encode(['error' => sprintf('Missing required environment variable: %s', $key)]);
+                exit;
+            }
+        }
+    }
+}
+
+if (($_ENV['APP_ENV'] ?? 'production') === 'production') {
+    envRequired(['JWT_SECRET']);
+}
+
+
 // 3. Set Error Reporting
 if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
     ini_set('display_errors', '1');
@@ -72,6 +91,11 @@ if (strpos($uri, '/api') === 0) {
     header('Content-Type: text/html; charset=utf-8');
 }
 
+header('X-Frame-Options: DENY');
+header('X-Content-Type-Options: nosniff');
+header('Referrer-Policy: no-referrer');
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self';");
+
 // Global API rate limiting for live exam stability.
 if (strpos($uri, '/api') === 0) {
     $rateLimit = (int) ($_ENV['API_RATE_LIMIT'] ?? 120);
@@ -115,13 +139,37 @@ switch ($routeInfo[0]) {
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
 
-        // Handle Closure
-        if ($handler instanceof Closure) {
-            call_user_func_array($handler, $vars);
-        } else {
-             // Handle Controller@method or array
-             // This is a simplified dispatcher logic for the skeleton
-             echo json_encode(['handler' => 'controller_dispatch_placeholder', 'vars' => $vars]);
+        try {
+            if ($handler instanceof Closure) {
+                call_user_func_array($handler, $vars);
+                break;
+            }
+
+            if (is_array($handler) && count($handler) === 2 && is_string($handler[0]) && is_string($handler[1])) {
+                [$controller, $method] = $handler;
+                if (!class_exists($controller) || !method_exists($controller, $method)) {
+                    throw new RuntimeException('Route handler is not callable.');
+                }
+                $instance = new $controller();
+                call_user_func_array([$instance, $method], $vars);
+                break;
+            }
+
+            if (is_string($handler) && str_contains($handler, '@')) {
+                [$controller, $method] = explode('@', $handler, 2);
+                if (!class_exists($controller) || !method_exists($controller, $method)) {
+                    throw new RuntimeException('Route handler is not callable.');
+                }
+                $instance = new $controller();
+                call_user_func_array([$instance, $method], $vars);
+                break;
+            }
+
+            throw new RuntimeException('Unsupported route handler format.');
+        } catch (Throwable $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Internal Server Error']);
         }
         break;
 }
+
