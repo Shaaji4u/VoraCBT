@@ -7,6 +7,9 @@ namespace App\Domain\Exam\Service;
 use App\Core\Service\BaseService;
 use App\Core\Database\DatabaseManager;
 use App\Infrastructure\Queue\QueueInterface;
+use App\Domain\Proctoring\Service\ProctoringService;
+use App\Domain\Proctoring\Service\SessionIntegrityService;
+use App\Core\Service\RateLimitService;
 use Doctrine\DBAL\Connection;
 use Ramsey\Uuid\Uuid;
 use DateTime;
@@ -18,20 +21,35 @@ class ExamSessionService extends BaseService
     private RandomizationService $randomizationService;
     private TimerService $timerService;
     private QueueInterface $queue;
+    private ProctoringService $proctoringService;
+    private SessionIntegrityService $integrityService;
+    private RateLimitService $rateLimitService;
 
     public function __construct(
         RandomizationService $randomizationService,
         TimerService $timerService,
-        QueueInterface $queue
+        QueueInterface $queue,
+        ProctoringService $proctoringService,
+        SessionIntegrityService $integrityService,
+        RateLimitService $rateLimitService
     ) {
         $this->db = DatabaseManager::getConnection();
         $this->randomizationService = $randomizationService;
         $this->timerService = $timerService;
         $this->queue = $queue;
+        $this->proctoringService = $proctoringService;
+        $this->integrityService = $integrityService;
+        $this->rateLimitService = $rateLimitService;
     }
 
-    public function startSession(string $examTemplateId, string $userId): string
+    public function startSession(string $examTemplateId, string $userId, array $metadata = []): array
     {
+        // Rate Limiting: 1 start attempt per minute per user
+        $rateKey = "exam_start:$userId:$examTemplateId";
+        if (!$this->rateLimitService->check($rateKey, 1, 60)) {
+            throw new Exception('Too many start attempts. Please wait.');
+        }
+
         // Check if session already exists
         $existing = $this->db->fetchAssociative(
             'SELECT * FROM exam_sessions WHERE exam_template_id = ? AND user_id = ? AND status IN (?, ?, ?)',
@@ -39,26 +57,27 @@ class ExamSessionService extends BaseService
         );
 
         if ($existing) {
-            // Check if it was just interrupted? Or prevent retake?
-            // "Validate: Not previously submitted".
-            // If status is 'started' or 'in_progress', resume it?
-            // Prompt says: "Generate session record", "Generate randomized question set".
-            // If resume is supported, we should return existing ID.
-            // But prompt implies "Start" creates new.
-            // "Student requests exam start -> Validate Eligibility -> Generate session".
-            // If previous submission exists, deny.
             if ($existing['status'] === 'submitted' || $existing['status'] === 'graded') {
                 throw new Exception('Exam already submitted.');
             }
-            return $existing['id']; // Resume existing session
+            // Resume existing session
+            // Log resume event/update session metadata (e.g. new IP)
+            // Ideally we start a new proctoring "segment" or update the existing one if we just want to track current IP.
+            // For now, let's start a new proctoring session to track the resume as a distinct activity period or just log it?
+            // "Repeated IP change" detection suggests we track IP changes.
+            // Let's create a NEW proctoring session for the resume to ensure we capture the new metadata (IP, Device).
+            // This also issues a NEW session token, invalidating the old one (multi-tab prevention).
+
+            $token = $this->proctoringService->startProctoringSession($existing['id'], $userId, $metadata);
+
+            return ['id' => $existing['id'], 'token' => $token];
         }
 
         $this->db->beginTransaction();
 
         try {
             $id = Uuid::uuid4()->toString();
-            $seed = mt_rand(); // Or strictly deterministic based on user+exam? Prompt says "Deterministic seed (per session)".
-            // If per session, then random is fine as long as we store it.
+            $seed = mt_rand();
 
             $now = (new DateTime())->format('Y-m-d H:i:s');
 
@@ -75,9 +94,12 @@ class ExamSessionService extends BaseService
 
             $this->randomizationService->generateQuestions($examTemplateId, $id, $seed);
 
+            // Start Proctoring Session
+            $token = $this->proctoringService->startProctoringSession($id, $userId, $metadata);
+
             $this->db->commit();
 
-            return $id;
+            return ['id' => $id, 'token' => $token];
         } catch (Exception $e) {
             $this->db->rollBack();
             throw $e;
@@ -86,8 +108,13 @@ class ExamSessionService extends BaseService
 
     // submitSession moved to SubmissionService
 
-    public function saveAnswer(string $sessionId, string $questionId, array $payload): void
+    public function saveAnswer(string $sessionId, string $questionId, array $payload, string $token): void
     {
+        // Validate Session Token (Multi-tab Prevention)
+        if (!$this->integrityService->validateSessionToken($sessionId, $token)) {
+             throw new Exception('Session invalidated. Multiple tabs or devices detected.');
+        }
+
         // Optimistic check without transaction for speed, or light transaction?
         // Prompt says "Transaction-safe writes".
 

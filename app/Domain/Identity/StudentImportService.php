@@ -19,6 +19,7 @@ class StudentImportService
     private string $loginFieldConfig;
     private bool $emailResetEnabled;
     private array $classCache = [];
+    private int $tenantId = 1;
 
     public function __construct(PasswordGenerator $passwordGenerator = null, AuditLogger $auditLogger = null)
     {
@@ -29,6 +30,11 @@ class StudentImportService
         $env = Environment::getInstance();
         $this->loginFieldConfig = $env->get('AUTH_STUDENT_LOGIN_FIELD', 'email'); // default to email
         $this->emailResetEnabled = filter_var($env->get('AUTH_EMAIL_RESET_ENABLED', 'true'), FILTER_VALIDATE_BOOLEAN);
+    }
+
+    public function setTenantId(int $tenantId): void
+    {
+        $this->tenantId = $tenantId;
     }
 
     /**
@@ -160,7 +166,7 @@ class StudentImportService
         $this->loadClassCache();
 
         // Log start
-        $this->auditLogger->log('import_started', null, $adminId, 1, ['type' => 'student', 'file' => basename($filePath)]);
+        $this->auditLogger->log('import_started', null, $adminId, $this->tenantId, ['type' => 'student', 'file' => basename($filePath)]);
 
         while (($row = fgetcsv($handle)) !== false) {
             if (count($row) !== count($header)) {
@@ -200,7 +206,7 @@ class StudentImportService
         ]);
 
         // Log completion
-        $this->auditLogger->log('import_completed', null, $adminId, 1, [
+        $this->auditLogger->log('import_completed', null, $adminId, $this->tenantId, [
             'type' => 'student',
             'total' => $totalProcessed,
             'success' => $successful,
@@ -249,7 +255,7 @@ class StudentImportService
                         'first_name' => $data['first_name'],
                         'last_name' => $data['last_name'],
                         'password' => $passwordHash,
-                        'tenant_id' => 1,
+                        'tenant_id' => $this->tenantId,
                         'class_id' => $classId,
                         'role_id' => $studentRoleId,
                         'import_log_id' => $importLogId,
@@ -359,6 +365,8 @@ class StudentImportService
 
         // Try to find in DB (fallback for concurrent additions or misses)
         $class = $this->db->fetchAssociative("SELECT id FROM classes WHERE name = ? AND tenant_id = 1", [$className]);
+        // Try to find
+        $class = $this->db->fetchAssociative("SELECT id FROM classes WHERE name = ? AND tenant_id = ?", [$className, $this->tenantId]);
 
         if ($class) {
             $this->classCache[$className] = $class['id'];
@@ -370,7 +378,7 @@ class StudentImportService
         $this->db->insert('classes', [
             'id' => $id,
             'name' => $className,
-            'tenant_id' => 1,
+            'tenant_id' => $this->tenantId,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);

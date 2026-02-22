@@ -198,7 +198,7 @@ class CredentialExportService
     private function markAsExported(array $userIds): void
     {
         $this->db->executeQuery(
-            "UPDATE user_credentials_buffer SET is_exported = 1 WHERE user_id IN (?)",
+            "UPDATE user_credentials_buffer SET is_exported = 1, password_plaintext = NULL WHERE user_id IN (?)",
             [$userIds],
             [Connection::PARAM_STR_ARRAY]
         );
@@ -215,7 +215,7 @@ class CredentialExportService
                 $cred['login_id'],
                 $cred['email'],
                 $cred['group'],
-                $cred['password'],
+                'REDACTED (Use HTML for printing)',
                 $cred['academic_session'],
                 $cred['sms_oauth_id']
             ]);
@@ -235,11 +235,22 @@ class CredentialExportService
             body { font-family: sans-serif; }
             .card { border: 1px dashed #333; padding: 20px; margin: 10px; width: 300px; float: left; page-break-inside: avoid; }
             .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); opacity: 0.1; font-size: 5em; z-index: -1; }
-            @media print { .no-print { display: none; } }
+            .disclaimer { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+            .secret { background-color: #000; color: #000; border-radius: 3px; padding: 0 4px; transition: background 0.3s; cursor: help; }
+            .secret:hover { background-color: transparent; color: inherit; }
+            @media print {
+                .no-print { display: none; }
+                .secret { background-color: transparent !important; color: inherit !important; }
+            }
         </style>';
         $html .= '</head><body>';
         $html .= '<div class="watermark">Confidential — Destroy After Distribution</div>';
         $html .= '<h1>User Credentials</h1>';
+        $html .= '<div class="disclaimer no-print">';
+        $html .= '<strong>Security Notice:</strong> These credentials contain temporary passwords. ';
+        $html .= 'Passcards should be printed, distributed securely, and students must be advised to change their passwords upon first login. ';
+        $html .= 'Passwords are masked below for screen security; hover to reveal or print to see clearly.';
+        $html .= '</div>';
 
         foreach ($credentials as $cred) {
             $html .= '<div class="card">';
@@ -247,7 +258,7 @@ class CredentialExportService
             $html .= '<p><strong>Institution:</strong> CBT Platform</p>';
             $html .= '<p><strong>Group:</strong> ' . htmlspecialchars($cred['group']) . '</p>';
             $html .= '<p><strong>Login ID:</strong> ' . htmlspecialchars($cred['login_id']) . '</p>';
-            $html .= '<p><strong>Password:</strong> ' . htmlspecialchars($cred['password']) . '</p>';
+            $html .= '<p><strong>Temporary Password:</strong> <span class="secret">' . htmlspecialchars($cred['password']) . '</span></p>';
              if ($cred['sms_oauth_id']) {
                 $html .= '<p><small>Linked OAuth: Yes</small></p>';
             }

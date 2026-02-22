@@ -55,6 +55,13 @@ class IdentityController
         return null;
     }
 
+    private function getTenantId(string $adminId): int
+    {
+        $db = \App\Core\Database\DatabaseManager::getConnection();
+        $tenantId = $db->fetchOne("SELECT tenant_id FROM users WHERE id = ?", [$adminId]);
+        return $tenantId ? (int)$tenantId : 1;
+    }
+
     public function preview(): void
     {
         try {
@@ -87,6 +94,9 @@ class IdentityController
 
             $type = $_POST['type'] ?? 'student';
             $service = ($type === 'staff') ? $this->staffImportService : $this->studentImportService;
+
+            $tenantId = $this->getTenantId($adminId);
+            $service->setTenantId($tenantId);
 
             $report = $service->preview($file['tmp_name']);
             $response = ApiResponse::json($report);
@@ -129,6 +139,9 @@ class IdentityController
 
             $type = $_POST['type'] ?? 'student';
             $service = ($type === 'staff') ? $this->staffImportService : $this->studentImportService;
+
+            $tenantId = $this->getTenantId($adminId);
+            $service->setTenantId($tenantId);
 
             $result = $service->commit($file['tmp_name'], $adminId);
             $response = ApiResponse::json($result);

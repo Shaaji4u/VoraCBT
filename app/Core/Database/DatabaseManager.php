@@ -49,11 +49,15 @@ class DatabaseManager
         ];
 
         if ($driver === 'pdo_sqlite') {
-             // If DB_DATABASE is just a filename, assume storage path. If full path, use it.
              $dbName = $env->get('DB_DATABASE', 'database.sqlite');
-             if (strpos($dbName, '/') === false) {
+
+             if ($dbName === ':memory:') {
+                 $params['memory'] = true;
+             } elseif (strpos($dbName, '/') === false) {
+                 // If DB_DATABASE is just a filename, assume storage path.
                  $params['path'] = __DIR__ . '/../../../storage/' . $dbName;
              } else {
+                 // If full path, use it.
                  $params['path'] = $dbName;
              }
              unset($params['dbname'], $params['host'], $params['user'], $params['password'], $params['port']);

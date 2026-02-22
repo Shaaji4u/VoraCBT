@@ -1,86 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Question Repository</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/tokens.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-</head>
-<body class="bg-body text-body font-display d-flex vh-100 overflow-hidden">
-
-    <!-- Sidebar -->
-    <aside class="d-none d-md-flex flex-column bg-surface border-end shadow-sm z-2 flex-shrink-0 transition-all" style="width: 260px;">
-        <div class="d-flex flex-column h-100 p-4 justify-content-between">
-            <div class="d-flex flex-column gap-4">
-                <!-- User Profile -->
-                <div class="d-flex align-items-center gap-3 px-1">
-                    <div class="avatar-circle shadow-sm" style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBG6MSbg-BXYz9rLv-JkBNUEGYCJ3_LFSgaXjBhOvvdYTTf3OyWsqXnA2rEHmrb6oAZzBbsRoUOB6PlSEpNd-4OwoDrTWparFewmbvpAXwL-gkbasoiaXpPf34Y7HaMBVzxbySP-c256_LEJB44y4r7ms9R_TSROGanuqbX-APHLedr11Bo0bb8RqPXR3KUL9-iaxuiEq3mvzDj2rnNzJJtpBTEuQDxg14EMQ3kLLBEbR6iVSjxuAOdA5bo_NSLLN3eS5hiJErYX68');"></div>
-                    <div class="d-flex flex-column lh-sm">
-                        <span class="fw-bold text-body small">Sarah Jenkins</span>
-                        <small class="text-secondary" style="font-size: 0.75rem;">Science Dept.</small>
-                    </div>
-                </div>
-
-                <!-- Navigation -->
-                <nav class="nav flex-column gap-1">
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-body hover-text-primary transition-colors group">
-                        <span class="material-symbols-outlined fs-5 group-hover-text-primary">dashboard</span> Dashboard
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 bg-primary-soft text-primary fw-medium">
-                        <span class="material-symbols-outlined fs-5 filled">description</span> Questions
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-body hover-text-primary transition-colors group">
-                        <span class="material-symbols-outlined fs-5 group-hover-text-primary">checklist</span> Exams
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-body hover-text-primary transition-colors group">
-                        <span class="material-symbols-outlined fs-5 group-hover-text-primary">group</span> Students
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-body hover-text-primary transition-colors group">
-                        <span class="material-symbols-outlined fs-5 group-hover-text-primary">analytics</span> Reports
-                    </a>
-                </nav>
-            </div>
-
-            <!-- Bottom Action -->
-            <div class="border-top pt-3">
-                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-body hover-text-danger transition-colors group">
-                    <span class="material-symbols-outlined fs-5 group-hover-text-danger">logout</span> Sign Out
-                </a>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="d-flex flex-column flex-grow-1 overflow-hidden position-relative">
-
-        <!-- Top Header -->
-        <header class="navbar navbar-expand bg-surface border-bottom px-4 py-2 flex-shrink-0 z-1" style="height: 64px;">
-            <div class="d-flex align-items-center gap-2 small text-secondary">
-                <a href="#" class="text-decoration-none text-secondary hover-text-primary">Home</a>
-                <span>/</span>
-                <span class="fw-medium text-body">Question Repository</span>
-            </div>
-            <div class="ms-auto d-flex align-items-center gap-3">
-                <button class="btn btn-light btn-sm rounded-circle p-2 position-relative text-secondary hover-text-primary">
-                    <span class="material-symbols-outlined fs-5">notifications</span>
-                    <span class="position-absolute top-0 end-0 m-2 p-1 bg-danger border border-white rounded-circle"></span>
-                </button>
-                <button class="btn btn-light btn-sm rounded-circle p-2 text-secondary hover-text-primary">
-                    <span class="material-symbols-outlined fs-5">settings</span>
-                </button>
-            </div>
-        </header>
-
-        <!-- Scrollable Content Area -->
-        <div class="flex-grow-1 overflow-auto p-4 p-lg-5">
-            <div class="container-xl px-0 d-flex flex-column gap-4">
-
+<?php
+$title = "Teacher Question Repository";
+$breadcrumb = "Questions";
+ob_start();
+?>
                 <!-- Page Title & Primary Action -->
                 <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3">
                     <div>
@@ -281,13 +203,8 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Bootstrap Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php
+$scripts = '<script type="module" src="/js/pages/question-manager.js"></script>';
+$content = ob_get_clean();
+include __DIR__ . '/../../layouts/app.php';
+?>
