@@ -18,6 +18,7 @@ class StaffImportService
     private AuditLogger $auditLogger;
     private string $loginFieldConfig;
     private bool $emailResetEnabled;
+    private int $tenantId = 1;
 
     public function __construct(PasswordGenerator $passwordGenerator = null, AuditLogger $auditLogger = null)
     {
@@ -28,6 +29,11 @@ class StaffImportService
         $env = Environment::getInstance();
         $this->loginFieldConfig = $env->get('AUTH_STAFF_LOGIN_FIELD', 'email'); // default to email
         $this->emailResetEnabled = filter_var($env->get('AUTH_EMAIL_RESET_ENABLED', 'true'), FILTER_VALIDATE_BOOLEAN);
+    }
+
+    public function setTenantId(int $tenantId): void
+    {
+        $this->tenantId = $tenantId;
     }
 
     public function preview(string $filePath): array
@@ -139,7 +145,7 @@ class StaffImportService
         $importLogId = Uuid::uuid4()->toString();
         $startTime = new \DateTimeImmutable();
 
-        $this->auditLogger->log('import_started', null, $adminId, 1, ['type' => 'staff', 'file' => basename($filePath)]);
+        $this->auditLogger->log('import_started', null, $adminId, $this->tenantId, ['type' => 'staff', 'file' => basename($filePath)]);
 
         while (($row = fgetcsv($handle)) !== false) {
             if (count($row) !== count($header)) {
@@ -182,7 +188,7 @@ class StaffImportService
             'metadata' => json_encode(['login_field' => $this->loginFieldConfig, 'type' => 'staff'])
         ]);
 
-        $this->auditLogger->log('import_completed', null, $adminId, 1, [
+        $this->auditLogger->log('import_completed', null, $adminId, $this->tenantId, [
             'type' => 'staff',
             'total' => $totalProcessed,
             'success' => $successful,
@@ -236,7 +242,7 @@ class StaffImportService
                         'first_name' => $data['first_name'],
                         'last_name' => $data['last_name'],
                         'password' => $passwordHash,
-                        'tenant_id' => 1,
+                        'tenant_id' => $this->tenantId,
                         'role_id' => $roleId,
                         'import_log_id' => $importLogId,
                         'created_at' => date('Y-m-d H:i:s'),
