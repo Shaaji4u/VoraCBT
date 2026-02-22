@@ -76,6 +76,17 @@ class ManualGradingService
      */
     public function submitGrade(string $answerId, float $marks, string $comments): void
     {
+        $resultLockSql = "
+            SELECT r.is_locked
+            FROM exam_session_answers a
+            JOIN exam_results r ON r.exam_session_id = a.exam_session_id
+            WHERE a.id = ?
+        ";
+        $isLocked = $this->db->fetchOne($resultLockSql, [$answerId]);
+        if ((bool) $isLocked === true) {
+            throw new \RuntimeException('Result is finalized and locked. Admin override is required before regrading.');
+        }
+
         $this->db->update('exam_session_answers', [
             'marks_obtained' => $marks,
             'comments' => $comments,
