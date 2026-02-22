@@ -3,6 +3,8 @@
 use FastRoute\RouteCollector;
 use App\Http\Controllers\Admin\IdentityController;
 use App\Http\Controllers\Api\ProctoringController;
+use App\Http\Controllers\Admin\MonitoringController;
+use App\Http\Controllers\Api\ExamRecoveryController;
 
 return function (RouteCollector $r) {
     // Identity Routes
@@ -16,6 +18,9 @@ return function (RouteCollector $r) {
         $r->get('/admin/students/credentials/export', function() {
             (new IdentityController())->export();
         });
+        $r->get('/admin/logs', function() {
+            (new MonitoringController())->logs();
+        });
 
         // Proctoring Routes
         $r->post('/proctoring/event', function() {
@@ -23,6 +28,12 @@ return function (RouteCollector $r) {
         });
         $r->post('/proctoring/heartbeat', function() {
             (new ProctoringController())->heartbeat();
+        });
+        $r->post('/exam/autosave', function() {
+            (new ExamRecoveryController())->autosave();
+        });
+        $r->get('/exam/resume-state', function() {
+            (new ExamRecoveryController())->resumeState();
         });
     });
 
