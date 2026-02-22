@@ -12,26 +12,33 @@
     <link href="css/tokens.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
 </head>
-<body class="font-display bg-light text-dark overflow-hidden">
+<body class="font-display bg-body text-body overflow-hidden">
 
-    <div class="d-flex vh-100 overflow-hidden bg-light">
+    <div class="d-flex vh-100 overflow-hidden bg-body">
 
         <!-- Sidebar -->
-        <aside class="d-none d-md-flex flex-column justify-content-between border-end bg-white p-3 h-100 overflow-y-auto" style="width: 280px;">
-            <div class="d-flex flex-column gap-4">
-                <!-- Logo Area -->
-                <div class="d-flex align-items-center gap-3 px-2 mt-2">
-                    <div class="d-flex align-items-center justify-content-center rounded bg-primary text-white" style="width: 40px; height: 40px;">
-                        <span class="material-symbols-outlined fs-4">school</span>
-                    </div>
-                    <div class="d-flex flex-column lh-1">
-                        <h6 class="mb-0 fw-bold text-dark">EduTest Pro</h6>
-                        <small class="text-secondary" style="font-size: 0.75rem;">Enterprise Admin</small>
-                    </div>
-                </div>
+        <aside class="offcanvas-md offcanvas-start border-end bg-surface h-100 overflow-y-auto flex-column" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel" style="width: 280px;">
 
-                <!-- Navigation -->
-                <nav class="nav flex-column gap-1">
+            <div class="offcanvas-header d-md-none border-bottom">
+                <h5 class="offcanvas-title fw-bold text-body" id="sidebarMenuLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+            </div>
+
+            <div class="d-flex flex-column justify-content-between h-100 p-3">
+                <div class="d-flex flex-column gap-4">
+                    <!-- Logo Area -->
+                    <div class="d-flex align-items-center gap-3 px-2 mt-2">
+                        <div class="d-flex align-items-center justify-content-center rounded bg-primary text-white" style="width: 40px; height: 40px;">
+                            <span class="material-symbols-outlined fs-4">school</span>
+                        </div>
+                        <div class="d-flex flex-column lh-1">
+                            <h6 class="mb-0 fw-bold text-body">EduTest Pro</h6>
+                            <small class="text-secondary" style="font-size: 0.75rem;">Enterprise Admin</small>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <nav class="nav flex-column gap-1">
                     <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 bg-primary-soft text-primary fw-medium">
                         <span class="material-symbols-outlined fs-5">dashboard</span> Overview
                     </a>
@@ -53,14 +60,15 @@
                 </nav>
             </div>
 
-            <!-- Bottom Action -->
-            <div class="d-flex flex-column gap-1 border-top pt-3">
-                <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
-                    <span class="material-symbols-outlined fs-5">help</span> Help & Support
-                </a>
-                <button class="btn btn-link text-decoration-none nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-danger hover-bg-danger-soft transition-colors w-100 text-start">
-                    <span class="material-symbols-outlined fs-5">logout</span> Log Out
-                </button>
+                <!-- Bottom Action -->
+                <div class="d-flex flex-column gap-1 border-top pt-3">
+                    <a href="#" class="nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary hover-bg-light hover-text-dark transition-colors">
+                        <span class="material-symbols-outlined fs-5">help</span> Help & Support
+                    </a>
+                    <button class="btn btn-link text-decoration-none nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-danger hover-bg-danger-soft transition-colors w-100 text-start">
+                        <span class="material-symbols-outlined fs-5">logout</span> Log Out
+                    </button>
+                </div>
             </div>
         </aside>
 
@@ -68,16 +76,16 @@
         <main class="d-flex flex-column flex-grow-1 overflow-hidden position-relative">
 
             <!-- Top Bar -->
-            <header class="navbar navbar-expand bg-white border-bottom px-4 py-2" style="height: 64px;">
+            <header class="navbar navbar-expand bg-surface border-bottom px-4 py-2" style="height: 64px;">
                 <div class="d-flex align-items-center gap-3 w-100">
-                    <button class="btn btn-link text-secondary d-md-none p-0 me-2">
+                    <button class="btn btn-link text-secondary d-md-none p-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
                         <span class="material-symbols-outlined fs-3">menu</span>
                     </button>
 
                     <nav aria-label="breadcrumb" class="d-none d-sm-block">
                         <ol class="breadcrumb mb-0 small fw-medium">
                             <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-secondary hover-text-primary">Home</a></li>
-                            <li class="breadcrumb-item active text-dark" aria-current="page">Dashboard</li>
+                            <li class="breadcrumb-item active text-body" aria-current="page">Dashboard</li>
                         </ol>
                     </nav>
 
@@ -85,7 +93,7 @@
                         <!-- Search -->
                         <div class="position-relative d-none d-lg-block" style="width: 320px;">
                             <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary fs-5">search</span>
-                            <input type="text" class="form-control bg-light border-0 ps-5 rounded-3" placeholder="Search exams, students...">
+                            <input type="text" class="form-control bg-body-secondary border-0 ps-5 rounded-3" placeholder="Search exams, students...">
                         </div>
 
                         <!-- Notification -->
@@ -97,7 +105,7 @@
                         <!-- User Profile -->
                         <div class="d-flex align-items-center gap-3 ps-3 border-start">
                             <div class="text-end d-none d-sm-block lh-sm">
-                                <p class="mb-0 small fw-bold text-dark">Admin User</p>
+                                <p class="mb-0 small fw-bold text-body">Admin User</p>
                                 <span class="text-secondary x-small" style="font-size: 0.7rem;">Head Teacher</span>
                             </div>
                             <div class="avatar-circle border border-2 border-white shadow-sm" style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCJKcUpb8cVxs1PUT7YOH5R1P99ZYKlmwGuTtUyBC6-JP5SOyGyvDOIoBpLq5sWi2tncKQeZJyxRiJZUe9IzPjtrfOJgTQp8FkuFZ2l4a3cPNPthvxIK2ELurJitvhAXEA92h5mVuSP1bgM7qOBfXGBbeyWEcmiYGtWeCIhqRx7GbX9g5xiyo_mA8wKZxDOgje9Lnd-MUxQQaBKFkk4mE1FlA96dJnFUWBJuRyjrqEQlTxf2xLWzGnBeCS6XoKvT5sIJAxUjQbhzcY');"></div>
@@ -112,7 +120,7 @@
 
                     <!-- Welcome Section -->
                     <div>
-                        <h2 class="h3 fw-bold text-dark mb-1 tracking-tight">Overview</h2>
+                        <h2 class="h3 fw-bold text-body mb-1 tracking-tight">Overview</h2>
                         <p class="text-secondary mb-0">Here's what's happening in your school today.</p>
                     </div>
 
@@ -120,7 +128,7 @@
                     <div class="row g-4">
                         <!-- Card 1 -->
                         <div class="col-sm-6 col-lg-3">
-                            <div class="card border border-light-subtle shadow-sm rounded-4 h-100">
+                            <div class="card border shadow-sm rounded-4 h-100 bg-surface">
                                 <div class="card-body p-4">
                                     <div class="d-flex justify-content-between align-items-start mb-3">
                                         <div class="d-flex align-items-center justify-content-center rounded-3 bg-primary-soft text-primary" style="width: 48px; height: 48px;">
@@ -131,13 +139,13 @@
                                         </span>
                                     </div>
                                     <p class="text-secondary small fw-medium mb-1">Total Exams</p>
-                                    <h3 class="fw-bold text-dark mb-0">124</h3>
+                                    <h3 class="fw-bold text-body mb-0">124</h3>
                                 </div>
                             </div>
                         </div>
                         <!-- Card 2 -->
                         <div class="col-sm-6 col-lg-3">
-                            <div class="card border border-light-subtle shadow-sm rounded-4 h-100">
+                            <div class="card border shadow-sm rounded-4 h-100 bg-surface">
                                 <div class="card-body p-4">
                                     <div class="d-flex justify-content-between align-items-start mb-3">
                                         <div class="d-flex align-items-center justify-content-center rounded-3 bg-purple-subtle text-purple" style="width: 48px; height: 48px; background-color: #f3e8ff; color: #9333ea;">
@@ -148,13 +156,13 @@
                                         </span>
                                     </div>
                                     <p class="text-secondary small fw-medium mb-1">Active Students</p>
-                                    <h3 class="fw-bold text-dark mb-0">842</h3>
+                                    <h3 class="fw-bold text-body mb-0">842</h3>
                                 </div>
                             </div>
                         </div>
                         <!-- Card 3 -->
                         <div class="col-sm-6 col-lg-3">
-                            <div class="card border border-light-subtle shadow-sm rounded-4 h-100">
+                            <div class="card border shadow-sm rounded-4 h-100 bg-surface">
                                 <div class="card-body p-4">
                                     <div class="d-flex justify-content-between align-items-start mb-3">
                                         <div class="d-flex align-items-center justify-content-center rounded-3 bg-warning-subtle text-warning-emphasis" style="width: 48px; height: 48px;">
@@ -165,13 +173,13 @@
                                         </span>
                                     </div>
                                     <p class="text-secondary small fw-medium mb-1">Questions Bank</p>
-                                    <h3 class="fw-bold text-dark mb-0">3,500+</h3>
+                                    <h3 class="fw-bold text-body mb-0">3,500+</h3>
                                 </div>
                             </div>
                         </div>
                         <!-- Card 4 -->
                         <div class="col-sm-6 col-lg-3">
-                            <div class="card border border-light-subtle shadow-sm rounded-4 h-100">
+                            <div class="card border shadow-sm rounded-4 h-100 bg-surface">
                                 <div class="card-body p-4">
                                     <div class="d-flex justify-content-between align-items-start mb-3">
                                         <div class="d-flex align-items-center justify-content-center rounded-3 bg-danger-subtle text-danger" style="width: 48px; height: 48px;">
@@ -180,7 +188,7 @@
                                         <span class="badge bg-danger-subtle text-danger rounded-pill px-2 py-1">Needs Action</span>
                                     </div>
                                     <p class="text-secondary small fw-medium mb-1">Pending Grading</p>
-                                    <h3 class="fw-bold text-dark mb-0">18</h3>
+                                    <h3 class="fw-bold text-body mb-0">18</h3>
                                 </div>
                             </div>
                         </div>
@@ -191,15 +199,15 @@
 
                         <!-- Chart Section -->
                         <div class="col-lg-8">
-                            <div class="card border border-light-subtle shadow-sm rounded-4 h-100">
+                            <div class="card border shadow-sm rounded-4 h-100 bg-surface">
                                 <div class="card-body p-4">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <h5 class="fw-bold text-dark mb-1">Class Performance</h5>
+                                            <h5 class="fw-bold text-body mb-1">Class Performance</h5>
                                             <p class="text-secondary small mb-0">Average scores by grade level this semester</p>
                                         </div>
-                                        <div class="bg-light p-1 rounded-3 d-flex">
-                                            <button class="btn btn-white btn-sm shadow-sm fw-medium text-dark px-3 py-1">Term 1</button>
+                                        <div class="bg-body-secondary p-1 rounded-3 d-flex">
+                                            <button class="btn btn-white btn-sm shadow-sm fw-medium text-body px-3 py-1">Term 1</button>
                                             <button class="btn btn-link btn-sm text-decoration-none text-secondary fw-medium px-3 py-1">Term 2</button>
                                         </div>
                                     </div>
@@ -261,9 +269,9 @@
 
                         <!-- Recent Activity List -->
                         <div class="col-lg-4">
-                            <div class="card border border-light-subtle shadow-sm rounded-4 h-100">
+                            <div class="card border shadow-sm rounded-4 h-100 bg-surface">
                                 <div class="card-body p-4 d-flex flex-column">
-                                    <h5 class="fw-bold text-dark mb-4">Recent Activity</h5>
+                                    <h5 class="fw-bold text-body mb-4">Recent Activity</h5>
                                     <div class="d-flex flex-column gap-4 flex-grow-1">
                                         <!-- Item 1 -->
                                         <div class="d-flex gap-3">
@@ -271,7 +279,7 @@
                                                 <span class="material-symbols-outlined fs-5">task_alt</span>
                                             </div>
                                             <div class="d-flex flex-column lh-sm">
-                                                <span class="fw-medium text-dark small">Exam Submitted</span>
+                                                <span class="fw-medium text-body small">Exam Submitted</span>
                                                 <span class="text-secondary x-small">John Doe finished <span class="fw-bold">Math Mid-Term</span></span>
                                                 <span class="text-secondary x-small opacity-75 mt-1">2 mins ago</span>
                                             </div>
@@ -282,7 +290,7 @@
                                                 <span class="material-symbols-outlined fs-5">person_add</span>
                                             </div>
                                             <div class="d-flex flex-column lh-sm">
-                                                <span class="fw-medium text-dark small">New Registration</span>
+                                                <span class="fw-medium text-body small">New Registration</span>
                                                 <span class="text-secondary x-small">Sarah Smith joined JSS2 class</span>
                                                 <span class="text-secondary x-small opacity-75 mt-1">1 hour ago</span>
                                             </div>
@@ -293,7 +301,7 @@
                                                 <span class="material-symbols-outlined fs-5">report_problem</span>
                                             </div>
                                             <div class="d-flex flex-column lh-sm">
-                                                <span class="fw-medium text-dark small">Error Reported</span>
+                                                <span class="fw-medium text-body small">Error Reported</span>
                                                 <span class="text-secondary x-small">Question #42 flagged in Physics</span>
                                                 <span class="text-secondary x-small opacity-75 mt-1">3 hours ago</span>
                                             </div>
@@ -304,7 +312,7 @@
                                                 <span class="material-symbols-outlined fs-5">upload_file</span>
                                             </div>
                                             <div class="d-flex flex-column lh-sm">
-                                                <span class="fw-medium text-dark small">Bulk Upload</span>
+                                                <span class="fw-medium text-body small">Bulk Upload</span>
                                                 <span class="text-secondary x-small">50 questions added to English</span>
                                                 <span class="text-secondary x-small opacity-75 mt-1">5 hours ago</span>
                                             </div>
