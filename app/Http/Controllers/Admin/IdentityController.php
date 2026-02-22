@@ -43,16 +43,29 @@ class IdentityController
 
         $authHeader = $headers['Authorization'] ?? $headers['authorization'] ?? '';
 
-        if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
-            $jwt = $matches[1];
-            try {
-                $decoded = JWT::decode($jwt, new Key($_ENV['JWT_SECRET'] ?? 'secret', 'HS256'));
-                return $decoded->sub ?? $decoded->id ?? null;
-            } catch (Exception $e) {
-                return null;
-            }
+        if (!preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+            return null;
         }
-        return null;
+
+        $jwt = $matches[1];
+        try {
+            $decoded = JWT::decode($jwt, new Key($_ENV['JWT_SECRET'] ?? 'secret', 'HS256'));
+        } catch (Exception $e) {
+            return null;
+        }
+
+        $adminId = $decoded->sub ?? $decoded->id ?? null;
+        if (!$adminId) {
+            return null;
+        }
+
+        $db = \App\Core\Database\DatabaseManager::getConnection();
+        $role = $db->fetchOne(
+            "SELECT r.slug FROM users u LEFT JOIN roles r ON u.role_id = r.id WHERE u.id = ?",
+            [$adminId]
+        );
+
+        return $role === 'admin' ? $adminId : null;
     }
 
     private function getTenantId(string $adminId): int

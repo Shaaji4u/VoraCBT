@@ -150,7 +150,7 @@ class CredentialExportService
             $password = $this->passwordGenerator->generate();
             $hash = password_hash($password, PASSWORD_ARGON2ID);
 
-            $this->db->update('users', ['password' => $hash], ['id' => $user['id']]);
+            $this->db->update('users', ['password' => $hash, 'must_change_password' => 1], ['id' => $user['id']]);
 
             // Update or Insert Buffer
             if ($buffer) {
