@@ -1,0 +1,72 @@
+:root {
+    /* Core Brand Colors */
+    --cbt-primary: #3a67cb;
+    --cbt-primary-rgb: 58, 103, 203;
+    --cbt-primary-hover: #2e52a2;
+
+    /* Neutral Palette */
+    --cbt-slate-50: #f8fafc;
+    --cbt-slate-100: #f1f5f9;
+    --cbt-slate-200: #e2e8f0;
+    --cbt-slate-300: #cbd5e1;
+    --cbt-slate-400: #94a3b8;
+    --cbt-slate-500: #64748b;
+    --cbt-slate-600: #475569;
+    --cbt-slate-700: #334155;
+    --cbt-slate-800: #1e293b;
+    --cbt-slate-900: #0f172a;
+    --cbt-slate-950: #020617;
+
+    /* Theme Specific Colors */
+    --cbt-bg-light: #f6f7f8;
+    --cbt-bg-dark: #13171f;
+    --cbt-text-dark: #101319;
+
+    /* Bootstrap Overrides - Light Mode (Default) */
+    --bs-primary: var(--cbt-primary);
+    --bs-primary-rgb: var(--cbt-primary-rgb);
+    --bs-body-bg: var(--cbt-bg-light);
+    --bs-body-color: var(--cbt-text-dark);
+    --bs-body-color-rgb: 16, 19, 25;
+    --bs-secondary: var(--cbt-slate-500);
+    --bs-secondary-rgb: 100, 116, 139;
+
+    /* Fonts */
+    --bs-font-sans-serif: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --bs-body-font-family: var(--bs-font-sans-serif);
+}
+
+[data-bs-theme="dark"] {
+    /* Bootstrap Overrides - Dark Mode */
+    --bs-body-bg: var(--cbt-bg-dark);
+    --bs-body-color: var(--cbt-slate-100);
+    --bs-body-color-rgb: 241, 245, 249;
+
+    /* Surface Colors for Cards/Modals in Dark Mode */
+    --bs-tertiary-bg: #1e232e; /* Surface Dark */
+    --bs-border-color: #374151;
+    --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
+
+    /* Text Colors */
+    --bs-secondary-color: var(--cbt-slate-400);
+
+    /* Ensure primary pops in dark mode */
+    --bs-primary-bg-subtle: rgba(58, 103, 203, 0.2);
+    --bs-primary-text-emphasis: #93bbfd;
+}
+
+/* Theme Specific Classes mapping to Bootstrap variables */
+.bg-surface {
+    background-color: #ffffff;
+}
+[data-bs-theme="dark"] .bg-surface {
+    background-color: var(--bs-tertiary-bg);
+}
+
+/* Custom Text Colors that adapt */
+.text-muted-adaptive {
+    color: var(--cbt-slate-500);
+}
+[data-bs-theme="dark"] .text-muted-adaptive {
+    color: var(--cbt-slate-400);
+}
