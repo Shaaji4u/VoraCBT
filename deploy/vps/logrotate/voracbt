@@ -1,0 +1,23 @@
+/var/www/voracbt/shared/storage/logs/*.log {
+    daily
+    rotate 14
+    maxsize 100M
+    missingok
+    notifempty
+    compress
+    delaycompress
+    copytruncate
+    create 0640 www-data www-data
+}
+
+/var/www/voracbt/shared/storage/logs/security.log /var/www/voracbt/shared/storage/logs/integration.log {
+    daily
+    rotate 30
+    maxsize 100M
+    missingok
+    notifempty
+    compress
+    delaycompress
+    copytruncate
+    create 0640 www-data www-data
+}
