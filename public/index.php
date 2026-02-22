@@ -21,7 +21,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->safeLoad();
 
 // 3. Set Error Reporting
-if ($_ENV['APP_DEBUG'] === 'true') {
+if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
     ini_set('display_errors', '1');
     ini_set('display_startup_errors', '1');
     error_reporting(E_ALL);
@@ -30,14 +30,55 @@ if ($_ENV['APP_DEBUG'] === 'true') {
     error_reporting(0);
 }
 
-// 4. Routing Dispatch (Placeholder)
-// fast-route dispatching logic will go here.
-// For now, we just output a confirmation message.
-
+// 4. Routing Dispatch
 header('Content-Type: application/json');
-echo json_encode([
-    'status' => 'success',
-    'message' => 'CBT Enterprise Platform API is running.',
-    'env' => $_ENV['APP_ENV'] ?? 'unknown',
-    'mode' => $_ENV['SYSTEM_MODE'] ?? 'unknown'
-]);
+
+use FastRoute\Dispatcher;
+use FastRoute\RouteCollector;
+use function FastRoute\simpleDispatcher;
+
+// Define route collector callback
+$dispatcher = simpleDispatcher(function(RouteCollector $r) {
+    // Load routes from routes/api.php
+    $routeDefinition = require __DIR__ . '/../routes/api.php';
+    if (is_callable($routeDefinition)) {
+        $routeDefinition($r);
+    }
+});
+
+// Fetch method and URI from somewhere
+$httpMethod = $_SERVER['REQUEST_METHOD'];
+$uri = $_SERVER['REQUEST_URI'];
+
+// Strip query string (?foo=bar) and decode URI
+if (false !== $pos = strpos($uri, '?')) {
+    $uri = substr($uri, 0, $pos);
+}
+$uri = rawurldecode($uri);
+
+$routeInfo = $dispatcher->dispatch($httpMethod, $uri);
+
+switch ($routeInfo[0]) {
+    case Dispatcher::NOT_FOUND:
+        http_response_code(404);
+        echo json_encode(['error' => 'Not Found']);
+        break;
+    case Dispatcher::METHOD_NOT_ALLOWED:
+        $allowedMethods = $routeInfo[1];
+        http_response_code(405);
+        echo json_encode(['error' => 'Method Not Allowed', 'allowed' => $allowedMethods]);
+        break;
+    case Dispatcher::FOUND:
+        $handler = $routeInfo[1];
+        $vars = $routeInfo[2];
+
+        // Handle Closure
+        if ($handler instanceof Closure) {
+            call_user_func_array($handler, $vars);
+        } else {
+             // Handle Controller@method or array
+             // This is a simplified dispatcher logic for the skeleton
+             echo json_encode(['handler' => 'controller_dispatch_placeholder', 'vars' => $vars]);
+        }
+        break;
+}

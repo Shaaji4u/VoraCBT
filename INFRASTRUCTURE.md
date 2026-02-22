@@ -84,6 +84,8 @@ The application must use an abstraction layer for caching to support multiple dr
 -   **Redis**: Preferred for VPS. Uses `predis/predis`.
 
 ### 5.2 Abstraction Interface
+Located at: `app/Core/Cache/CacheInterface.php`
+
 ```php
 interface CacheInterface {
     public function get(string $key, mixed $default = null): mixed;
@@ -104,7 +106,13 @@ Asynchronous tasks (e.g., email sending, exam result processing) must be queued.
     -   **Processing**: Processed via long-running worker processes managed by Supervisor.
 
 ### 6.2 Abstraction Interface
+Located at: `app/Core/Queue/QueueInterface.php` and `app/Core/Queue/JobInterface.php`
+
 ```php
+interface JobInterface {
+    public function handle(): void;
+}
+
 interface QueueInterface {
     public function push(string $jobClass, array $data = []): string; // Returns Job ID
     public function pop(): ?JobInterface;
@@ -122,7 +130,9 @@ interface QueueInterface {
 -   **S3**: AWS S3 or compatible (MinIO, DigitalOcean Spaces).
 
 ### 7.3 Abstraction
--   Use a `StorageService` that delegates to the configured driver.
+Located at: `app/Core/Storage/StorageInterface.php`
+
+-   Use a `StorageService` that implements `StorageInterface` and delegates to the configured driver.
 
 ## 8. Mode Strategy
 

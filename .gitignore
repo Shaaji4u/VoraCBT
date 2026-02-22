@@ -8,7 +8,6 @@ storage/uploads/*
 !storage/uploads/.gitkeep
 storage/app/*
 !storage/app/.gitkeep
-composer.lock
 .idea/
 .vscode/
 .DS_Store
