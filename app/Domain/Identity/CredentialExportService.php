@@ -24,7 +24,7 @@ class CredentialExportService
     /**
      * Export credentials.
      *
-     * @param array $filters ['class_id' => ..., 'import_id' => ..., 'student_ids' => [...]]
+     * @param array $filters ['class_id', 'import_id', 'student_ids', 'staff_ids', 'type', 'role', 'department']
      * @param string $format 'csv' | 'html'
      * @param bool $regenerate Whether to regenerate passwords
      * @param string|null $adminId The admin performing the export
@@ -35,7 +35,7 @@ class CredentialExportService
         $users = $this->fetchUsers($filters);
 
         if (empty($users)) {
-            throw new RuntimeException("No students found for the given filters.");
+            throw new RuntimeException("No users found for the given filters.");
         }
 
         $credentials = [];
@@ -79,9 +79,22 @@ class CredentialExportService
     private function fetchUsers(array $filters): array
     {
         $qb = $this->db->createQueryBuilder();
-        $qb->select('u.*', 'c.name as class_name')
+        $qb->select('u.*', 'c.name as class_name', 'r.slug as role_slug')
            ->from('users', 'u')
-           ->leftJoin('u', 'classes', 'c', 'u.class_id = c.id');
+           ->leftJoin('u', 'classes', 'c', 'u.class_id = c.id')
+           ->leftJoin('u', 'roles', 'r', 'u.role_id = r.id');
+
+        if (!empty($filters['type'])) {
+            if ($filters['type'] === 'student') {
+                $qb->andWhere('r.slug = :role_slug OR r.slug IS NULL'); // Assuming default is student or strictly check?
+                // Better: check for admission_number or class_id presence? Or rely on role.
+                // If type is student, usually role is student.
+                $qb->setParameter('role_slug', 'student');
+            } elseif ($filters['type'] === 'staff') {
+                $qb->andWhere('r.slug != :role_student'); // Not student
+                $qb->setParameter('role_student', 'student');
+            }
+        }
 
         if (!empty($filters['class_id'])) {
             $qb->andWhere('u.class_id = :class_id')
@@ -89,8 +102,14 @@ class CredentialExportService
         }
 
         if (!empty($filters['student_ids'])) {
-            $qb->andWhere('u.id IN (:student_ids)')
-               ->setParameter('student_ids', $filters['student_ids'], Connection::PARAM_STR_ARRAY);
+            $qb->andWhere('u.id IN (:user_ids)')
+               ->setParameter('user_ids', $filters['student_ids'], Connection::PARAM_STR_ARRAY);
+        }
+
+        // Support generic user_ids if passed
+        if (!empty($filters['user_ids'])) {
+            $qb->andWhere('u.id IN (:generic_user_ids)')
+               ->setParameter('generic_user_ids', $filters['user_ids'], Connection::PARAM_STR_ARRAY);
         }
 
         if (!empty($filters['import_id'])) {
@@ -98,7 +117,23 @@ class CredentialExportService
                ->setParameter('import_id', $filters['import_id']);
         }
 
-        return $qb->executeQuery()->fetchAllAssociative();
+        // Staff specific filters
+        if (!empty($filters['role'])) {
+            $qb->andWhere('r.slug = :role')
+               ->setParameter('role', $filters['role']);
+        }
+
+        $users = $qb->executeQuery()->fetchAllAssociative();
+
+        // Filter by department (JSON) in PHP as SQLite/MySQL JSON syntax differs and might be complex for portable SQL here.
+        if (!empty($filters['department'])) {
+            $users = array_filter($users, function($user) use ($filters) {
+                $meta = json_decode($user['metadata'] ?? '{}', true);
+                return isset($meta['department']) && stripos($meta['department'], $filters['department']) !== false;
+            });
+        }
+
+        return $users;
     }
 
     private function getCredentials(array $user, bool $regenerate): ?array
@@ -139,13 +174,21 @@ class CredentialExportService
         }
 
         if ($password) {
+            $group = $user['class_name'];
+            if (!$group) {
+                $meta = json_decode($user['metadata'] ?? '{}', true);
+                $group = $meta['department'] ?? $user['role_slug'] ?? 'Staff';
+            }
+
             return [
                 'user_id' => $user['id'],
                 'full_name' => $user['first_name'] . ' ' . $user['last_name'],
-                'admission_number' => $user['admission_number'],
+                'login_id' => $user['admission_number'] ?? $user['staff_id'] ?? $user['email'],
                 'email' => $user['email'],
-                'class_name' => $user['class_name'] ?? 'N/A',
-                'password' => $password
+                'group' => $group,
+                'password' => $password,
+                'academic_session' => $user['academic_session'] ?? '',
+                'sms_oauth_id' => $user['sms_oauth_id'] ?? ''
             ];
         }
 
@@ -164,15 +207,17 @@ class CredentialExportService
     private function generateCsv(array $credentials): string
     {
         $stream = fopen('php://temp', 'r+');
-        fputcsv($stream, ['Full Name', 'Admission Number', 'Email', 'Class', 'Password']);
+        fputcsv($stream, ['Full Name', 'Login ID', 'Email', 'Group', 'Password', 'Session', 'OAuth ID']);
 
         foreach ($credentials as $cred) {
             fputcsv($stream, [
                 $cred['full_name'],
-                $cred['admission_number'],
+                $cred['login_id'],
                 $cred['email'],
-                $cred['class_name'],
-                $cred['password']
+                $cred['group'],
+                $cred['password'],
+                $cred['academic_session'],
+                $cred['sms_oauth_id']
             ]);
         }
 
@@ -194,15 +239,18 @@ class CredentialExportService
         </style>';
         $html .= '</head><body>';
         $html .= '<div class="watermark">Confidential — Destroy After Distribution</div>';
-        $html .= '<h1>Student Credentials</h1>';
+        $html .= '<h1>User Credentials</h1>';
 
         foreach ($credentials as $cred) {
             $html .= '<div class="card">';
             $html .= '<h3>' . htmlspecialchars($cred['full_name']) . '</h3>';
-            $html .= '<p><strong>Institution:</strong> CBT Platform</p>'; // TODO: Configurable name
-            $html .= '<p><strong>Class:</strong> ' . htmlspecialchars($cred['class_name']) . '</p>';
-            $html .= '<p><strong>Login ID:</strong> ' . htmlspecialchars($cred['admission_number'] ?? $cred['email']) . '</p>';
+            $html .= '<p><strong>Institution:</strong> CBT Platform</p>';
+            $html .= '<p><strong>Group:</strong> ' . htmlspecialchars($cred['group']) . '</p>';
+            $html .= '<p><strong>Login ID:</strong> ' . htmlspecialchars($cred['login_id']) . '</p>';
             $html .= '<p><strong>Password:</strong> ' . htmlspecialchars($cred['password']) . '</p>';
+             if ($cred['sms_oauth_id']) {
+                $html .= '<p><small>Linked OAuth: Yes</small></p>';
+            }
             $html .= '<p><small>Login URL: ' . htmlspecialchars($_SERVER['HTTP_HOST'] ?? 'localhost') . '</small></p>';
             $html .= '</div>';
         }
