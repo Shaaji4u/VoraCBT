@@ -242,6 +242,7 @@ class StaffImportService
                         'first_name' => $data['first_name'],
                         'last_name' => $data['last_name'],
                         'password' => $passwordHash,
+                        'must_change_password' => 1,
                         'tenant_id' => $this->tenantId,
                         'role_id' => $roleId,
                         'import_log_id' => $importLogId,

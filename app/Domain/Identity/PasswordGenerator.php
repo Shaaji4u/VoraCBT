@@ -33,9 +33,12 @@ class PasswordGenerator
             $password .= $allChars[random_int(0, strlen($allChars) - 1)];
         }
 
-        // Shuffle
+        // Shuffle using cryptographically secure randomness
         $passwordArray = str_split($password);
-        shuffle($passwordArray);
+        for ($i = count($passwordArray) - 1; $i > 0; $i--) {
+            $j = random_int(0, $i);
+            [$passwordArray[$i], $passwordArray[$j]] = [$passwordArray[$j], $passwordArray[$i]];
+        }
 
         return implode('', $passwordArray);
     }

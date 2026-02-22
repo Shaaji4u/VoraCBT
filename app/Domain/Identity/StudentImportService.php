@@ -255,6 +255,7 @@ class StudentImportService
                         'first_name' => $data['first_name'],
                         'last_name' => $data['last_name'],
                         'password' => $passwordHash,
+                        'must_change_password' => 1,
                         'tenant_id' => $this->tenantId,
                         'class_id' => $classId,
                         'role_id' => $studentRoleId,
@@ -327,7 +328,7 @@ class StudentImportService
     private function loadClassCache(): void
     {
         $this->classCache = [];
-        $classes = $this->db->fetchAllAssociative("SELECT name, id FROM classes WHERE tenant_id = 1");
+        $classes = $this->db->fetchAllAssociative("SELECT name, id FROM classes WHERE tenant_id = ?", [$this->tenantId]);
         foreach ($classes as $class) {
             $this->classCache[$class['name']] = $class['id'];
         }
@@ -364,8 +365,6 @@ class StudentImportService
         }
 
         // Try to find in DB (fallback for concurrent additions or misses)
-        $class = $this->db->fetchAssociative("SELECT id FROM classes WHERE name = ? AND tenant_id = 1", [$className]);
-        // Try to find
         $class = $this->db->fetchAssociative("SELECT id FROM classes WHERE name = ? AND tenant_id = ?", [$className, $this->tenantId]);
 
         if ($class) {
