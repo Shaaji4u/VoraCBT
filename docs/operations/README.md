@@ -13,3 +13,6 @@ This folder contains deployment and operations deliverables:
 9. Disaster recovery plan (`disaster-recovery-plan.md`)
 10. Health endpoint spec (`health-endpoint-spec.md`)
 11. Environment configuration strategy (`environment-configuration.md`)
+12. Staging load test plan (`staging-load-test-plan.md`)
+13. DR drill evidence artifacts (`evidence/`)
+

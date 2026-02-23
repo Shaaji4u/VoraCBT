@@ -39,6 +39,30 @@ if (($_ENV['APP_ENV'] ?? 'production') === 'production') {
 }
 
 
+$enforceHttps = (($_ENV['ENFORCE_HTTPS'] ?? 'false') === 'true');
+if ($enforceHttps) {
+    $forwardedProto = strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? ''));
+    $httpsEnabled = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    $isHttps = $httpsEnabled || $forwardedProto === 'https';
+
+    if (!$isHttps) {
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $path = $_SERVER['REQUEST_URI'] ?? '/';
+        header('Location: https://' . $host . $path, true, 308);
+        exit;
+    }
+
+    header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+}
+
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if (!isset($_SESSION['_csrf_token']) || !is_string($_SESSION['_csrf_token']) || $_SESSION['_csrf_token'] === '') {
+    $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // 3. Set Error Reporting
 if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
     ini_set('display_errors', '1');
@@ -56,6 +80,7 @@ use function FastRoute\simpleDispatcher;
 use App\Http\Middleware\RateLimitMiddleware;
 use App\Infrastructure\Cache\FileCache;
 use App\Core\Http\Response;
+use App\Http\Middleware\CsrfMiddleware;
 
 // Define route collector callback
 $dispatcher = simpleDispatcher(function(RouteCollector $r) {
@@ -89,6 +114,7 @@ if (strpos($uri, '/api') === 0) {
     header('Content-Type: application/json');
 } else {
     header('Content-Type: text/html; charset=utf-8');
+    header('X-CSRF-Token: ' . $_SESSION['_csrf_token']);
 }
 
 header('X-Frame-Options: DENY');
@@ -111,6 +137,23 @@ if (strpos($uri, '/api') === 0) {
     $result = $middleware->handle($request, static fn(array $req) => true);
     if ($result instanceof Response) {
         $result->send();
+        exit;
+    }
+}
+
+
+// CSRF protection for browser-session state changing web requests.
+if (strpos($uri, '/api') !== 0 && in_array($httpMethod, ['POST', 'PUT', 'PATCH', 'DELETE'], true)) {
+    $csrfMiddleware = new CsrfMiddleware();
+    $csrfRequest = [
+        'method' => $httpMethod,
+        'headers' => function_exists('getallheaders') ? getallheaders() : [],
+        'post' => $_POST,
+    ];
+
+    $csrfResult = $csrfMiddleware->handle($csrfRequest, static fn(array $req) => true);
+    if ($csrfResult instanceof Response) {
+        $csrfResult->send();
         exit;
     }
 }

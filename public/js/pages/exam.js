@@ -161,11 +161,13 @@ class ExamController {
         }
     }
 
-    confirmSubmit() {
+    async confirmSubmit() {
         const answeredCount = Object.keys(this.answers).length;
         const total = this.questions.length;
-        const confirmMsg = `You have answered ${answeredCount} out of ${total} questions.\nAre you sure you want to submit?`;
-        if (confirm(confirmMsg)) {
+        const confirmMsg = `You have answered ${answeredCount} out of ${total} questions. Are you sure you want to submit?`;
+        const approved = await this.showSubmitConfirmation(confirmMsg);
+
+        if (approved) {
             this.submitExam();
         }
     }
@@ -177,8 +179,93 @@ class ExamController {
             window.location.href = '/student/dashboard';
         } catch (e) {
             console.error('Submission failed', e);
-            alert('Submission failed. Please try again.');
+            this.showStatus('Submission failed. Please review your connection and try again.', 'danger');
         }
+    }
+
+    showStatus(message, type = 'warning') {
+        let region = document.getElementById('exam-status-region');
+        if (!region) {
+            region = document.createElement('div');
+            region.id = 'exam-status-region';
+            region.className = 'mt-3';
+            const container = document.getElementById('question-container') || document.body;
+            container.prepend(region);
+        }
+
+        region.innerHTML = `<div class="alert alert-${type} mb-2" role="status">${message}</div>`;
+    }
+
+    showSubmitConfirmation(message) {
+        return new Promise((resolve) => {
+            const modalId = 'exam-submit-confirm-modal';
+            const existing = document.getElementById(modalId);
+            if (existing) {
+                existing.remove();
+            }
+
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.id = modalId;
+            modal.tabIndex = -1;
+            modal.setAttribute('aria-hidden', 'true');
+            modal.innerHTML = `
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Submit exam</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">${message}</div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-submit-decision="cancel">Review answers</button>
+                            <button type="button" class="btn btn-danger" data-submit-decision="confirm">Submit now</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            let settled = false;
+            const finalize = (approved) => {
+                if (settled) return;
+                settled = true;
+                resolve(approved);
+                modal.remove();
+            };
+
+            const confirmButton = modal.querySelector('[data-submit-decision="confirm"]');
+            const cancelButton = modal.querySelector('[data-submit-decision="cancel"]');
+
+            if (window.bootstrap && window.bootstrap.Modal) {
+                const instance = new window.bootstrap.Modal(modal, { backdrop: 'static' });
+                confirmButton.addEventListener('click', () => {
+                    instance.hide();
+                    finalize(true);
+                }, { once: true });
+                cancelButton.addEventListener('click', () => {
+                    instance.hide();
+                    finalize(false);
+                }, { once: true });
+                modal.addEventListener('hidden.bs.modal', () => finalize(false), { once: true });
+                instance.show();
+                return;
+            }
+
+            const fallback = document.createElement('div');
+            fallback.className = 'alert alert-warning';
+            fallback.innerHTML = `${message} <button class="btn btn-sm btn-danger ms-2" data-submit-decision="confirm">Submit</button> <button class="btn btn-sm btn-outline-secondary ms-1" data-submit-decision="cancel">Cancel</button>`;
+            modal.replaceWith(fallback);
+            fallback.querySelector('[data-submit-decision="confirm"]').addEventListener('click', () => {
+                fallback.remove();
+                resolve(true);
+            }, { once: true });
+            fallback.querySelector('[data-submit-decision="cancel"]').addEventListener('click', () => {
+                fallback.remove();
+                resolve(false);
+            }, { once: true });
+        });
     }
 
     updateNavigator() {

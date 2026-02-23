@@ -1,17 +1,17 @@
 <?php
-$title = 'Exam Workspace';
+$title = 'Exam Runtime';
 ob_start();
 ?>
 <div class="container-fluid py-3">
     <div class="card border-0 shadow-sm rounded-3">
         <div class="card-header bg-white d-flex flex-wrap justify-content-between align-items-center gap-2">
             <div>
-                <h1 class="h5 mb-1">Biology Midterm</h1>
-                <p class="small text-secondary mb-0">Section B • Question 12 of 50</p>
+                <h1 id="exam-title" class="h5 mb-1">Loading exam…</h1>
+                <p id="section-title" class="small text-secondary mb-0">Preparing section details…</p>
             </div>
             <div class="d-flex gap-2 align-items-center">
-                <span class="badge text-bg-dark p-2" aria-live="polite">Time Remaining: 00:42:11</span>
-                <button class="btn btn-outline-secondary btn-sm">Full Screen</button>
+                <span id="exam-timer" class="badge text-bg-dark p-2" aria-live="polite">00:00:00</span>
+                <span id="question-type-badge" class="badge text-bg-light text-dark p-2">-</span>
             </div>
         </div>
 
@@ -19,48 +19,42 @@ ob_start();
             <div class="row g-3">
                 <aside class="col-lg-3">
                     <div class="border rounded-3 p-3 h-100">
-                        <h2 class="h6">Question Navigator</h2>
-                        <div class="d-grid" style="grid-template-columns:repeat(5,minmax(0,1fr));gap:.4rem;">
-                            <?php for ($i = 1; $i <= 20; $i++): ?>
-                                <button class="btn btn-sm <?= $i === 12 ? 'btn-primary' : 'btn-outline-secondary' ?>" aria-label="Question <?= $i ?>"><?= str_pad((string)$i, 2, '0', STR_PAD_LEFT) ?></button>
-                            <?php endfor; ?>
-                        </div>
+                        <h2 class="h6 mb-2">Question Navigator</h2>
+                        <p id="nav-total-questions" class="small text-secondary mb-3">0 Questions</p>
+                        <div id="navigator-grid" class="d-grid" style="grid-template-columns:repeat(5,minmax(0,1fr));gap:.4rem;"></div>
                     </div>
                 </aside>
 
                 <main class="col-lg-9">
                     <div class="border rounded-3 p-3 p-md-4">
-                        <p class="fw-semibold">Which process is responsible for transporting water from roots to leaves in plants?</p>
-                        <div class="d-grid gap-2" role="radiogroup" aria-label="Answer choices">
-                            <label class="border rounded p-2"><input type="radio" name="answer" class="me-2"> Diffusion</label>
-                            <label class="border rounded p-2"><input type="radio" name="answer" class="me-2"> Transpiration pull</label>
-                            <label class="border rounded p-2"><input type="radio" name="answer" class="me-2"> Fermentation</label>
-                            <label class="border rounded p-2"><input type="radio" name="answer" class="me-2"> Digestion</label>
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                            <p id="question-number" class="fw-semibold mb-0">Question 0 of 0</p>
+                            <button id="btn-flag" class="btn btn-outline-warning btn-sm" type="button">
+                                <span class="material-symbols-outlined align-middle">flag</span> Flag
+                            </button>
+                        </div>
+
+                        <div id="question-container" class="mb-3"></div>
+
+                        <div class="progress" role="progressbar" aria-label="Exam progress" aria-valuemin="0" aria-valuemax="100">
+                            <div id="exam-progress" class="progress-bar" style="width: 0%"></div>
                         </div>
 
                         <div class="d-flex flex-wrap justify-content-between mt-4 gap-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="markReview">
-                                <label class="form-check-label" for="markReview">Mark for review</label>
-                            </div>
+                            <button id="btn-prev" class="btn btn-outline-secondary" type="button">Previous</button>
                             <div class="d-flex gap-2">
-                                <button class="btn btn-outline-secondary">Previous</button>
-                                <button class="btn btn-primary">Save & Next</button>
-                                <button class="btn btn-danger">Submit Exam</button>
+                                <button id="btn-next" class="btn btn-primary" type="button">Next</button>
+                                <button id="btn-submit" class="btn btn-danger" type="button">Submit Exam</button>
                             </div>
                         </div>
                     </div>
-
-                    <div class="alert alert-warning mt-3 mb-0" role="status">
-                        Session alert: Your exam activity was flagged for review. Please continue.
-                    </div>
-                    <p class="small text-secondary mt-2 mb-0">No AI hints or auto-modification are shown during exam runtime.</p>
                 </main>
             </div>
         </div>
     </div>
 </div>
 <?php
+$scripts = '<script type="module" src="/js/pages/exam.js"></script>';
 $content = ob_get_clean();
 include __DIR__ . '/../layouts/exam.php';
 ?>

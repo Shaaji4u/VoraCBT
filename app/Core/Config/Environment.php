@@ -14,7 +14,7 @@ class Environment
     private function __construct()
     {
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../');
-        $this->env = $dotenv->load();
+        $this->env = $dotenv->safeLoad();
     }
 
     public static function getInstance(): self

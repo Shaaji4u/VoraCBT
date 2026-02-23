@@ -5,39 +5,98 @@ use App\Http\Controllers\Admin\IdentityController;
 use App\Http\Controllers\Api\ProctoringController;
 use App\Http\Controllers\Admin\MonitoringController;
 use App\Http\Controllers\Api\ExamRecoveryController;
+use App\Http\Controllers\Api\StudentDashboardController;
+use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\RoleMiddleware;
+use App\Core\Http\Response;
+use App\Core\Http\ApiResponse;
 
 return function (RouteCollector $r) {
+    $authorize = static function (array $roles, callable $action): void {
+        $request = [
+            'headers' => function_exists('getallheaders') ? getallheaders() : [],
+        ];
+
+        try {
+            $authResult = (new AuthMiddleware())->handle($request, static function (array $authenticatedRequest) use ($roles) {
+                return (new RoleMiddleware($roles))->handle($authenticatedRequest, static fn(array $authorizedRequest) => $authorizedRequest);
+            });
+        } catch (Throwable $e) {
+            ApiResponse::error('Unauthorized', 401)->send();
+            return;
+        }
+
+        if ($authResult instanceof Response) {
+            $authResult->send();
+            return;
+        }
+
+        $action();
+    };
+
+    $authorizeAdmin = static function (callable $action) use ($authorize): void {
+        $authorize(['admin', 'super_admin'], $action);
+    };
+
+    $authorizeStudentExam = static function (callable $action) use ($authorize): void {
+        $authorize(['student', 'admin', 'super_admin'], $action);
+    };
+
     // Identity Routes
-    $r->addGroup('/api', function (RouteCollector $r) {
-        $r->post('/admin/students/import/preview', function() {
-            (new IdentityController())->preview();
+    $r->addGroup('/api', function (RouteCollector $r) use ($authorizeAdmin, $authorizeStudentExam) {
+        $r->post('/admin/students/import/preview', function() use ($authorizeAdmin) {
+            $authorizeAdmin(static function (): void {
+                (new IdentityController())->preview();
+            });
         });
-        $r->post('/admin/students/import/commit', function() {
-            (new IdentityController())->commit();
+        $r->post('/admin/students/import/commit', function() use ($authorizeAdmin) {
+            $authorizeAdmin(static function (): void {
+                (new IdentityController())->commit();
+            });
         });
-        $r->get('/admin/students/credentials/export', function() {
-            (new IdentityController())->export();
+        $r->get('/admin/students/credentials/export', function() use ($authorizeAdmin) {
+            $authorizeAdmin(static function (): void {
+                (new IdentityController())->export();
+            });
         });
-        $r->get('/admin/logs', function() {
-            (new MonitoringController())->logs();
+        $r->get('/admin/logs', function() use ($authorizeAdmin) {
+            $authorizeAdmin(static function (): void {
+                (new MonitoringController())->logs();
+            });
+        });
+
+
+        $r->get('/student/dashboard/overview', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
+                (new StudentDashboardController())->overview();
+            });
         });
 
         // Proctoring Routes
-        $r->post('/proctoring/event', function() {
-            (new ProctoringController())->logEvent();
+        $r->post('/proctoring/event', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
+                (new ProctoringController())->logEvent();
+            });
         });
-        $r->post('/proctoring/heartbeat', function() {
-            (new ProctoringController())->heartbeat();
+        $r->post('/proctoring/heartbeat', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
+                (new ProctoringController())->heartbeat();
+            });
         });
-        $r->post('/exam/autosave', function() {
-            (new ExamRecoveryController())->autosave();
+        $r->post('/exam/autosave', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
+                (new ExamRecoveryController())->autosave();
+            });
         });
-        $r->get('/exam/resume-state', function() {
-            (new ExamRecoveryController())->resumeState();
+        $r->get('/exam/resume-state', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
+                (new ExamRecoveryController())->resumeState();
+            });
         });
     });
 
     $r->get('/health', function () {
+
         header('Content-Type: application/json');
 
         $checks = [
