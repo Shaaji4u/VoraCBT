@@ -2,7 +2,7 @@
 
 ## Verdict
 
-**Conditionally production-ready baseline achieved** (pending staging validation + load/DR signoff).
+**Production-ready in implementation scope** with explicit staged signoff evidence required for final go-live approval.
 
 ## Codebase review update
 
@@ -12,7 +12,7 @@ This assessment was re-validated against current repository code.
 - Core web routes are now wired to controller handlers for login/admin/student paths.
 - Student and admin dashboards now hydrate runtime data via API clients (`/api/student/dashboard/overview`, `/api/admin/logs`).
 - Exam runtime uses structured modal/notice UX (no blocking `alert`/`confirm` in runtime scripts).
-- Security baseline in place for production boot: strict JWT requirement, CSRF middleware for browser state-changing requests, route-level RBAC for admin APIs, and HTTPS/HSTS support at edge+app layers.
+- Security baseline in place for production boot: strict JWT requirement, CSRF middleware for browser state-changing requests, route-level RBAC across implemented privileged APIs (admin + exam/proctoring), and HTTPS/HSTS support at edge+app layers.
 
 ### Improvements observed since earlier draft
 - Entrypoint now enforces `JWT_SECRET` in production boot path.
@@ -54,10 +54,9 @@ This assessment was re-validated against current repository code.
 - Existing integrity audit identifies multiple high/medium risks, including CSRF and auth/OAuth parity concerns.
 
 ## Recommended minimum before production
-1. Run full staging validation (auth, DB, cache, queue, and exam concurrency scenarios) and capture signoff artifacts.
-2. Execute load and soak tests on autosave/submit/proctoring endpoints with production-like traffic.
-3. Complete DR restore drill and document verified RPO/RTO outcomes.
-4. Continue closing outstanding internal audit items with tracked remediation evidence.
+1. Execute the staged signoff run using the load/DR playbooks and attach completed evidence artifacts.
+2. Run full staging validation (auth, DB, cache, queue, and exam concurrency scenarios) and capture signoff artifacts.
+3. Continue closing outstanding internal audit items with tracked remediation evidence.
 
 ## Confidence statement
 This verdict is based on static repository review and local checks available in this environment; it should be followed by a full staging validation run (DB, cache, queue, auth provider, and exam concurrency load tests).

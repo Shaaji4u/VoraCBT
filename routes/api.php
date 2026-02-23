@@ -34,48 +34,64 @@ return function (RouteCollector $r) {
         $action();
     };
 
+    $authorizeAdmin = static function (callable $action) use ($authorize): void {
+        $authorize(['admin', 'super_admin'], $action);
+    };
+
+    $authorizeStudentExam = static function (callable $action) use ($authorize): void {
+        $authorize(['student', 'admin', 'super_admin'], $action);
+    };
+
     // Identity Routes
-    $r->addGroup('/api', function (RouteCollector $r) use ($authorize) {
-        $r->post('/admin/students/import/preview', function() use ($authorize) {
-            $authorize(['admin', 'super_admin'], static function (): void {
+    $r->addGroup('/api', function (RouteCollector $r) use ($authorizeAdmin, $authorizeStudentExam) {
+        $r->post('/admin/students/import/preview', function() use ($authorizeAdmin) {
+            $authorizeAdmin(static function (): void {
                 (new IdentityController())->preview();
             });
         });
-        $r->post('/admin/students/import/commit', function() use ($authorize) {
-            $authorize(['admin', 'super_admin'], static function (): void {
+        $r->post('/admin/students/import/commit', function() use ($authorizeAdmin) {
+            $authorizeAdmin(static function (): void {
                 (new IdentityController())->commit();
             });
         });
-        $r->get('/admin/students/credentials/export', function() use ($authorize) {
-            $authorize(['admin', 'super_admin'], static function (): void {
+        $r->get('/admin/students/credentials/export', function() use ($authorizeAdmin) {
+            $authorizeAdmin(static function (): void {
                 (new IdentityController())->export();
             });
         });
-        $r->get('/admin/logs', function() use ($authorize) {
-            $authorize(['admin', 'super_admin'], static function (): void {
+        $r->get('/admin/logs', function() use ($authorizeAdmin) {
+            $authorizeAdmin(static function (): void {
                 (new MonitoringController())->logs();
             });
         });
 
 
-        $r->get('/student/dashboard/overview', function() use ($authorize) {
-            $authorize(['student', 'admin', 'super_admin'], static function (): void {
+        $r->get('/student/dashboard/overview', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
                 (new StudentDashboardController())->overview();
             });
         });
 
         // Proctoring Routes
-        $r->post('/proctoring/event', function() {
-            (new ProctoringController())->logEvent();
+        $r->post('/proctoring/event', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
+                (new ProctoringController())->logEvent();
+            });
         });
-        $r->post('/proctoring/heartbeat', function() {
-            (new ProctoringController())->heartbeat();
+        $r->post('/proctoring/heartbeat', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
+                (new ProctoringController())->heartbeat();
+            });
         });
-        $r->post('/exam/autosave', function() {
-            (new ExamRecoveryController())->autosave();
+        $r->post('/exam/autosave', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
+                (new ExamRecoveryController())->autosave();
+            });
         });
-        $r->get('/exam/resume-state', function() {
-            (new ExamRecoveryController())->resumeState();
+        $r->get('/exam/resume-state', function() use ($authorizeStudentExam) {
+            $authorizeStudentExam(static function (): void {
+                (new ExamRecoveryController())->resumeState();
+            });
         });
     });
 

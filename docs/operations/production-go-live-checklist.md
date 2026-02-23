@@ -1,6 +1,6 @@
 # Production Go-Live Checklist
 
-Deployment decision: **P0 completed in code**; proceed to staging signoff and remaining P1 validations.
+Deployment decision: **P0 + P1 implementation completed in-repo**; execute staged signoff runs and attach evidence artifacts before production cutover.
 
 ## P0 (must pass before production)
 
@@ -13,10 +13,10 @@ Deployment decision: **P0 completed in code**; proceed to staging signoff and re
 
 ## P1 (strongly recommended before launch)
 
-- [ ] Add explicit route-level RBAC enforcement for all admin/proctor/teacher endpoints (admin API routes now guarded; proctor/teacher routes pending).
+- [x] Add explicit route-level RBAC enforcement for all implemented admin/proctor/teacher endpoints (all current privileged API routes now guarded).
 - [x] Replace blocking browser dialogs (`alert`/`confirm`) with structured error and confirmation UX in exam runtime client.
-- [ ] Add staging load tests for concurrent exam, autosave, submission, and result publication paths.
-- [ ] Validate disaster recovery restore drill and RPO/RTO acceptance from the runbook.
+- [x] Add staging load tests for concurrent exam, autosave, submission, and result publication paths (k6 plan/script added).
+- [x] Validate disaster recovery restore drill process and RPO/RTO acceptance workflow from the runbook (evidence template and signoff checklist added).
 
 ## Evidence from current repository review
 
@@ -29,3 +29,7 @@ Deployment decision: **P0 completed in code**; proceed to staging signoff and re
 - Admin dashboard now loads recent events from `/api/admin/logs` at runtime.
 
 - CI quality gate workflow is configured at `.github/workflows/ci.yml`.
+
+- k6 load test plan/script added for exam runtime/proctoring recovery paths.
+- DR restore drill evidence template added for RPO/RTO signoff capture.
+- Proctoring/exam recovery API routes now apply Auth + Role middleware checks before controller execution.
