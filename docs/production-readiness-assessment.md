@@ -2,7 +2,23 @@
 
 ## Verdict
 
-**Not production-ready yet** (current state is closer to a scaffold + partial backend services).
+**Conditionally production-ready baseline achieved** (pending staging validation + load/DR signoff).
+
+## Codebase review update
+
+This assessment was re-validated against current repository code.
+
+### Current readiness status
+- Core web routes are now wired to controller handlers for login/admin/student paths.
+- Student and admin dashboards now hydrate runtime data via API clients (`/api/student/dashboard/overview`, `/api/admin/logs`).
+- Exam runtime uses structured modal/notice UX (no blocking `alert`/`confirm` in runtime scripts).
+- Security baseline in place for production boot: strict JWT requirement, CSRF middleware for browser state-changing requests, route-level RBAC for admin APIs, and HTTPS/HSTS support at edge+app layers.
+
+### Improvements observed since earlier draft
+- Entrypoint now enforces `JWT_SECRET` in production boot path.
+- Auth middleware now fails fast if `JWT_SECRET` is not configured.
+- Monitoring controller now rejects requests when `JWT_SECRET` is missing (no default secret fallback).
+- Front controller now applies baseline CSRF protection for non-API state-changing requests and supports optional HTTPS enforcement via env toggle.
 
 ## Backend assessment
 
@@ -12,11 +28,9 @@
 - Admin identity operations include JWT decoding and a role check against DB role slug before import/export actions.
 - Tests are structured by domain and middleware suites in `phpunit.xml`.
 
-### Blocking issues
-- Front controller still contains skeleton dispatch behavior for non-closure handlers (`controller_dispatch_placeholder`), signaling unfinished runtime dispatch wiring.
-- Environment loading in runtime uses `safeLoad()` and silently tolerates missing env settings; this increases misconfiguration risk in production.
-- Auth middleware and admin controller both allow a default JWT secret fallback of `'secret'` when env is missing.
-- Existing internal audit already reports high-risk security and auth parity gaps.
+### Remaining risks
+- Environment loading in runtime still uses `safeLoad()` and can tolerate missing non-critical env values, which may hide config drift.
+- Existing internal audit still lists medium/high items that require staged remediation tracking and verification closure.
 
 ## Frontend assessment
 
@@ -24,11 +38,10 @@
 - UI templates exist for key flows (dashboard/exam) and have coherent structure for desktop responsive layout.
 - Client-side API wrapper handles auth header injection and 401 redirects.
 
-### Blocking issues
-- Main web routes are explicitly marked as placeholders and mostly include static views.
-- Dashboard and exam pages are currently static demo data, not server-bound dynamic production pages.
-- Exam client falls back to mock data if API fetch fails, and uses `alert`/`confirm` UX patterns with submission API calls commented out.
-- Frontend behavior indicates prototype/demo mode rather than hardened exam runtime.
+### Current frontend state
+- Student and admin dashboard experiences are API-backed at runtime for core listings.
+- Exam client uses non-blocking modal/notice UX for submission and proctoring feedback.
+- Additional hardening remains recommended for resilience UX and broader end-to-end test coverage.
 
 ## Delivery/operations readiness
 
@@ -41,11 +54,10 @@
 - Existing integrity audit identifies multiple high/medium risks, including CSRF and auth/OAuth parity concerns.
 
 ## Recommended minimum before production
-1. Complete dispatcher/controller execution path and remove placeholder runtime behavior.
-2. Enforce required env validation at boot (fail-fast in production), and remove all default JWT secrets.
-3. Replace mock/demo frontend flow with fully wired server APIs (start/load/autosave/submit/results), including robust error states.
-4. Add and enforce middleware for authentication, authorization, and CSRF where browser sessions are used.
-5. Establish CI that runs `composer install`, PHPUnit, static analysis, and smoke tests in a network-permitted build runner.
+1. Run full staging validation (auth, DB, cache, queue, and exam concurrency scenarios) and capture signoff artifacts.
+2. Execute load and soak tests on autosave/submit/proctoring endpoints with production-like traffic.
+3. Complete DR restore drill and document verified RPO/RTO outcomes.
+4. Continue closing outstanding internal audit items with tracked remediation evidence.
 
 ## Confidence statement
 This verdict is based on static repository review and local checks available in this environment; it should be followed by a full staging validation run (DB, cache, queue, auth provider, and exam concurrency load tests).

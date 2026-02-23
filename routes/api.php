@@ -5,21 +5,63 @@ use App\Http\Controllers\Admin\IdentityController;
 use App\Http\Controllers\Api\ProctoringController;
 use App\Http\Controllers\Admin\MonitoringController;
 use App\Http\Controllers\Api\ExamRecoveryController;
+use App\Http\Controllers\Api\StudentDashboardController;
+use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\RoleMiddleware;
+use App\Core\Http\Response;
+use App\Core\Http\ApiResponse;
 
 return function (RouteCollector $r) {
+    $authorize = static function (array $roles, callable $action): void {
+        $request = [
+            'headers' => function_exists('getallheaders') ? getallheaders() : [],
+        ];
+
+        try {
+            $authResult = (new AuthMiddleware())->handle($request, static function (array $authenticatedRequest) use ($roles) {
+                return (new RoleMiddleware($roles))->handle($authenticatedRequest, static fn(array $authorizedRequest) => $authorizedRequest);
+            });
+        } catch (Throwable $e) {
+            ApiResponse::error('Unauthorized', 401)->send();
+            return;
+        }
+
+        if ($authResult instanceof Response) {
+            $authResult->send();
+            return;
+        }
+
+        $action();
+    };
+
     // Identity Routes
-    $r->addGroup('/api', function (RouteCollector $r) {
-        $r->post('/admin/students/import/preview', function() {
-            (new IdentityController())->preview();
+    $r->addGroup('/api', function (RouteCollector $r) use ($authorize) {
+        $r->post('/admin/students/import/preview', function() use ($authorize) {
+            $authorize(['admin', 'super_admin'], static function (): void {
+                (new IdentityController())->preview();
+            });
         });
-        $r->post('/admin/students/import/commit', function() {
-            (new IdentityController())->commit();
+        $r->post('/admin/students/import/commit', function() use ($authorize) {
+            $authorize(['admin', 'super_admin'], static function (): void {
+                (new IdentityController())->commit();
+            });
         });
-        $r->get('/admin/students/credentials/export', function() {
-            (new IdentityController())->export();
+        $r->get('/admin/students/credentials/export', function() use ($authorize) {
+            $authorize(['admin', 'super_admin'], static function (): void {
+                (new IdentityController())->export();
+            });
         });
-        $r->get('/admin/logs', function() {
-            (new MonitoringController())->logs();
+        $r->get('/admin/logs', function() use ($authorize) {
+            $authorize(['admin', 'super_admin'], static function (): void {
+                (new MonitoringController())->logs();
+            });
+        });
+
+
+        $r->get('/student/dashboard/overview', function() use ($authorize) {
+            $authorize(['student', 'admin', 'super_admin'], static function (): void {
+                (new StudentDashboardController())->overview();
+            });
         });
 
         // Proctoring Routes
@@ -38,6 +80,7 @@ return function (RouteCollector $r) {
     });
 
     $r->get('/health', function () {
+
         header('Content-Type: application/json');
 
         $checks = [

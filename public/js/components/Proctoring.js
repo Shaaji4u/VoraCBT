@@ -84,12 +84,34 @@ export class Proctoring {
     }
 
     showWarning(message) {
-        // Use a modal or a custom alert, for now standard alert
-        alert(`Warning: ${message}`);
+        this.pushNotice(`Warning: ${message}`, 'warning');
     }
 
     showToast(message) {
-        // Placeholder for toast
-        console.log(message);
+        this.pushNotice(message, 'info');
+    }
+
+    pushNotice(message, level = 'info') {
+        let tray = document.getElementById('proctoring-notice-tray');
+        if (!tray) {
+            tray = document.createElement('div');
+            tray.id = 'proctoring-notice-tray';
+            tray.className = 'position-fixed top-0 end-0 p-3';
+            tray.style.zIndex = '1080';
+            document.body.appendChild(tray);
+        }
+
+        const item = document.createElement('div');
+        item.className = `alert alert-${level === 'warning' ? 'warning' : 'secondary'} shadow-sm mb-2`;
+        item.setAttribute('role', 'status');
+        item.textContent = message;
+        tray.appendChild(item);
+
+        window.setTimeout(() => {
+            item.remove();
+            if (tray.children.length === 0) {
+                tray.remove();
+            }
+        }, 3000);
     }
 }

@@ -40,7 +40,11 @@ class MonitoringController
         }
 
         try {
-            $jwtSecret = $_ENV['JWT_SECRET'] ?? 'default-secret';
+            $jwtSecret = $_ENV['JWT_SECRET'] ?? '';
+            if ($jwtSecret === '') {
+                return null;
+            }
+
             $decoded = JWT::decode($matches[1], new Key($jwtSecret, 'HS256'));
             $role = $decoded->role ?? null;
             if (!in_array($role, ['admin', 'super_admin'], true)) {
