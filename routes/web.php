@@ -7,6 +7,9 @@ return function (RouteCollector $r) {
     $r->get('/', [PageController::class, 'home']);
     $r->get('/login', [PageController::class, 'login']);
 
+    $r->post('/auth/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
+    $r->post('/auth/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
+
     $r->get('/admin/dashboard', [PageController::class, 'adminDashboard']);
     $r->get('/admin/exams/create', [PageController::class, 'adminExamCreate']);
 

@@ -16,6 +16,11 @@ export class ApiClient {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
+        const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+        if (csrfTokenMeta && csrfTokenMeta.content) {
+            headers['X-CSRF-Token'] = csrfTokenMeta.content;
+        }
+
         const config = {
             method,
             headers,

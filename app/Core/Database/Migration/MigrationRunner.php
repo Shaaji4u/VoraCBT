@@ -103,7 +103,7 @@ class MigrationRunner
     private function getNextBatchNumber(): int
     {
         $batch = $this->connection->fetchOne("SELECT MAX(batch) FROM migrations");
-        return ((int)$batch) + 1;
+        return ((int) $batch) + 1;
     }
 
     private function getClassNameFromFile(string $filepath): string
@@ -144,11 +144,18 @@ class MigrationRunner
                 'executed_at' => date('Y-m-d H:i:s')
             ]);
 
-            $this->connection->commit();
+            if ($this->connection->isTransactionActive()) {
+                $this->connection->commit();
+            }
             echo "Migrated:  $migrationName\n";
         } catch (Exception $e) {
-            $this->connection->rollBack();
-            throw $e;
+            try {
+                $this->connection->rollBack();
+            } catch (Exception $rollbackEx) {
+                // Ignore rollback failures (e.g., "no active transaction" from implicit DDL commits)
+                // so the original schema error can bubble up
+            }
+            throw new RuntimeException("Migration failed: " . $e->getMessage(), 0, $e);
         }
     }
 
@@ -181,7 +188,7 @@ class MigrationRunner
 
             $file = $this->findMigrationFile($migrationName);
             if (!$file) {
-                 throw new RuntimeException("Migration file for $migrationName not found");
+                throw new RuntimeException("Migration file for $migrationName not found");
             }
 
             require_once $file;
@@ -225,8 +232,12 @@ class MigrationRunner
             $this->connection->commit();
             echo "Rolled back:  $migrationName\n";
         } catch (Exception $e) {
-            $this->connection->rollBack();
-            throw $e;
+            try {
+                $this->connection->rollBack();
+            } catch (Exception $rollbackEx) {
+                // Ignore rollback failures
+            }
+            throw new RuntimeException("Rollback failed: " . $e->getMessage(), 0, $e);
         }
     }
 }

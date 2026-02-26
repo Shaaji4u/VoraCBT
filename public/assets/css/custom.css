@@ -1,0 +1,405 @@
+/* Custom CSS for CBT Enterprise */
+
+/* Fonts Imports */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
+/* Typography Overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+}
+
+.font-display {
+    font-family: var(--bs-font-sans-serif);
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--cbt-slate-300);
+    border-radius: 20px;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: var(--cbt-slate-400);
+}
+
+[data-bs-theme="dark"] .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--cbt-slate-600);
+}
+
+/* Utility Classes matching Tailwind patterns not in Bootstrap */
+.bg-primary-soft {
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    color: var(--bs-primary);
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.hover-scale {
+    transition: transform 0.2s;
+}
+
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive Utilities */
+@media (min-width: 768px) {
+    .h-md-100 {
+        height: 100% !important;
+    }
+
+    .overflow-md-hidden {
+        overflow: hidden !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .h-lg-100 {
+        height: 100% !important;
+    }
+
+    .overflow-lg-hidden {
+        overflow: hidden !important;
+    }
+
+    .w-lg-400px {
+        width: 400px !important;
+        min-width: 320px !important;
+    }
+}
+
+/* Screen Specific Themes */
+
+/* Screen 4 Override */
+.theme-screen-4 {
+    --bs-primary: #185bec;
+    --bs-primary-rgb: 24, 91, 236;
+}
+
+.theme-screen-4 .bg-primary {
+    background-color: var(--bs-primary) !important;
+}
+
+.theme-screen-4 .text-primary {
+    color: var(--bs-primary) !important;
+}
+
+.theme-screen-4 .border-primary {
+    border-color: var(--bs-primary) !important;
+}
+
+/* Screen 14 (Login) Override */
+.theme-login {
+    --bs-primary: #6d4cb8;
+    --bs-primary-rgb: 109, 76, 184;
+    --bs-body-font-family: 'Lexend', sans-serif;
+    background-color: var(--bs-body-bg);
+    font-family: 'Lexend', sans-serif;
+}
+
+.theme-login .text-primary {
+    color: var(--bs-primary) !important;
+}
+
+.theme-login .bg-primary {
+    background-color: var(--bs-primary) !important;
+}
+
+.theme-login .border-primary {
+    border-color: var(--bs-primary) !important;
+}
+
+/* Drag Handle */
+.drag-handle {
+    cursor: grab;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Timer Animation */
+.timer-warning {
+    animation: pulse-warning 2s infinite;
+}
+
+@keyframes pulse-warning {
+    0% {
+        color: var(--bs-body-color);
+    }
+
+    50% {
+        color: #f59e0b;
+    }
+
+    100% {
+        color: var(--bs-body-color);
+    }
+}
+
+/* Bootstrap Overrides / Enhancements */
+.btn-primary {
+    /* Uses --bs-primary automatically */
+}
+
+.btn-primary:hover {
+    /* Approximate darken logic or strict override */
+    filter: brightness(90%);
+}
+
+.nav-link {
+    color: var(--bs-secondary);
+    font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--bs-primary);
+}
+
+/* Avatar Placeholder */
+.avatar-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Shadow utilities */
+.shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Glassmorphism helpers */
+.backdrop-blur-md {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Better Clean Auth Styles */
+.auth-wrapper {
+    background-color: var(--bs-body-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-bg-elements {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.auth-shape {
+    position: absolute;
+    filter: blur(60px);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: authFloat 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.auth-shape.shape-1 {
+    top: -10%;
+    left: 10%;
+    width: 40vw;
+    height: 40vw;
+    background: radial-gradient(circle, rgba(var(--bs-primary-rgb), 0.15) 0%, rgba(var(--bs-primary-rgb), 0) 70%);
+}
+
+.auth-shape.shape-2 {
+    bottom: -20%;
+    right: -10%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(var(--bs-primary-rgb), 0.1) 0%, rgba(var(--bs-primary-rgb), 0) 70%);
+    animation-delay: -5s;
+}
+
+.auth-shape.shape-3 {
+    top: 40%;
+    left: -20%;
+    width: 30vw;
+    height: 30vw;
+    background: radial-gradient(circle, rgba(147, 187, 253, 0.15) 0%, rgba(147, 187, 253, 0) 70%);
+    animation-delay: -10s;
+}
+
+@keyframes authFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(3%, 5%) scale(1.05);
+    }
+
+    100% {
+        transform: translate(-2%, 2%) scale(0.95);
+    }
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02), 0 10px 15px -3px rgba(0, 0, 0, 0.03) !important;
+}
+
+[data-bs-theme="dark"] .auth-card {
+    background: rgba(30, 35, 46, 0.75);
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) !important;
+}
+
+.auth-input-clean {
+    background-color: transparent;
+    border: 1px solid var(--cbt-slate-300);
+    padding: 0.875rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--bs-body-color);
+    transition: all 0.2s ease;
+}
+
+[data-bs-theme="dark"] .auth-input-clean {
+    border-color: var(--bs-border-color);
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.auth-input-clean:focus {
+    background-color: var(--bs-body-bg);
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 4px rgba(var(--bs-primary-rgb), 0.15);
+    outline: none;
+}
+
+[data-bs-theme="dark"] .auth-input-clean:focus {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.auth-input-clean::placeholder {
+    color: var(--bs-secondary);
+}
+
+.auth-btn-primary {
+    background-color: var(--bs-primary);
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(var(--bs-primary-rgb), 0.2), 0 2px 4px -1px rgba(var(--bs-primary-rgb), 0.1);
+}
+
+.auth-btn-primary:hover {
+    background-color: var(--bs-primary);
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(var(--bs-primary-rgb), 0.3), 0 4px 6px -1px rgba(var(--bs-primary-rgb), 0.15);
+}
+
+.auth-btn-primary:active {
+    transform: translateY(0);
+    filter: brightness(0.85);
+}
+
+.auth-btn-secondary {
+    background-color: transparent;
+    color: var(--bs-body-color);
+    border: 1px solid var(--cbt-slate-300);
+    border-radius: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+[data-bs-theme="dark"] .auth-btn-secondary {
+    border-color: var(--bs-border-color);
+}
+
+.auth-btn-secondary:hover {
+    background-color: rgba(100, 116, 139, 0.05);
+}
+
+[data-bs-theme="dark"] .auth-btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Extracted Utility Classes */
+.size-48 {
+    width: 48px;
+    height: 48px;
+}
+
+.font-size-80 {
+    font-size: 0.8rem;
+}
+
+.font-size-75 {
+    font-size: 0.75rem;
+}
+
+.font-size-70 {
+    font-size: 0.7rem;
+}
+
+.letter-spacing-sm {
+    letter-spacing: 0.5px;
+}
+
+.opacity-25 {
+    opacity: 0.25;
+}
+
+.auth-checkbox-size {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.pt-2px {
+    padding-top: 2px;
+}
+
+.max-w-420 {
+    max-width: 420px;
+}
+
+.rounded-1-5 {
+    border-radius: 1.5rem;
+}
