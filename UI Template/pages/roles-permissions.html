@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roles & Permissions - CBT Enterprise Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/cbt.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <i class="bi bi-grid-1x2-fill"></i>
+          </div>
+          <div>
+            <div class="brand-text">CBT Enterprise</div>
+            <div class="brand-subtext">Admin Console</div>
+          </div>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="admin-dashboard.html" class="nav-link"><i class="bi bi-grid"></i><span class="nav-text">Dashboard</span></a></li>
+            <li class="nav-item"><a href="exam-template.html" class="nav-link"><i class="bi bi-file-text"></i><span class="nav-text">Assessments</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-people"></i><span class="nav-text">Students</span></a></li>
+            <li class="nav-item"><a href="exam-analytics.html" class="nav-link"><i class="bi bi-bar-chart"></i><span class="nav-text">Reports</span></a></li>
+            <li class="nav-item"><a href="system-settings.html" class="nav-link"><i class="bi bi-gear"></i><span class="nav-text">Settings</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="sidebar-toggle d-lg-none" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="bi bi-list"></i>
+          </button>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Roles & Permissions</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="header-right">
+          <button class="header-action"><i class="bi bi-bell"></i></button>
+          <button class="header-action"><i class="bi bi-gear"></i></button>
+          <div class="avatar avatar-sm"><img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"></div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="permissions-header">
+          <div class="permissions-title-section">
+            <h1 class="page-title">Roles & Permissions</h1>
+            <p class="permissions-description">Define user roles and manage access control across the platform. Toggle permissions to customize access for different user types.</p>
+          </div>
+          <div class="permissions-actions">
+            <button class="btn btn-secondary"><i class="bi bi-download"></i> Export</button>
+            <button class="btn btn-primary"><i class="bi bi-plus"></i> Add New Role</button>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="permissions-tabs">
+          <button class="permissions-tab active">Permissions</button>
+          <button class="permissions-tab">Roles</button>
+          <button class="permissions-tab">Users</button>
+          <div class="permissions-search">
+            <div class="search-box" style="width: 200px;">
+              <i class="bi bi-search"></i>
+              <input type="text" placeholder="Search permissions...">
+            </div>
+          </div>
+        </div>
+
+        <!-- Permissions Matrix -->
+        <div class="permissions-matrix">
+          <!-- Header -->
+          <div class="permissions-matrix-header">
+            <div class="permission-label">Permissions</div>
+            <div class="role-label text-center">
+              <span>Admin</span>
+              <small>Manage</small>
+            </div>
+            <div class="role-label text-center">
+              <span>Teacher</span>
+              <small>Manage</small>
+            </div>
+            <div class="role-label text-center">
+              <span>Proctor</span>
+              <small>Manage</small>
+            </div>
+            <div class="role-label text-center">
+              <span>Student</span>
+              <small>Manage</small>
+            </div>
+          </div>
+
+          <!-- Question Bank Category -->
+          <div class="permission-category">
+            <div class="permission-category-header">Question Bank</div>
+            
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>View Questions</h4>
+                <p>Allows user to view the question repository.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Create Questions</h4>
+                <p>Allows user to add new questions to the bank.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Edit Questions</h4>
+                <p>Allows user to modify existing questions.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Delete Questions</h4>
+                <p>Allows user to remove questions permanently.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Import/Export Questions</h4>
+                <p>Allows bulk import and export of question data.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+          </div>
+
+          <!-- Exam Management Category -->
+          <div class="permission-category">
+            <div class="permission-category-header">Exam Management</div>
+            
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Create Exams</h4>
+                <p>Allows user to create new exam templates.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Schedule Exams</h4>
+                <p>Allows user to schedule exam sessions.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Monitor Live Sessions</h4>
+                <p>Allows user to monitor ongoing exam sessions.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>View Results</h4>
+                <p>Allows user to view exam results and analytics.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Grade Essays</h4>
+                <p>Allows user to manually grade essay questions.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+          </div>
+
+          <!-- User Management Category -->
+          <div class="permission-category">
+            <div class="permission-category-header">User Management</div>
+            
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Manage Users</h4>
+                <p>Allows user to create, edit, and delete user accounts.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>Assign Roles</h4>
+                <p>Allows user to assign roles to other users.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+
+            <div class="permission-row">
+              <div class="permission-info">
+                <h4>View Audit Logs</h4>
+                <p>Allows user to view system activity logs.</p>
+              </div>
+              <div class="permission-checkbox"><input type="checkbox" checked></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+              <div class="permission-checkbox"><input type="checkbox"></div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="permissions-footer">
+            <div class="unsaved-changes">
+              <i class="bi bi-info-circle"></i>
+              <span>You have unsaved changes.</span>
+            </div>
+            <div class="permissions-footer-actions">
+              <button class="btn btn-secondary">Reset Changes</button>
+              <button class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Tab switching
+      $('.permissions-tab').on('click', function() {
+        $('.permissions-tab').removeClass('active');
+        $(this).addClass('active');
+      });
+
+      // Checkbox change handler
+      $('.permission-checkbox input').on('change', function() {
+        $('.unsaved-changes').show();
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Mobile Sidebar Toggle
+      const sidebar = $('#sidebar');
+      const sidebarOverlay = $('#sidebarOverlay');
+      const sidebarToggle = $('#sidebarToggle');
+
+      function openSidebar() {
+        sidebar.addClass('show');
+        sidebarOverlay.addClass('show');
+        $('body').css('overflow', 'hidden');
+      }
+
+      function closeSidebar() {
+        sidebar.removeClass('show');
+        sidebarOverlay.removeClass('show');
+        $('body').css('overflow', '');
+      }
+
+      sidebarToggle.on('click', function() {
+        if (sidebar.hasClass('show')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      sidebarOverlay.on('click', function() {
+        closeSidebar();
+      });
+
+      // Close sidebar when clicking on nav links (mobile)
+      $('.nav-link').on('click', function() {
+        if ($(window).width() < 992) {
+          closeSidebar();
+        }
+      });
+
+      // Close sidebar on window resize to desktop
+      $(window).on('resize', function() {
+        if ($(window).width() >= 992) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

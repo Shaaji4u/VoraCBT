@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Passage-Based Question - CBT Enterprise Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/cbt.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <i class="bi bi-grid-1x2-fill"></i>
+          </div>
+          <span class="brand-text">CBT Enterprise</span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="admin-dashboard.html" class="nav-link"><i class="bi bi-grid"></i><span class="nav-text">Dashboard</span></a></li>
+            <li class="nav-item"><a href="question-repository.html" class="nav-link active"><i class="bi bi-question-square"></i><span class="nav-text">Question Bank</span></a></li>
+            <li class="nav-item"><a href="exam-template.html" class="nav-link"><i class="bi bi-file-text"></i><span class="nav-text">Assessments</span></a></li>
+            <li class="nav-item"><a href="exam-analytics.html" class="nav-link"><i class="bi bi-bar-chart"></i><span class="nav-text">Reports</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="sidebar-toggle d-lg-none" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="bi bi-list"></i>
+          </button>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Content Management</a></li>
+              <li class="breadcrumb-item"><a href="#">Question Bank</a></li>
+              <li class="breadcrumb-item active">Create Passage-Based Question</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="header-right">
+          <button class="btn btn-secondary">Save Draft</button>
+          <button class="btn btn-primary">Publish</button>
+          <div class="avatar avatar-sm"><img src="https://ui-avatars.com/api/?name=Teacher&background=random" alt="Teacher"></div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="page-header">
+          <h1 class="page-title">The Industrial Revolution - Readi</h1>
+          <div class="d-flex gap-3 mt-2">
+            <span class="badge badge-secondary"><i class="bi bi-book"></i> History</span>
+            <span style="font-size: var(--font-size-sm); color: var(--color-gray-500);"><i class="bi bi-mortarboard"></i> Grade 10</span>
+            <span style="font-size: var(--font-size-sm); color: var(--color-gray-500);"><i class="bi bi-star"></i> 20 Points</span>
+          </div>
+        </div>
+
+        <div class="question-builder">
+          <!-- Passage Stimulus -->
+          <div class="builder-main">
+            <div class="builder-panel">
+              <div class="panel-title">
+                <span><i class="bi bi-file-text"></i> Passage Stimulus</span>
+                <div>
+                  <button class="toolbar-btn"><i class="bi bi-arrow-counterclockwise"></i></button>
+                  <button class="toolbar-btn"><i class="bi bi-arrow-clockwise"></i></button>
+                </div>
+              </div>
+              <div class="editor-toolbar">
+                <button class="toolbar-btn"><i class="bi bi-type-bold"></i></button>
+                <button class="toolbar-btn"><i class="bi bi-type-italic"></i></button>
+                <button class="toolbar-btn"><i class="bi bi-type-underline"></i></button>
+                <span class="toolbar-divider"></span>
+                <button class="toolbar-btn"><i class="bi bi-list-ul"></i></button>
+                <button class="toolbar-btn"><i class="bi bi-list-ol"></i></button>
+                <span class="toolbar-divider"></span>
+                <button class="toolbar-btn"><i class="bi bi-link"></i></button>
+                <button class="toolbar-btn"><i class="bi bi-image"></i></button>
+                <button class="toolbar-btn"><i class="bi bi-table"></i></button>
+              </div>
+              <textarea class="editor-content" style="min-height: 300px;" placeholder="Begin typing your reading passage or stimulus here..."></textarea>
+            </div>
+          </div>
+
+          <!-- Questions Panel -->
+          <div class="builder-main">
+            <div class="builder-panel">
+              <div class="panel-title">
+                <span><i class="bi bi-question-circle"></i> Questions (2)</span>
+                <button class="btn btn-primary btn-sm"><i class="bi bi-plus"></i> Add Nested Question</button>
+              </div>
+
+              <!-- Question 1 -->
+              <div class="p-4 border rounded mb-3" style="border-color: var(--color-gray-200); background-color: var(--color-gray-50);">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div class="d-flex gap-2">
+                    <span style="width: 28px; height: 28px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: var(--font-size-sm); font-weight: 600;">1</span>
+                    <span class="badge badge-primary">MULTIPLE CHOICE</span>
+                  </div>
+                  <div>
+                    <button class="btn btn-ghost btn-sm"><i class="bi bi-files"></i></button>
+                    <button class="btn btn-ghost btn-sm text-danger"><i class="bi bi-trash"></i></button>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); text-transform: uppercase; letter-spacing: 0.05em;">Question Prompt</label>
+                  <textarea class="form-control mt-2" rows="2">According to the first paragraph, what was the primary catalyst for the growth of urban centers during the 18th century?</textarea>
+                </div>
+
+                <div>
+                  <label style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); text-transform: uppercase; letter-spacing: 0.05em;">Options</label>
+                  <div class="mt-2">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                      <input type="radio" name="q1" checked style="accent-color: var(--color-primary);">
+                      <input type="text" class="form-control form-control-sm" value="The advancement of steam-powered machinery">
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                      <input type="radio" name="q1">
+                      <input type="text" class="form-control form-control-sm" value="Agricultural surplus in rural villages">
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                      <input type="radio" name="q1">
+                      <input type="text" class="form-control form-control-sm" value="Mandatory military service policies">
+                    </div>
+                  </div>
+                  <button class="btn btn-ghost btn-sm" style="padding-left: 24px; color: var(--color-primary);"><i class="bi bi-plus-circle"></i> Add Option</button>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-3" style="border-top: 1px solid var(--color-gray-200);">
+                  <div class="d-flex gap-3">
+                    <span style="font-size: var(--font-size-sm); color: var(--color-gray-500);">Points: <strong style="color: var(--color-gray-700);">5</strong></span>
+                    <span style="font-size: var(--font-size-sm); color: var(--color-gray-500);">Difficulty: <strong style="color: var(--color-primary);">Medium</strong></span>
+                  </div>
+                  <button class="btn btn-ghost btn-sm"><i class="bi bi-gear"></i> Settings</button>
+                </div>
+              </div>
+
+              <!-- Question 2 -->
+              <div class="p-4 border rounded" style="border-color: var(--color-gray-200); background-color: var(--color-gray-50);">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div class="d-flex gap-2">
+                    <span style="width: 28px; height: 28px; background-color: var(--color-gray-400); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: var(--font-size-sm); font-weight: 600;">2</span>
+                    <span class="badge" style="background-color: var(--color-gray-200); color: var(--color-gray-600);">FILL IN THE BLANK</span>
+                  </div>
+                  <div>
+                    <button class="btn btn-ghost btn-sm"><i class="bi bi-files"></i></button>
+                    <button class="btn btn-ghost btn-sm text-danger"><i class="bi bi-trash"></i></button>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); text-transform: uppercase; letter-spacing: 0.05em;">Question Prompt</label>
+                  <p class="mt-2" style="font-size: var(--font-size-sm); color: var(--color-gray-500); font-style: italic;">Use [blank] to insert an input field.</p>
+                  <textarea class="form-control mt-2" rows="2">The invention of the [blank] in 1769 by James Watt was a defining moment of the revolution.</textarea>
+                </div>
+
+                <div class="p-3 rounded" style="background-color: var(--color-primary-light);">
+                  <label style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em;">Correct Answer(s)</label>
+                  <div class="d-flex gap-2 mt-2">
+                    <input type="text" class="form-control form-control-sm" value="Steam Engine">
+                    <button class="btn btn-ghost btn-sm"><i class="bi bi-plus"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="d-flex justify-content-between align-items-center mt-4 p-3 rounded" style="background-color: var(--color-gray-100);">
+          <div class="d-flex align-items-center gap-2">
+            <span style="width: 8px; height: 8px; background-color: var(--color-success); border-radius: 50%;"></span>
+            <span style="font-size: var(--font-size-sm); color: var(--color-gray-600);">Changes saved automatically (12:45 PM)</span>
+          </div>
+          <div class="d-flex gap-3">
+            <span style="font-size: var(--font-size-sm); color: var(--color-gray-600);">Total Items: <strong>2</strong></span>
+            <span style="font-size: var(--font-size-sm); color: var(--color-gray-600);">Total Points: <strong>15 / 20</strong></span>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-secondary"><i class="bi bi-eye"></i> Preview Student View</button>
+            <button class="btn btn-primary">Submit Question Set</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Mobile Sidebar Toggle
+      const sidebar = $('#sidebar');
+      const sidebarOverlay = $('#sidebarOverlay');
+      const sidebarToggle = $('#sidebarToggle');
+
+      function openSidebar() {
+        sidebar.addClass('show');
+        sidebarOverlay.addClass('show');
+        $('body').css('overflow', 'hidden');
+      }
+
+      function closeSidebar() {
+        sidebar.removeClass('show');
+        sidebarOverlay.removeClass('show');
+        $('body').css('overflow', '');
+      }
+
+      sidebarToggle.on('click', function() {
+        if (sidebar.hasClass('show')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      sidebarOverlay.on('click', function() {
+        closeSidebar();
+      });
+
+      // Close sidebar when clicking on nav links (mobile)
+      $('.nav-link').on('click', function() {
+        if ($(window).width() < 992) {
+          closeSidebar();
+        }
+      });
+
+      // Close sidebar on window resize to desktop
+      $(window).on('resize', function() {
+        if ($(window).width() >= 992) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

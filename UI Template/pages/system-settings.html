@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Settings - CBT Enterprise Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/cbt.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <i class="bi bi-grid-1x2-fill"></i>
+          </div>
+          <span class="brand-text">CBT Enterprise</span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="admin-dashboard.html" class="nav-link"><i class="bi bi-grid"></i><span class="nav-text">Dashboard</span></a></li>
+            <li class="nav-item"><a href="exam-template.html" class="nav-link"><i class="bi bi-file-text"></i><span class="nav-text">Assessments</span></a></li>
+            <li class="nav-item"><a href="exam-analytics.html" class="nav-link"><i class="bi bi-bar-chart"></i><span class="nav-text">Results</span></a></li>
+            <li class="nav-item"><a href="exam-analytics.html" class="nav-link"><i class="bi bi-file-bar-graph"></i><span class="nav-text">Reports</span></a></li>
+            <li class="nav-item"><a href="system-settings.html" class="nav-link active"><i class="bi bi-gear"></i><span class="nav-text">Settings</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <div class="search-box">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Search...">
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="header-action">
+            <i class="bi bi-bell"></i>
+          </button>
+          <button class="header-action">
+            <i class="bi bi-question-circle"></i>
+          </button>
+          <div class="avatar avatar-sm"><img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"></div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <nav aria-label="breadcrumb" class="mb-3">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Settings</a></li>
+            <li class="breadcrumb-item active">Integrations</li>
+          </ol>
+        </nav>
+
+        <div class="page-header">
+          <h1 class="page-title">System Settings</h1>
+          <p class="page-subtitle">Manage platform configurations, permissions, and third-party integrations for your institution.</p>
+        </div>
+
+        <!-- Settings Tabs -->
+        <div class="settings-tabs">
+          <button class="settings-tab">General</button>
+          <button class="settings-tab active">Integrations</button>
+          <button class="settings-tab">Security</button>
+          <button class="settings-tab">Users</button>
+        </div>
+
+        <div class="row">
+          <!-- Left Column -->
+          <div class="col-lg-8">
+            <!-- SMS Sync Card -->
+            <div class="settings-card">
+              <div class="settings-card-header">
+                <div>
+                  <div class="settings-card-title">
+                    <i class="bi bi-arrow-left-right"></i> SMS Sync
+                  </div>
+                  <p class="settings-card-description">Configure data synchronization with your external School Management System.</p>
+                </div>
+                <span class="status-badge connected"><span style="width: 8px; height: 8px; background-color: var(--color-success); border-radius: 50%;"></span> Connected</span>
+              </div>
+
+              <div class="settings-item">
+                <div class="settings-item-info">
+                  <div class="settings-item-icon">
+                    <i class="bi bi-mortarboard"></i>
+                  </div>
+                  <div class="settings-item-text">
+                    <h4>Sync Students Profile</h4>
+                    <p>Update student registry, classes, and bio-data.</p>
+                  </div>
+                </div>
+                <label class="form-switch">
+                  <input type="checkbox" checked>
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-item">
+                <div class="settings-item-info">
+                  <div class="settings-item-icon">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="settings-item-text">
+                    <h4>Sync Teachers Directory</h4>
+                    <p>Update staff accounts and subject assignments.</p>
+                  </div>
+                </div>
+                <label class="form-switch">
+                  <input type="checkbox" checked>
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-item">
+                <div class="settings-item-info">
+                  <div class="settings-item-icon">
+                    <i class="bi bi-check-square"></i>
+                  </div>
+                  <div class="settings-item-text">
+                    <h4>Push Assessment Results</h4>
+                    <p>Automatically send graded exam scores to SMS gradebook.</p>
+                  </div>
+                </div>
+                <label class="form-switch">
+                  <input type="checkbox">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mt-4 p-3 rounded" style="background-color: var(--color-gray-50);">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-clock-history" style="color: var(--color-gray-500);"></i>
+                  <span style="font-size: var(--font-size-sm); color: var(--color-gray-600);">Last synced: <strong>Oct 24, 2023 at 10:45 AM</strong></span>
+                </div>
+                <button class="btn btn-primary"><i class="bi bi-arrow-repeat"></i> Sync Now</button>
+              </div>
+            </div>
+
+            <!-- Recent Sync Activity -->
+            <div class="settings-card">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 style="font-size: var(--font-size-base); font-weight: 600; margin: 0;">Recent Sync Activity</h3>
+                <a href="#" style="font-size: var(--font-size-sm); color: var(--color-primary);">View Full Logs</a>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table mb-0">
+                  <thead>
+                    <tr>
+                      <th style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.05em;">Date & Time</th>
+                      <th style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.05em;">Entity Type</th>
+                      <th style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.05em;">Status</th>
+                      <th style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.05em;">Records</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="font-size: var(--font-size-sm);">Oct 24, 2023 10:45 AM</td>
+                      <td><i class="bi bi-mortarboard" style="color: var(--color-gray-400); margin-right: var(--space-2);"></i> Students</td>
+                      <td><span class="badge badge-success">Success</span></td>
+                      <td style="font-size: var(--font-size-sm);">1,240 Updated</td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: var(--font-size-sm);">Oct 24, 2023 10:45 AM</td>
+                      <td><i class="bi bi-people" style="color: var(--color-gray-400); margin-right: var(--space-2);"></i> Teachers</td>
+                      <td><span class="badge badge-success">Success</span></td>
+                      <td style="font-size: var(--font-size-sm);">85 Updated</td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: var(--font-size-sm);">Oct 23, 2023 04:15 PM</td>
+                      <td><i class="bi bi-check-square" style="color: var(--color-gray-400); margin-right: var(--space-2);"></i> Results</td>
+                      <td><span class="badge badge-danger">Failed</span></td>
+                      <td style="font-size: var(--font-size-sm);">0 Updated</td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: var(--font-size-sm);">Oct 22, 2023 09:00 AM</td>
+                      <td><i class="bi bi-mortarboard" style="color: var(--color-gray-400); margin-right: var(--space-2);"></i> Students</td>
+                      <td><span class="badge badge-success">Success</span></td>
+                      <td style="font-size: var(--font-size-sm);">12 Updated</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="col-lg-4">
+            <!-- Active Provider -->
+            <div class="provider-card mb-4">
+              <p style="font-size: var(--font-size-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-gray-500); margin-bottom: var(--space-4);">Active Provider</p>
+              
+              <div class="provider-header">
+                <div class="provider-icon">
+                  <i class="bi bi-server"></i>
+                </div>
+                <div class="provider-info">
+                  <h4>EduConnect SMS</h4>
+                  <p>v2.4.0 (API)</p>
+                </div>
+              </div>
+
+              <div class="provider-stats">
+                <div class="provider-stat">
+                  <span class="provider-stat-label">API Status</span>
+                  <span class="provider-stat-value success"><i class="bi bi-circle-fill" style="font-size: 8px;"></i> Operational</span>
+                </div>
+                <div class="provider-stat">
+                  <span class="provider-stat-label">Rate Limit</span>
+                  <span class="provider-stat-value">450/1000 req/hr</span>
+                </div>
+                <div class="provider-stat">
+                  <span class="provider-stat-label">Next Scheduled</span>
+                  <span class="provider-stat-value">Today, 11:00 PM</span>
+                </div>
+              </div>
+
+              <button class="btn btn-secondary w-100 mt-4">Configure Provider Settings</button>
+            </div>
+
+            <!-- Help Card -->
+            <div class="help-card">
+              <div class="help-card-title">
+                <i class="bi bi-question-circle"></i> Need help syncing?
+              </div>
+              <p class="help-card-text">Check our documentation for step-by-step guides on how to resolve common synchronization errors.</p>
+              <a href="#" class="help-card-link">Read Documentation <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Mobile Sidebar Toggle
+      const sidebar = $('#sidebar');
+      const sidebarOverlay = $('#sidebarOverlay');
+      const sidebarToggle = $('#sidebarToggle');
+
+      function openSidebar() {
+        sidebar.addClass('show');
+        sidebarOverlay.addClass('show');
+        $('body').css('overflow', 'hidden');
+      }
+
+      function closeSidebar() {
+        sidebar.removeClass('show');
+        sidebarOverlay.removeClass('show');
+        $('body').css('overflow', '');
+      }
+
+      sidebarToggle.on('click', function() {
+        if (sidebar.hasClass('show')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      sidebarOverlay.on('click', function() {
+        closeSidebar();
+      });
+
+      // Close sidebar when clicking on nav links (mobile)
+      $('.nav-link').on('click', function() {
+        if ($(window).width() < 992) {
+          closeSidebar();
+        }
+      });
+
+      // Close sidebar on window resize to desktop
+      $(window).on('resize', function() {
+        if ($(window).width() >= 992) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

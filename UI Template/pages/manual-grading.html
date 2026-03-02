@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual Essay Grading - CBT Enterprise Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/cbt.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Main Content -->
+    <main class="main-content" style="margin-left: 0;">
+      <!-- Top Header -->
+      <header class="top-header" style="position: sticky; top: 0;">
+        <div class="header-left">
+          <div class="brand-icon" style="width: 36px; height: 36px;">
+            <i class="bi bi-mortarboard-fill"></i>
+          </div>
+          <div>
+            <div style="font-weight: 600;">CBT Enterprise</div>
+            <div style="font-size: var(--font-size-xs); color: var(--color-gray-500);">Teacher Portal</div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-4">
+          <div style="text-align: right;">
+            <div style="font-weight: 600;">English 101 - Midterm Essay</div>
+            <div style="font-size: var(--font-size-xs); color: var(--color-gray-500);">Section B • Oct 24, 2023</div>
+          </div>
+          <div class="d-flex align-items-center gap-2 px-3 py-2 rounded" style="background-color: var(--color-gray-100);">
+            <i class="bi bi-clock"></i>
+            <span style="font-size: var(--font-size-sm);">Time Taken: 45m 12s</span>
+          </div>
+          <button class="header-action"><i class="bi bi-gear"></i></button>
+          <div class="avatar avatar-sm"><img src="https://ui-avatars.com/api/?name=Teacher&background=random" alt="Teacher"></div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="essay-grading-container">
+          <!-- Essay Content Area -->
+          <div class="essay-content-area">
+            <div class="essay-header">
+              <div class="essay-student-info">
+                <div class="essay-student-avatar">JD</div>
+                <div class="essay-student-details">
+                  <h4>Jane Doe</h4>
+                  <p>Student ID: 8933021 • 5 of 30</p>
+                </div>
+              </div>
+              <div class="essay-meta-badges">
+                <span class="badge badge-secondary"><i class="bi bi-type"></i> 450 Words</span>
+              </div>
+            </div>
+
+            <!-- Question Prompt -->
+            <div class="essay-prompt-section">
+              <div class="essay-prompt-header">
+                <i class="bi bi-question-circle"></i> Question Prompt
+              </div>
+              <div class="essay-topic">ESSAY TOPIC</div>
+              <p class="essay-prompt-text">
+                Analyze the theme of ambition in Macbeth and how it leads to the downfall of the main character. Discuss specific scenes and soliloquies that illustrate his internal conflict and eventual submission to his darker desires.
+              </p>
+            </div>
+
+            <!-- Essay Response -->
+            <h2 class="essay-response-title">Ambition's Double-Edged Sword in Macbeth</h2>
+            <div class="essay-response-content">
+              <p>In Shakespeare's <em>Macbeth</em>, ambition is portrayed not merely as a desire for power, but as a corrupting biological force that, once unchecked, consumes the host. Macbeth's journey from a noble thane to a paranoid tyrant serves as a cautionary tale about the destruction inherent in seeking power without morality.</p>
+              
+              <p>Initially, Macbeth is hesitant. In his soliloquy in Act 1, Scene 7, he acknowledges that he has "no spur to prick the sides of my intent, but only Vaulting Ambition." This capitalization of Ambition suggests he views it as a separate entity. However, Lady Macbeth acts as the catalyst, questioning his manhood and courage. It is her ambition, projected onto him, that first tips the scales.</p>
+              
+              <p>The murder of Duncan is the point of no return. Once the act is committed, the "wine of life is drawn," and Macbeth's ambition morphs into paranoia. He no longer kills for advancement, but for security. The murder of Banquo and the slaughter of Macduff's family are not acts of a conqueror, but of a frightened man trying to outrun his own shadow.</p>
+              
+              <p>Shakespeare uses blood imagery to symbolize the stain of this ambition. Macbeth laments that "all great Neptune's ocean" cannot wash the blood from his hands. This hyperbole emphasizes that the guilt—the byproduct of his ambition—is infinite and indelible.</p>
+              
+              <p>In conclusion, Macbeth's downfall is not caused by fate or the witches, but by his own inability to temper his ambition with reason. He becomes a slave to his desire for the crown, losing his humanity, his wife, and ultimately his life in the process.</p>
+            </div>
+          </div>
+
+          <!-- Grading Panel -->
+          <div class="grading-panel">
+            <div class="grading-panel-header">
+              <div class="grading-panel-title">
+                <i class="bi bi-check-square"></i> Grading Panel
+              </div>
+              <div class="grading-panel-actions">
+                <button class="btn btn-ghost btn-sm"><i class="bi bi-clock-history"></i> History</button>
+                <button class="btn btn-ghost btn-sm"><i class="bi bi-check-circle"></i> Draft Saved</button>
+              </div>
+            </div>
+
+            <!-- Total Score -->
+            <div class="total-score-section">
+              <div class="total-score-header">
+                <span class="total-score-label">Total Score</span>
+                <span class="total-score-status">Passing > 60</span>
+              </div>
+              <div class="total-score-value">
+                <span class="total-score-number">85</span>
+                <span class="total-score-max">/ 100</span>
+              </div>
+              <div class="progress" style="height: 4px; margin-top: var(--space-3);">
+                <div class="progress-bar" style="width: 85%;"></div>
+              </div>
+            </div>
+
+            <!-- Rubric Criteria -->
+            <div class="rubric-section">
+              <div class="rubric-header">
+                <span class="rubric-title">RUBRIC CRITERIA</span>
+                <span class="rubric-auto-sum">Auto-sum enabled</span>
+              </div>
+
+              <div class="rubric-item selected">
+                <div class="rubric-checkbox"></div>
+                <div class="rubric-item-content">
+                  <div class="rubric-item-header">
+                    <span class="rubric-item-title">Thesis Statement</span>
+                    <span class="rubric-item-points">20 pts</span>
+                  </div>
+                  <p class="rubric-item-description">Clear, arguable thesis that directly addresses the prompt.</p>
+                </div>
+              </div>
+
+              <div class="rubric-item selected">
+                <div class="rubric-checkbox"></div>
+                <div class="rubric-item-content">
+                  <div class="rubric-item-header">
+                    <span class="rubric-item-title">Evidence & Support</span>
+                    <span class="rubric-item-points">30 pts</span>
+                  </div>
+                  <p class="rubric-item-description">Uses relevant quotes and examples from the text.</p>
+                </div>
+              </div>
+
+              <div class="rubric-item selected">
+                <div class="rubric-checkbox"></div>
+                <div class="rubric-item-content">
+                  <div class="rubric-item-header">
+                    <span class="rubric-item-title">Analysis & Logic</span>
+                    <span class="rubric-item-points">30 pts</span>
+                  </div>
+                  <p class="rubric-item-description">Coherent argument flow and logical conclusions.</p>
+                </div>
+              </div>
+
+              <div class="rubric-item">
+                <div class="rubric-checkbox"></div>
+                <div class="rubric-item-content">
+                  <div class="rubric-item-header">
+                    <span class="rubric-item-title">Grammar & Mechanics</span>
+                    <span class="rubric-item-points">20 pts</span>
+                  </div>
+                  <p class="rubric-item-description">Proper syntax, spelling, and punctuation.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Teacher Feedback -->
+            <div class="feedback-section">
+              <div class="feedback-title">TEACHER FEEDBACK</div>
+              <textarea class="feedback-textarea" placeholder="Enter your feedback here...">Great analysis of the second act, but watch your citations. You missed citing the soliloquy in Act 3 properly.</textarea>
+              <div class="feedback-tags">
+                <span class="feedback-tag">+ Good Thesis</span>
+                <span class="feedback-tag">+ Cite Sources</span>
+                <span class="feedback-tag">+ Check Grammar</span>
+                <span class="feedback-tag">+ Excellent Flow</span>
+              </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="grading-navigation">
+              <button class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Previous</button>
+              <button class="btn btn-primary">Next Student <i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Rubric item selection
+      $('.rubric-item').on('click', function() {
+        $(this).toggleClass('selected');
+      });
+
+      // Feedback tag click
+      $('.feedback-tag').on('click', function() {
+        const tag = $(this).text();
+        const textarea = $('.feedback-textarea');
+        const currentText = textarea.val();
+        textarea.val(currentText + (currentText ? ' ' : '') + tag);
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Mobile Sidebar Toggle
+      const sidebar = $('#sidebar');
+      const sidebarOverlay = $('#sidebarOverlay');
+      const sidebarToggle = $('#sidebarToggle');
+
+      function openSidebar() {
+        sidebar.addClass('show');
+        sidebarOverlay.addClass('show');
+        $('body').css('overflow', 'hidden');
+      }
+
+      function closeSidebar() {
+        sidebar.removeClass('show');
+        sidebarOverlay.removeClass('show');
+        $('body').css('overflow', '');
+      }
+
+      sidebarToggle.on('click', function() {
+        if (sidebar.hasClass('show')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      sidebarOverlay.on('click', function() {
+        closeSidebar();
+      });
+
+      // Close sidebar when clicking on nav links (mobile)
+      $('.nav-link').on('click', function() {
+        if ($(window).width() < 992) {
+          closeSidebar();
+        }
+      });
+
+      // Close sidebar on window resize to desktop
+      $(window).on('resize', function() {
+        if ($(window).width() >= 992) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

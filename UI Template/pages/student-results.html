@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Results - CBT Enterprise Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/cbt.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <i class="bi bi-grid-1x2-fill"></i>
+          </div>
+          <div>
+            <div class="brand-text">Exam Portal</div>
+            <div class="brand-subtext">Student Dashboard</div>
+          </div>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-grid"></i><span class="nav-text">Dashboard</span></a></li>
+            <li class="nav-item"><a href="exam-selection.html" class="nav-link"><i class="bi bi-file-text"></i><span class="nav-text">My Exams</span></a></li>
+            <li class="nav-item"><a href="student-results.html" class="nav-link active"><i class="bi bi-bar-chart"></i><span class="nav-text">Results</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-calendar"></i><span class="nav-text">Schedule</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-folder"></i><span class="nav-text">Resources</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <h1 style="font-size: var(--font-size-xl); font-weight: 600; margin: 0;">My Results</h1>
+        </div>
+        <div class="header-right">
+          <div class="search-box">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Search results...">
+          </div>
+                    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+            <i class="bi bi-sun-fill"></i>
+          </button>
+          <button class="header-action">
+            <i class="bi bi-bell"></i>
+          </button>
+          <div class="avatar avatar-sm"><img src="https://ui-avatars.com/api/?name=Student&background=random" alt="Student"></div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="results-header">
+          <div class="results-title-section">
+            <h1 class="page-title">My Academic Performance</h1>
+            <p class="results-subtitle">Track your progress across all examinations and subjects.</p>
+          </div>
+          <div class="results-actions">
+            <button class="btn btn-secondary"><i class="bi bi-file-pdf"></i> Download Report</button>
+            <button class="btn btn-primary"><i class="bi bi-share"></i> Share</button>
+          </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="results-stats">
+          <div class="result-stat-card">
+            <div class="result-stat-icon blue">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <div class="result-stat-label">Average Score</div>
+            <div class="result-stat-value">84.5%</div>
+            <div class="result-stat-sublabel">Last 30 days</div>
+          </div>
+
+          <div class="result-stat-card">
+            <div class="result-stat-icon purple">
+              <i class="bi bi-trophy"></i>
+            </div>
+            <div class="result-stat-label">Highest Score</div>
+            <div class="result-stat-value">98%</div>
+            <div class="result-stat-sublabel">Physics 101</div>
+          </div>
+
+          <div class="result-stat-card">
+            <div class="result-stat-icon orange">
+              <i class="bi bi-clock-history"></i>
+            </div>
+            <div class="result-stat-label">Exams Taken</div>
+            <div class="result-stat-value">12</div>
+            <div class="result-stat-sublabel">This semester</div>
+          </div>
+
+          <div class="result-stat-card">
+            <div class="result-stat-change positive">
+              <i class="bi bi-arrow-up-right"></i> +5%
+            </div>
+            <div class="result-stat-label">Improvement</div>
+            <div class="result-stat-value">A-</div>
+            <div class="result-stat-sublabel">Grade Point</div>
+            <div class="result-stat-progress">
+              <div class="progress" style="height: 4px;">
+                <div class="progress-bar success" style="width: 85%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Performance Chart -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h3 class="card-title">Performance Trend</h3>
+              <select class="form-select form-select-sm" style="width: auto;">
+                <option>Last 6 Months</option>
+                <option>Last Year</option>
+              </select>
+            </div>
+            <div style="height: 250px;">
+              <canvas id="performanceTrendChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Examination History -->
+        <div class="examination-history">
+          <div class="history-header">
+            <h3 class="history-title">Examination History</h3>
+            <div class="history-filters">
+              <select class="form-select form-select-sm">
+                <option>All Subjects</option>
+                <option>Mathematics</option>
+                <option>Physics</option>
+                <option>Chemistry</option>
+              </select>
+              <select class="form-select form-select-sm">
+                <option>Last 30 Days</option>
+                <option>Last 3 Months</option>
+                <option>Last 6 Months</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="exam-row">
+            <div class="exam-icon blue">
+              <i class="bi bi-calculator"></i>
+            </div>
+            <div class="exam-info">
+              <div class="exam-title">Calculus I Final Exam</div>
+              <div class="exam-course">Mathematics • Grade 12</div>
+            </div>
+            <div class="exam-date">Oct 12, 2023</div>
+            <div class="exam-score">92/100</div>
+            <div class="exam-percentage">
+              <div class="percentage-bar">
+                <div class="percentage-track">
+                  <div class="percentage-fill success" style="width: 92%;"></div>
+                </div>
+                <span class="percentage-value">92%</span>
+              </div>
+            </div>
+            <div class="exam-status">
+              <span class="badge badge-success">Completed</span>
+            </div>
+            <div class="exam-action">
+              <a href="#" style="font-size: var(--font-size-sm); color: var(--color-primary);">View Details</a>
+            </div>
+          </div>
+
+          <div class="exam-row">
+            <div class="exam-icon purple">
+              <i class="bi bi-atom"></i>
+            </div>
+            <div class="exam-info">
+              <div class="exam-title">Physics 101 Mid-term</div>
+              <div class="exam-course">Physics • Grade 11</div>
+            </div>
+            <div class="exam-date">Oct 05, 2023</div>
+            <div class="exam-score">98/100</div>
+            <div class="exam-percentage">
+              <div class="percentage-bar">
+                <div class="percentage-track">
+                  <div class="percentage-fill success" style="width: 98%;"></div>
+                </div>
+                <span class="percentage-value">98%</span>
+              </div>
+            </div>
+            <div class="exam-status">
+              <span class="badge badge-success">Completed</span>
+            </div>
+            <div class="exam-action">
+              <a href="#" style="font-size: var(--font-size-sm); color: var(--color-primary);">View Details</a>
+            </div>
+          </div>
+
+          <div class="exam-row">
+            <div class="exam-icon orange">
+              <i class="bi bi-flask"></i>
+            </div>
+            <div class="exam-info">
+              <div class="exam-title">Organic Chemistry Quiz</div>
+              <div class="exam-course">Chemistry • Grade 12</div>
+            </div>
+            <div class="exam-date">Sep 28, 2023</div>
+            <div class="exam-score">76/100</div>
+            <div class="exam-percentage">
+              <div class="percentage-bar">
+                <div class="percentage-track">
+                  <div class="percentage-fill warning" style="width: 76%;"></div>
+                </div>
+                <span class="percentage-value">76%</span>
+              </div>
+            </div>
+            <div class="exam-status">
+              <span class="badge badge-success">Completed</span>
+            </div>
+            <div class="exam-action">
+              <a href="#" style="font-size: var(--font-size-sm); color: var(--color-primary);">View Details</a>
+            </div>
+          </div>
+
+          <div class="exam-row">
+            <div class="exam-icon pink">
+              <i class="bi bi-book"></i>
+            </div>
+            <div class="exam-info">
+              <div class="exam-title">English Literature Essay</div>
+              <div class="exam-course">English • Grade 12</div>
+            </div>
+            <div class="exam-date">Sep 20, 2023</div>
+            <div class="exam-score">85/100</div>
+            <div class="exam-percentage">
+              <div class="percentage-bar">
+                <div class="percentage-track">
+                  <div class="percentage-fill success" style="width: 85%;"></div>
+                </div>
+                <span class="percentage-value">85%</span>
+              </div>
+            </div>
+            <div class="exam-status">
+              <span class="badge badge-success">Completed</span>
+            </div>
+            <div class="exam-action">
+              <a href="#" style="font-size: var(--font-size-sm); color: var(--color-primary);">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Performance Trend Chart
+      const ctx = document.getElementById('performanceTrendChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+          datasets: [{
+            label: 'Average Score',
+            data: [72, 75, 78, 82, 85, 84.5],
+            borderColor: '#4B6CB7',
+            backgroundColor: 'rgba(75, 108, 183, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#4B6CB7',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 60,
+              max: 100,
+              grid: {
+                color: '#E2E8F0'
+              },
+              ticks: {
+                font: { family: 'Inter', size: 11 },
+                color: '#64748B',
+                callback: function(value) {
+                  return value + '%';
+                }
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                font: { family: 'Inter', size: 11 },
+                color: '#64748B'
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Mobile Sidebar Toggle
+      const sidebar = $('#sidebar');
+      const sidebarOverlay = $('#sidebarOverlay');
+      const sidebarToggle = $('#sidebarToggle');
+
+      function openSidebar() {
+        sidebar.addClass('show');
+        sidebarOverlay.addClass('show');
+        $('body').css('overflow', 'hidden');
+      }
+
+      function closeSidebar() {
+        sidebar.removeClass('show');
+        sidebarOverlay.removeClass('show');
+        $('body').css('overflow', '');
+      }
+
+      sidebarToggle.on('click', function() {
+        if (sidebar.hasClass('show')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      sidebarOverlay.on('click', function() {
+        closeSidebar();
+      });
+
+      // Close sidebar when clicking on nav links (mobile)
+      $('.nav-link').on('click', function() {
+        if ($(window).width() < 992) {
+          closeSidebar();
+        }
+      });
+
+      // Close sidebar on window resize to desktop
+      $(window).on('resize', function() {
+        if ($(window).width() >= 992) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

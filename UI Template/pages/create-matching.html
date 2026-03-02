@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Matching Pairs - CBT Enterprise Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/cbt.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <i class="bi bi-grid-1x2-fill"></i>
+          </div>
+          <span class="brand-text">CBT Enterprise</span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="admin-dashboard.html" class="nav-link"><i class="bi bi-grid"></i><span class="nav-text">Dashboard</span></a></li>
+            <li class="nav-item"><a href="question-repository.html" class="nav-link active"><i class="bi bi-question-square"></i><span class="nav-text">Questions</span></a></li>
+            <li class="nav-item"><a href="exam-template.html" class="nav-link"><i class="bi bi-file-text"></i><span class="nav-text">Tests</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-people"></i><span class="nav-text">Students</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="sidebar-toggle d-lg-none" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="bi bi-list"></i>
+          </button>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Content Bank</a></li>
+              <li class="breadcrumb-item"><a href="#">Mathematics</a></li>
+              <li class="breadcrumb-item active">Create New Question</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="header-right">
+          <button class="btn btn-secondary"><i class="bi bi-eye"></i> Preview</button>
+          <button class="btn btn-primary">Save Question</button>
+          <div class="avatar avatar-sm"><img src="https://ui-avatars.com/api/?name=Teacher&background=random" alt="Teacher"></div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="mb-2">
+          <span class="badge badge-primary">INTERACTIVE</span>
+          <span style="font-size: var(--font-size-sm); color: var(--color-gray-500); margin-left: var(--space-2);">ID: Q-9904</span>
+        </div>
+        <h1 class="page-title">Create Matching Pairs</h1>
+        <p class="page-subtitle">Define premises in the left column and their corresponding correct responses on the right. Students will see the response column shuffled automatically during the test.</p>
+
+        <div class="question-builder">
+          <!-- Main Builder Area -->
+          <div class="builder-main">
+            <!-- Question Instructions -->
+            <div class="builder-panel">
+              <label class="property-label">Question Instructions</label>
+              <textarea class="form-control" rows="2" placeholder="e.g., Match the following algebraic expressions with their simplified forms."></textarea>
+            </div>
+
+            <!-- Matching Pairs -->
+            <div class="builder-panel">
+              <div class="d-flex justify-content-between mb-4">
+                <span class="text-uppercase" style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); letter-spacing: 0.05em;">Premise (Left)</span>
+                <span class="text-uppercase" style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); letter-spacing: 0.05em;">Response (Right)</span>
+              </div>
+              
+              <div class="matching-pairs">
+                <div class="matching-pair">
+                  <i class="bi bi-grip-vertical pair-drag-handle"></i>
+                  <input type="text" class="pair-input" value="3x + 5x">
+                  <i class="bi bi-link-45deg pair-link-icon"></i>
+                  <input type="text" class="pair-input" value="8x">
+                  <i class="bi bi-trash pair-delete"></i>
+                </div>
+                <div class="matching-pair">
+                  <i class="bi bi-grip-vertical pair-drag-handle"></i>
+                  <input type="text" class="pair-input" value="12y - 4y">
+                  <i class="bi bi-link-45deg pair-link-icon"></i>
+                  <input type="text" class="pair-input" value="8y">
+                  <i class="bi bi-trash pair-delete"></i>
+                </div>
+                <div class="matching-pair">
+                  <i class="bi bi-grip-vertical pair-drag-handle"></i>
+                  <input type="text" class="pair-input" value="x * x">
+                  <i class="bi bi-link-45deg pair-link-icon"></i>
+                  <input type="text" class="pair-input" value="x²">
+                  <i class="bi bi-trash pair-delete"></i>
+                </div>
+              </div>
+              
+              <button class="btn-add-option mt-3">
+                <i class="bi bi-plus-circle"></i> Add Another Pair
+              </button>
+            </div>
+          </div>
+
+          <!-- Properties Panel -->
+          <div class="properties-panel">
+            <div class="d-flex align-items-center gap-2 mb-4">
+              <i class="bi bi-bar-chart-line" style="color: var(--color-primary);"></i>
+              <h3 style="font-size: var(--font-size-lg); font-weight: 600; margin: 0;">Scoring & Marks</h3>
+            </div>
+
+            <div class="property-group">
+              <label class="property-label" style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.05em;">Total Marks</label>
+              <div class="d-flex align-items-center gap-2">
+                <input type="number" class="form-control" value="3" style="width: 80px;">
+                <span style="font-size: var(--font-size-sm); color: var(--color-gray-500);">Points (1 per correct pair)</span>
+              </div>
+            </div>
+
+            <div class="property-group">
+              <label class="property-label" style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.05em;">Scoring Type</label>
+              <div class="d-flex flex-column gap-2">
+                <label class="d-flex align-items-start gap-3 p-3 border rounded" style="border-color: var(--color-primary); background-color: var(--color-primary-light); cursor: pointer;">
+                  <input type="radio" name="scoring" checked style="margin-top: 2px;">
+                  <div>
+                    <div style="font-weight: 500; color: var(--color-primary);">Partial Credit</div>
+                    <div style="font-size: var(--font-size-xs); color: var(--color-gray-500);">Points awarded for each correct match</div>
+                  </div>
+                </label>
+                <label class="d-flex align-items-start gap-3 p-3 border rounded" style="border-color: var(--color-gray-200); cursor: pointer;">
+                  <input type="radio" name="scoring" style="margin-top: 2px;">
+                  <div>
+                    <div style="font-weight: 500; color: var(--color-gray-700);">All or Nothing</div>
+                    <div style="font-size: var(--font-size-xs); color: var(--color-gray-500);">Full points only if all matches are correct</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="property-group" style="border-top: 1px solid var(--color-gray-200); padding-top: var(--space-5);">
+              <div class="d-flex align-items-center gap-2 mb-4">
+                <i class="bi bi-tag" style="color: var(--color-primary);"></i>
+                <h3 style="font-size: var(--font-size-lg); font-weight: 600; margin: 0;">Classification</h3>
+              </div>
+
+              <div class="mb-3">
+                <label class="property-label" style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.05em;">Difficulty</label>
+                <select class="form-control">
+                  <option>Easy</option>
+                  <option selected>Medium</option>
+                  <option>Hard</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="property-label" style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.05em;">Learning Objective</label>
+                <div class="tags-container">
+                  <span class="tag">Algebra <button><i class="bi bi-x"></i></button></span>
+                  <span class="tag">Simplification <button><i class="bi bi-x"></i></button></span>
+                </div>
+                <button class="btn btn-ghost btn-sm" style="padding-left: 0; color: var(--color-primary);"><i class="bi bi-plus"></i> Add Tag</button>
+              </div>
+            </div>
+
+            <div class="property-group" style="border-top: 1px solid var(--color-gray-200); padding-top: var(--space-5);">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-image" style="color: var(--color-primary);"></i>
+                  <span style="font-weight: 600;">Reference Image</span>
+                </div>
+                <span style="font-size: var(--font-size-xs); color: var(--color-gray-400);">Optional</span>
+              </div>
+              <div class="border border-dashed rounded p-4 text-center" style="border-color: var(--color-gray-300); border-style: dashed;">
+                <i class="bi bi-cloud-upload" style="font-size: var(--font-size-2xl); color: var(--color-gray-400);"></i>
+                <p style="font-size: var(--font-size-sm); color: var(--color-gray-500); margin: var(--space-2) 0 0;">Upload or drag image here</p>
+              </div>
+            </div>
+
+            <button class="btn btn-primary w-100 mt-4">Finalize & Save</button>
+            <button class="btn btn-secondary w-100 mt-2">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Mobile Sidebar Toggle
+      const sidebar = $('#sidebar');
+      const sidebarOverlay = $('#sidebarOverlay');
+      const sidebarToggle = $('#sidebarToggle');
+
+      function openSidebar() {
+        sidebar.addClass('show');
+        sidebarOverlay.addClass('show');
+        $('body').css('overflow', 'hidden');
+      }
+
+      function closeSidebar() {
+        sidebar.removeClass('show');
+        sidebarOverlay.removeClass('show');
+        $('body').css('overflow', '');
+      }
+
+      sidebarToggle.on('click', function() {
+        if (sidebar.hasClass('show')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      sidebarOverlay.on('click', function() {
+        closeSidebar();
+      });
+
+      // Close sidebar when clicking on nav links (mobile)
+      $('.nav-link').on('click', function() {
+        if ($(window).width() < 992) {
+          closeSidebar();
+        }
+      });
+
+      // Close sidebar on window resize to desktop
+      $(window).on('resize', function() {
+        if ($(window).width() >= 992) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

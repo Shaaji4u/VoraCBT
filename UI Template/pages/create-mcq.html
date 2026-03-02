@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Multiple Choice Question - CBT Enterprise Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/cbt.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <i class="bi bi-grid-1x2-fill"></i>
+          </div>
+          <span class="brand-text">CBT Enterprise</span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="admin-dashboard.html" class="nav-link"><i class="bi bi-grid"></i><span class="nav-text">Dashboard</span></a></li>
+            <li class="nav-item"><a href="question-repository.html" class="nav-link active"><i class="bi bi-question-square"></i><span class="nav-text">Question Bank</span></a></li>
+            <li class="nav-item"><a href="exam-template.html" class="nav-link"><i class="bi bi-file-text"></i><span class="nav-text">Tests</span></a></li>
+            <li class="nav-item"><a href="exam-analytics.html" class="nav-link"><i class="bi bi-bar-chart"></i><span class="nav-text">Reports</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-people"></i><span class="nav-text">Students</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="sidebar-toggle d-lg-none" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="bi bi-list"></i>
+          </button>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Question Bank</a></li>
+              <li class="breadcrumb-item active">New Question</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="header-right">
+          <button class="btn btn-secondary">Cancel</button>
+          <button class="btn btn-primary"><i class="bi bi-save"></i> Save & Close</button>
+          <div class="avatar avatar-sm"><img src="https://ui-avatars.com/api/?name=Teacher&background=random" alt="Teacher"></div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="page-header">
+          <h1 class="page-title">Create Multiple Choice Question</h1>
+        </div>
+
+        <div class="question-builder">
+          <!-- Main Builder Area -->
+          <div class="builder-main">
+            <!-- Question Stem -->
+            <div class="builder-panel">
+              <div class="panel-title">
+                <span>Question Stem</span>
+                <span class="badge badge-secondary">Rich Text Supported</span>
+              </div>
+              <div class="editor-toolbar">
+                <button class="toolbar-btn"><i class="bi bi-type-bold"></i></button>
+                <button class="toolbar-btn"><i class="bi bi-type-italic"></i></button>
+                <button class="toolbar-btn"><i class="bi bi-type-underline"></i></button>
+                <span class="toolbar-divider"></span>
+                <button class="toolbar-btn"><i class="bi bi-list-ul"></i></button>
+                <button class="toolbar-btn"><i class="bi bi-list-ol"></i></button>
+                <span class="toolbar-divider"></span>
+                <button class="toolbar-btn"><i class="bi bi-image"></i></button>
+                <button class="toolbar-btn"><i class="bi bi-sigma"></i></button>
+              </div>
+              <textarea class="editor-content" placeholder="Type your question content here..."></textarea>
+            </div>
+
+            <!-- Answer Options -->
+            <div class="builder-panel">
+              <div class="panel-title">
+                <span>Answer Options</span>
+                <span style="font-size: var(--font-size-sm); color: var(--color-gray-500);"><i class="bi bi-info-circle"></i> Select the radio button to mark the correct answer.</span>
+              </div>
+              <div class="answer-options">
+                <div class="answer-option">
+                  <input type="radio" name="correct-answer" class="answer-option-radio">
+                  <span class="answer-option-label">Option A</span>
+                  <input type="text" class="answer-option-input" placeholder="Enter option text..." value="Photosynthesis">
+                </div>
+                <div class="answer-option correct">
+                  <input type="radio" name="correct-answer" class="answer-option-radio" checked>
+                  <span class="answer-option-label" style="color: var(--color-primary);">Option B (Correct)</span>
+                  <input type="text" class="answer-option-input" value="Cellular Respiration">
+                </div>
+                <div class="answer-option">
+                  <input type="radio" name="correct-answer" class="answer-option-radio">
+                  <span class="answer-option-label">Option C</span>
+                  <input type="text" class="answer-option-input" placeholder="Enter option text..." value="Mitosis">
+                </div>
+                <div class="answer-option">
+                  <input type="radio" name="correct-answer" class="answer-option-radio">
+                  <span class="answer-option-label">Option D</span>
+                  <input type="text" class="answer-option-input" placeholder="Enter option text...">
+                </div>
+              </div>
+              <button class="btn-add-option mt-3">
+                <i class="bi bi-plus-circle"></i> Add Another Option
+              </button>
+            </div>
+          </div>
+
+          <!-- Properties Panel -->
+          <div class="properties-panel">
+            <div class="property-group">
+              <label class="property-label">Subject</label>
+              <select class="form-control">
+                <option>Biology</option>
+                <option>Physics</option>
+                <option>Chemistry</option>
+                <option>Mathematics</option>
+              </select>
+            </div>
+
+            <div class="property-group">
+              <label class="property-label">Topic / Chapter</label>
+              <select class="form-control">
+                <option>Cell Structure</option>
+                <option>Photosynthesis</option>
+                <option>Cellular Respiration</option>
+              </select>
+            </div>
+
+            <div class="property-group">
+              <label class="property-label">Difficulty Level</label>
+              <div class="difficulty-selector">
+                <button class="difficulty-btn">Easy</button>
+                <button class="difficulty-btn active">Medium</button>
+                <button class="difficulty-btn">Hard</button>
+              </div>
+            </div>
+
+            <div class="property-group">
+              <div class="marks-inputs">
+                <div>
+                  <label class="property-label">Marks</label>
+                  <input type="number" class="form-control" value="1.0" step="0.25">
+                </div>
+                <div>
+                  <label class="property-label">Negative</label>
+                  <input type="number" class="form-control" value="0.25" step="0.25" style="color: var(--color-danger);">
+                </div>
+              </div>
+            </div>
+
+            <div class="property-group">
+              <label class="property-label">Tags</label>
+              <div class="tags-container">
+                <span class="tag">#Grade10 <button><i class="bi bi-x"></i></button></span>
+                <span class="tag">#MidTerm <button><i class="bi bi-x"></i></button></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Add tag...">
+            </div>
+
+            <div class="property-group" style="border-top: 1px solid var(--color-gray-200); padding-top: var(--space-5);">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <label class="property-label mb-0">Explanation</label>
+                <i class="bi bi-question-circle" style="color: var(--color-gray-400);"></i>
+              </div>
+              <textarea class="form-control" rows="4" placeholder="Explain why the answer is correct..."></textarea>
+              <button class="btn btn-ghost mt-3" style="padding-left: 0;">
+                <i class="bi bi-image"></i> Add Image to Solution
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Answer option selection
+      $('.answer-option-radio').on('change', function() {
+        $('.answer-option').removeClass('correct');
+        $(this).closest('.answer-option').addClass('correct');
+      });
+
+      // Difficulty selector
+      $('.difficulty-btn').on('click', function() {
+        $('.difficulty-btn').removeClass('active');
+        $(this).addClass('active');
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Mobile Sidebar Toggle
+      const sidebar = $('#sidebar');
+      const sidebarOverlay = $('#sidebarOverlay');
+      const sidebarToggle = $('#sidebarToggle');
+
+      function openSidebar() {
+        sidebar.addClass('show');
+        sidebarOverlay.addClass('show');
+        $('body').css('overflow', 'hidden');
+      }
+
+      function closeSidebar() {
+        sidebar.removeClass('show');
+        sidebarOverlay.removeClass('show');
+        $('body').css('overflow', '');
+      }
+
+      sidebarToggle.on('click', function() {
+        if (sidebar.hasClass('show')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      sidebarOverlay.on('click', function() {
+        closeSidebar();
+      });
+
+      // Close sidebar when clicking on nav links (mobile)
+      $('.nav-link').on('click', function() {
+        if ($(window).width() < 992) {
+          closeSidebar();
+        }
+      });
+
+      // Close sidebar on window resize to desktop
+      $(window).on('resize', function() {
+        if ($(window).width() >= 992) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

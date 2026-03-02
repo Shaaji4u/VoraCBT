@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question Repository - CBT Enterprise Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/cbt.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <i class="bi bi-person-circle"></i>
+          </div>
+          <div>
+            <div class="brand-text">Sarah Jenkins</div>
+            <div class="brand-subtext">Science Dept.</div>
+          </div>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <ul class="nav-menu">
+            <li class="nav-item">
+              <a href="admin-dashboard.html" class="nav-link">
+                <i class="bi bi-grid"></i>
+                <span class="nav-text">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="question-repository.html" class="nav-link active">
+                <i class="bi bi-question-square"></i>
+                <span class="nav-text">Questions</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="exam-template.html" class="nav-link">
+                <i class="bi bi-file-text"></i>
+                <span class="nav-text">Exams</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="bi bi-people"></i>
+                <span class="nav-text">Students</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="exam-analytics.html" class="nav-link">
+                <i class="bi bi-bar-chart"></i>
+                <span class="nav-text">Reports</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <a href="../index.html" class="nav-link" style="color: var(--color-gray-600);">
+          <i class="bi bi-box-arrow-right"></i>
+          <span class="nav-text">Sign Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="sidebar-toggle d-lg-none" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="bi bi-list"></i>
+          </button>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Question Repository</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="header-right">
+          <button class="header-action">
+            <i class="bi bi-bell"></i>
+            <span class="notification-dot"></span>
+          </button>
+          <button class="header-action">
+            <i class="bi bi-gear"></i>
+          </button>
+          <div class="user-menu" style="padding: 0;">
+            <div class="avatar avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Sarah+Jenkins&background=random" alt="Sarah Jenkins">
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="page-header">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h1 class="page-title">Question Repository</h1>
+              <p class="page-subtitle">Manage, filter, and organize your assessment questions.</p>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="bi bi-plus"></i> Create Question
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="create-mcq.html"><i class="bi bi-list-check"></i> Multiple Choice</a></li>
+                <li><a class="dropdown-item" href="create-fill-blank.html"><i class="bi bi-input-cursor-text"></i> Fill in the Blank</a></li>
+                <li><a class="dropdown-item" href="create-matching.html"><i class="bi bi-link"></i> Matching Pairs</a></li>
+                <li><a class="dropdown-item" href="create-passage.html"><i class="bi bi-book"></i> Passage Based</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="bulk-upload.html"><i class="bi bi-upload"></i> Bulk Upload</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="filters-bar">
+          <div class="search-box" style="flex: 1;">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Search questions by text or ID...">
+          </div>
+          <select class="form-select" style="width: auto;">
+            <option>All Subjects</option>
+            <option>Mathematics</option>
+            <option>Physics</option>
+            <option>Chemistry</option>
+            <option>Biology</option>
+            <option>History</option>
+          </select>
+          <select class="form-select" style="width: auto;">
+            <option>All Classes</option>
+            <option>JSS1</option>
+            <option>JSS2</option>
+            <option>JSS3</option>
+            <option>SS1</option>
+            <option>SS2</option>
+            <option>SS3</option>
+          </select>
+          <select class="form-select" style="width: auto;">
+            <option>Difficulty</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+          <button class="btn btn-ghost">Clear</button>
+        </div>
+
+        <!-- Question List -->
+        <div class="question-list">
+          <!-- Table Header -->
+          <div class="d-flex align-items-center px-4 py-3 border-bottom" style="background-color: var(--color-gray-50);">
+            <div style="width: 40px;">
+              <input type="checkbox" class="form-check-input">
+            </div>
+            <div style="flex: 1;">
+              <span class="text-uppercase" style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); letter-spacing: 0.05em;">Question Text</span>
+            </div>
+            <div style="width: 100px;">
+              <span class="text-uppercase" style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); letter-spacing: 0.05em;">Type</span>
+            </div>
+            <div style="width: 100px;">
+              <span class="text-uppercase" style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); letter-spacing: 0.05em;">Subject</span>
+            </div>
+            <div style="width: 100px;">
+              <span class="text-uppercase" style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); letter-spacing: 0.05em;">Difficulty</span>
+            </div>
+            <div style="width: 100px;">
+              <span class="text-uppercase" style="font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); letter-spacing: 0.05em;">Status</span>
+            </div>
+          </div>
+
+          <!-- Question Items -->
+          <div class="question-item">
+            <div class="question-select">
+              <input type="checkbox" class="form-check-input">
+            </div>
+            <div class="question-content">
+              <div class="question-text">Calculate the velocity of an object in free fall...</div>
+              <div class="question-meta">ID: Q-8832 • Grade 11</div>
+            </div>
+            <div class="question-badges">
+              <span class="badge badge-primary"><i class="bi bi-calculator"></i> Problem</span>
+            </div>
+            <div style="width: 100px; font-size: var(--font-size-sm);">Physics</div>
+            <div style="width: 100px;">
+              <span style="font-size: var(--font-size-sm); color: var(--color-warning);"><i class="bi bi-circle-fill" style="font-size: 6px;"></i> Medium</span>
+            </div>
+            <div style="width: 100px;">
+              <span class="badge badge-success">Active</span>
+            </div>
+          </div>
+
+          <div class="question-item">
+            <div class="question-select">
+              <input type="checkbox" class="form-check-input">
+            </div>
+            <div class="question-content">
+              <div class="question-text">Explain the significance of the Treaty of Versailles...</div>
+              <div class="question-meta">ID: Q-9102 • Grade 10</div>
+            </div>
+            <div class="question-badges">
+              <span class="badge" style="background-color: #E0E7FF; color: #6366F1;"><i class="bi bi-pencil"></i> Essay</span>
+            </div>
+            <div style="width: 100px; font-size: var(--font-size-sm);">History</div>
+            <div style="width: 100px;">
+              <span style="font-size: var(--font-size-sm); color: var(--color-danger);"><i class="bi bi-circle-fill" style="font-size: 6px;"></i> Hard</span>
+            </div>
+            <div style="width: 100px;">
+              <span class="badge badge-secondary">Draft</span>
+            </div>
+          </div>
+
+          <div class="question-item">
+            <div class="question-select">
+              <input type="checkbox" class="form-check-input">
+            </div>
+            <div class="question-content">
+              <div class="question-text">What is the value of Pi to 2 decimal places?</div>
+              <div class="question-meta">ID: Q-2219 • Grade 9</div>
+            </div>
+            <div class="question-badges">
+              <span class="badge badge-success"><i class="bi bi-check-circle"></i> MCQ</span>
+            </div>
+            <div style="width: 100px; font-size: var(--font-size-sm);">Math</div>
+            <div style="width: 100px;">
+              <span style="font-size: var(--font-size-sm); color: var(--color-success);"><i class="bi bi-circle-fill" style="font-size: 6px;"></i> Easy</span>
+            </div>
+            <div style="width: 100px;">
+              <span class="badge badge-success">Active</span>
+            </div>
+          </div>
+
+          <div class="question-item">
+            <div class="question-select">
+              <input type="checkbox" class="form-check-input">
+            </div>
+            <div class="question-content">
+              <div class="question-text">Identify the correct chemical formula for Glucose.</div>
+              <div class="question-meta">ID: Q-4401 • Grade 11</div>
+            </div>
+            <div class="question-badges">
+              <span class="badge badge-success"><i class="bi bi-check-circle"></i> MCQ</span>
+            </div>
+            <div style="width: 100px; font-size: var(--font-size-sm);">Chemistry</div>
+            <div style="width: 100px;">
+              <span style="font-size: var(--font-size-sm); color: var(--color-warning);"><i class="bi bi-circle-fill" style="font-size: 6px;"></i> Medium</span>
+            </div>
+            <div style="width: 100px;">
+              <span class="badge badge-warning">Review</span>
+            </div>
+          </div>
+
+          <div class="question-item">
+            <div class="question-select">
+              <input type="checkbox" class="form-check-input">
+            </div>
+            <div class="question-content">
+              <div class="question-text">True or False: The Amazon River is the longest river.</div>
+              <div class="question-meta">ID: Q-5592 • Grade 9</div>
+            </div>
+            <div class="question-badges">
+              <span class="badge badge-info"><i class="bi bi-toggle-on"></i> Boolean</span>
+            </div>
+            <div style="width: 100px; font-size: var(--font-size-sm);">Geography</div>
+            <div style="width: 100px;">
+              <span style="font-size: var(--font-size-sm); color: var(--color-success);"><i class="bi bi-circle-fill" style="font-size: 6px;"></i> Easy</span>
+            </div>
+            <div style="width: 100px;">
+              <span class="badge badge-danger">Archived</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <span style="font-size: var(--font-size-sm); color: var(--color-gray-500);">Showing <strong>1 to 5</strong> of <strong>128</strong> results</span>
+          <nav>
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/dark-mode.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Mobile Sidebar Toggle
+      const sidebar = $('#sidebar');
+      const sidebarOverlay = $('#sidebarOverlay');
+      const sidebarToggle = $('#sidebarToggle');
+      
+      function openSidebar() {
+        sidebar.addClass('show');
+        sidebarOverlay.addClass('show');
+        $('body').css('overflow', 'hidden');
+      }
+      
+      function closeSidebar() {
+        sidebar.removeClass('show');
+        sidebarOverlay.removeClass('show');
+        $('body').css('overflow', '');
+      }
+      
+      sidebarToggle.on('click', function() {
+        if (sidebar.hasClass('show')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+      
+      sidebarOverlay.on('click', function() {
+        closeSidebar();
+      });
+      
+      // Close sidebar when clicking on nav links (mobile)
+      $('.nav-link').on('click', function() {
+        if ($(window).width() < 992) {
+          closeSidebar();
+        }
+      });
+      
+      // Close sidebar on window resize to desktop
+      $(window).on('resize', function() {
+        if ($(window).width() >= 992) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
